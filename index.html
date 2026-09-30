@@ -1,0 +1,3120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kalam Ko Viram | Where Every Word Breathes Emotion</title>
+  <meta name="description"
+    content="Kalam Ko Viram — a premium digital sanctuary for Shayari, Ghazal, Nazm and Kavita. Discover, save and share verses that speak the language of the heart." />
+  <meta name="keywords"
+    content="shayari, ghazal, nazm, urdu poetry, hindi poetry, love shayari, sad shayari, poets, ghalib, iqbal" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Kalam Ko Viram | Where Every Word Breathes Emotion" />
+  <meta property="og:description" content="A premium digital sanctuary for lovers of Shayari, Ghazal and Nazm." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://picsum.photos/seed/Kalam-og/1200/630" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kalam Ko Viram" />
+  <meta name="twitter:description" content="Where Every Word Breathes Emotion" />
+
+  <!-- Favicon -->
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖋️</text></svg>" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Poppins:wght@300;400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap"
+    rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- AOS -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+  <!-- Swiper -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <style>
+    /* =========================================================
+   Kalam Ko Viram — DESIGN TOKENS
+   Bg: #050505 | Ink Gold: #c9a35c | Sindoor: #7a2e2e
+   Parchment: #ede7dc | Muted: #8f8880
+   Display: Playfair Display | Sub: Cormorant Garamond
+   Body: Poppins | Urdu: Noto Nastaliq Urdu
+========================================================= */
+    :root {
+      --bg: #050505;
+      --bg-soft: #0b0a09;
+      --surface: #0f0e0d;
+      --surface-2: #161412;
+      --ink-gold: #c9a35c;
+      --ink-gold-bright: #e8c98a;
+      --sindoor: #7a2e2e;
+      --sindoor-bright: #a83f3f;
+      --parchment: #ede7dc;
+      --muted: #9a9186;
+      --muted-dim: #6b655d;
+      --border: rgba(201, 163, 92, 0.16);
+      --glass: rgba(20, 18, 16, 0.55);
+      --shadow-gold: 0 0 40px rgba(201, 163, 92, 0.12);
+      --radius: 2px;
+      --radius-lg: 6px;
+      --ease: cubic-bezier(.16, 1, .3, 1);
+    }
+
+    [data-theme="light"] {
+      --bg: #f6f2e9;
+      --bg-soft: #f0ead9;
+      --surface: #fffdf8;
+      --surface-2: #f2ead9;
+      --parchment: #211d17;
+      --muted: #5c5548;
+      --muted-dim: #8a8271;
+      --border: rgba(122, 46, 46, 0.15);
+      --glass: rgba(255, 253, 248, 0.7);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    section[id] {
+      scroll-margin-top: 88px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--parchment);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      transition: background .5s var(--ease), color .5s var(--ease);
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle at 1px 1px, rgba(201, 163, 92, 0.06) 1px, transparent 0);
+      background-size: 26px 26px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* fine film-grain layer for a warmer, less "flat AI" surface */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: -200px;
+      z-index: 1;
+      pointer-events: none;
+      opacity: .05;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    ::selection {
+      background: var(--ink-gold);
+      color: #050505;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      font-family: 'Playfair Display', serif;
+      margin: 0;
+    }
+
+    .font-sub {
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .font-urdu {
+      font-family: 'Noto Nastaliq Urdu', serif;
+      direction: rtl;
+    }
+
+    .text-gold {
+      color: var(--ink-gold) !important;
+    }
+
+    .text-sindoor {
+      color: var(--sindoor-bright) !important;
+    }
+
+    .text-muted-custom {
+      color: var(--muted) !important;
+    }
+
+    .bg-surface {
+      background: var(--surface);
+    }
+
+    .bg-surface-2 {
+      background: var(--surface-2);
+    }
+
+    .eyebrow {
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: .32em;
+      font-size: .68rem;
+      text-transform: uppercase;
+      color: var(--ink-gold);
+      font-weight: 600;
+    }
+
+    .divider-motif {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--ink-gold) 50%, transparent);
+      position: relative;
+      margin: 0 auto;
+    }
+
+    .divider-motif span {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--bg);
+      padding: 0 14px;
+      color: var(--ink-gold);
+      font-size: 1.1rem;
+    }
+
+    .btn-ink {
+      background: var(--ink-gold);
+      color: #1a1305;
+      border: none;
+      padding: .85rem 2.2rem;
+      font-size: .72rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      font-weight: 600;
+      border-radius: var(--radius);
+      position: relative;
+      overflow: hidden;
+      transition: all .4s var(--ease);
+    }
+
+    .btn-ink:hover {
+      background: var(--ink-gold-bright);
+      color: #1a1305;
+      box-shadow: var(--shadow-gold);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline-ink {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--parchment);
+      padding: .85rem 2.2rem;
+      font-size: .72rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      font-weight: 600;
+      border-radius: var(--radius);
+      transition: all .4s var(--ease);
+    }
+
+    .btn-outline-ink:hover {
+      border-color: var(--ink-gold);
+      color: var(--ink-gold);
+      background: rgba(201, 163, 92, .06);
+    }
+
+    .btn-ink,
+    .btn-outline-ink {
+      will-change: transform;
+    }
+
+    .glass {
+      background: var(--glass);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--border);
+    }
+
+    /* ===== Loader ===== */
+    #loader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      transition: opacity .8s var(--ease), visibility .8s var(--ease);
+    }
+
+    #loader.hide {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-mark {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 2rem;
+      color: var(--ink-gold);
+      letter-spacing: .05em;
+      opacity: 0;
+      animation: loaderFade 1.6s var(--ease) forwards;
+    }
+
+    .loader-line {
+      width: 120px;
+      height: 1px;
+      background: rgba(201, 163, 92, .2);
+      margin-top: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .loader-line::after {
+      content: "";
+      position: absolute;
+      left: -40%;
+      top: 0;
+      height: 100%;
+      width: 40%;
+      background: var(--ink-gold);
+      animation: loaderSweep 1.4s ease-in-out infinite;
+    }
+
+    @keyframes loaderFade {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes loaderSweep {
+      0% {
+        left: -40%;
+      }
+
+      100% {
+        left: 100%;
+      }
+    }
+
+    /* ===== Scroll progress ===== */
+    #scrollProgress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--sindoor), var(--ink-gold));
+      z-index: 2000;
+      transition: width .1s linear;
+    }
+
+    /* ===== Cursor glow (desktop only) ===== */
+    #cursorGlow {
+      position: fixed;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 163, 92, 0.07), transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+      transform: translate(-50%, -50%);
+      transition: opacity .3s ease;
+      opacity: 0;
+    }
+
+    /* ===== Navbar ===== */
+    .navbar-Kalam {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 1.1rem 0;
+      transition: all .5s var(--ease);
+      background: transparent;
+      border-bottom: 1px solid transparent;
+    }
+
+    .navbar-Kalam.scrolled {
+      background: var(--glass);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      padding: .7rem 0;
+    }
+
+    .brand-mark {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 600;
+      font-size: 1.5rem;
+      color: var(--parchment);
+    }
+
+    .brand-mark span {
+      color: var(--ink-gold);
+    }
+
+    .nav-link-Kalam {
+      font-size: .72rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--muted);
+      margin: 0 .95rem;
+      position: relative;
+      padding-bottom: 4px;
+      transition: color .3s ease;
+    }
+
+    .nav-link-Kalam::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 1px;
+      background: var(--ink-gold);
+      transition: width .35s var(--ease);
+    }
+
+    .nav-link-Kalam:hover,
+    .nav-link-Kalam.active {
+      color: var(--ink-gold);
+    }
+
+    .nav-link-Kalam:hover::after,
+    .nav-link-Kalam.active::after {
+      width: 100%;
+    }
+
+    .icon-btn {
+      width: 38px;
+      height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      color: var(--muted);
+      background: transparent;
+      transition: all .3s ease;
+      cursor: pointer;
+    }
+
+    .icon-btn:hover {
+      color: var(--ink-gold);
+      border-color: var(--ink-gold);
+      background: rgba(201, 163, 92, .08);
+    }
+
+    .offcanvas-Kalam {
+      background: var(--bg-soft);
+      color: var(--parchment);
+      border-left: 1px solid var(--border);
+    }
+
+    /* ===== Hero ===== */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      padding-top: 6rem;
+    }
+
+    .hero-bg-glow {
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(122, 46, 46, 0.18), transparent 65%);
+      top: -10%;
+      left: 50%;
+      transform: translateX(-50%);
+      filter: blur(40px);
+      z-index: 0;
+      animation: breathe 9s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+
+      0%,
+      100% {
+        opacity: .55;
+        transform: translateX(-50%) scale(1);
+      }
+
+      50% {
+        opacity: .9;
+        transform: translateX(-50%) scale(1.08);
+      }
+    }
+
+    .floating-shape {
+      position: absolute;
+      opacity: .35;
+      z-index: 0;
+      color: var(--ink-gold);
+      animation: floatY 8s ease-in-out infinite;
+    }
+
+    @keyframes floatY {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-26px) rotate(8deg);
+      }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.6rem, 6vw, 5.2rem);
+      font-weight: 700;
+      line-height: 1.06;
+      color: var(--parchment);
+      letter-spacing: -0.01em;
+    }
+
+    .hero-title em {
+      color: var(--ink-gold);
+      font-style: italic;
+      position: relative;
+    }
+
+    .hero-title em::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--ink-gold), transparent);
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: inkUnderline 1.4s var(--ease) 1.6s forwards;
+    }
+
+    @keyframes inkUnderline {
+      to {
+        transform: scaleX(1);
+      }
+    }
+
+    .ink-seal {
+      width: 46px;
+      height: 46px;
+      margin: 0 auto 1.6rem;
+      border: 1px solid var(--ink-gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-gold);
+      font-size: 1.1rem;
+      opacity: 0;
+      animation: sealDrop 1.1s var(--ease) .2s forwards;
+    }
+
+    @keyframes sealDrop {
+      0% {
+        opacity: 0;
+        transform: translateY(-14px) scale(.7);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    #typed-text {
+      color: var(--sindoor-bright);
+      font-style: italic;
+    }
+
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      color: var(--muted);
+      margin-top: 1.4rem;
+      font-style: italic;
+    }
+
+    /* Rotating hero sher */
+    .hero-rotator {
+      margin-top: 2.8rem;
+      padding-top: 2.2rem;
+      border-top: 1px solid var(--border);
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+      min-height: 118px;
+    }
+
+    .hero-sher {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.25rem, 2.4vw, 1.65rem);
+      font-style: italic;
+      color: var(--parchment);
+      line-height: 1.6;
+      opacity: 0;
+      filter: blur(6px);
+      transform: translateY(6px);
+      transition: opacity 1s var(--ease), filter 1s var(--ease), transform 1s var(--ease);
+    }
+
+    .hero-sher.visible {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+
+    .hero-sher-author {
+      display: block;
+      margin-top: .9rem;
+      font-size: .68rem;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--ink-gold);
+      opacity: 0;
+      transition: opacity 1s var(--ease) .2s;
+    }
+
+    .hero-sher-author.visible {
+      opacity: 1;
+    }
+
+    .hero-rotator-dots {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 1.1rem;
+    }
+
+    .hero-rotator-dots span {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--muted-dim);
+      transition: all .4s ease;
+    }
+
+    .hero-rotator-dots span.active {
+      background: var(--ink-gold);
+      width: 16px;
+      border-radius: 3px;
+    }
+
+    .hero-rotator-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.4rem;
+      margin-top: 1.1rem;
+    }
+
+    .hero-rotator-arrow {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .85rem;
+      cursor: pointer;
+      transition: all .3s ease;
+      flex-shrink: 0;
+    }
+
+    .hero-rotator-arrow:hover {
+      border-color: var(--ink-gold);
+      color: var(--ink-gold);
+      background: rgba(201, 163, 92, .08);
+    }
+
+    .hero-rotator-arrow:active {
+      transform: scale(.92);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.4rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      color: var(--muted);
+      font-size: .68rem;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .scroll-indicator .line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(var(--ink-gold), transparent);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollLine {
+      0% {
+        opacity: .2;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: .2;
+      }
+    }
+
+    /* ===== Section titles ===== */
+    .section-pad {
+      padding: 3.5rem 0;
+    }
+
+    .section-title {
+      font-size: clamp(1.9rem, 3.4vw, 2.8rem);
+      color: var(--parchment);
+      font-weight: 600;
+    }
+
+    .section-lead {
+      color: var(--muted);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+    }
+
+    /* ===== Search ===== */
+    .search-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.4rem;
+      position: relative;
+      overflow: hidden;
+      margin-top: 32px;
+    }
+
+    .search-input-group {
+      position: relative;
+    }
+
+    .search-input-Kalam {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      color: var(--parchment);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      padding: .8rem 2.6rem .8rem .2rem;
+      width: 100%;
+      border-radius: 0;
+    }
+
+    .search-input-Kalam:focus {
+      outline: none;
+      border-color: var(--ink-gold);
+      box-shadow: none;
+    }
+
+    .search-input-Kalam::placeholder {
+      color: var(--muted-dim);
+    }
+
+    .search-icon-abs {
+      position: absolute;
+      right: .2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--ink-gold);
+    }
+
+    .search-chip {
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: .72rem;
+      padding: .4rem 1rem;
+      border-radius: 20px;
+      letter-spacing: .05em;
+      transition: all .3s ease;
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .search-chip:hover,
+    .search-chip.active {
+      border-color: var(--ink-gold);
+      color: var(--ink-gold);
+      background: rgba(201, 163, 92, .07);
+    }
+
+    /* ===== Category cards ===== */
+    .cat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.2rem 1.4rem;
+      text-align: center;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      transition: all .5s var(--ease);
+      cursor: pointer;
+    }
+
+    .cat-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(201, 163, 92, .09), transparent 60%);
+      opacity: 0;
+      transition: opacity .5s ease;
+    }
+
+    .cat-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--ink-gold);
+      box-shadow: 0 20px 40px -20px rgba(0, 0, 0, .6);
+    }
+
+    .cat-card:hover::before {
+      opacity: 1;
+    }
+
+    .cat-icon {
+      font-size: 2.1rem;
+      color: var(--ink-gold);
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cat-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--parchment);
+      position: relative;
+      z-index: 1;
+    }
+
+    .cat-count {
+      font-size: .72rem;
+      color: var(--muted);
+      letter-spacing: .1em;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== Shayari cards ===== */
+    .shayari-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.2rem;
+      height: 100%;
+      position: relative;
+      transition: transform .45s var(--ease), border-color .45s var(--ease), box-shadow .45s var(--ease);
+      will-change: transform;
+      transform-style: preserve-3d;
+    }
+
+    .shayari-card:hover {
+      border-color: var(--ink-gold);
+      box-shadow: 0 24px 50px -28px rgba(0, 0, 0, .7);
+    }
+
+    .shayari-card .quote-glyph {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.4rem;
+      font-size: 1.4rem;
+      color: var(--ink-gold);
+      opacity: .25;
+    }
+
+    .shayari-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      line-height: 1.55;
+      font-style: italic;
+      color: var(--parchment);
+      min-height: 130px;
+      position: relative;
+    }
+
+    .shayari-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1.6rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .shayari-author {
+      font-size: .78rem;
+      letter-spacing: .08em;
+      color: var(--ink-gold);
+      text-transform: uppercase;
+    }
+
+    .card-action-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1rem;
+      margin-left: .9rem;
+      cursor: pointer;
+      transition: all .3s ease;
+      position: relative;
+    }
+
+    .card-action-btn:hover {
+      color: var(--ink-gold);
+      transform: scale(1.15);
+    }
+
+    .card-action-btn.liked {
+      color: var(--sindoor-bright);
+    }
+
+    .card-action-btn.bookmarked {
+      color: var(--ink-gold);
+    }
+
+    /* ===== Daily quote ===== */
+    .quote-section {
+      position: relative;
+      padding: 8rem 0;
+      text-align: center;
+      background: linear-gradient(rgba(5, 5, 5, .86), rgba(5, 5, 5, .9)), url('https://picsum.photos/seed/Kalam-quote/1600/900') center/cover fixed;
+    }
+
+    .quote-box {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .quote-mark {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      color: var(--ink-gold);
+      line-height: 1;
+      opacity: .6;
+    }
+
+    .quote-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-style: italic;
+      color: var(--parchment);
+      line-height: 1.6;
+    }
+
+    /* ===== Poets swiper ===== */
+    .poet-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: all .4s var(--ease);
+    }
+
+    .poet-card:hover {
+      border-color: var(--ink-gold);
+    }
+
+    .poet-img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      filter: grayscale(60%) brightness(.85);
+      transition: all .6s ease;
+    }
+
+    .poet-card:hover .poet-img {
+      filter: grayscale(0%) brightness(1);
+    }
+
+    .poet-body {
+      padding: 1.6rem;
+    }
+
+    .poet-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--parchment);
+    }
+
+    .poet-era {
+      font-size: .72rem;
+      color: var(--ink-gold);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .poet-bio {
+      color: var(--muted);
+      font-size: .92rem;
+      margin-top: .6rem;
+      line-height: 1.6;
+    }
+
+    /* ===== Poet Spotlight (Jaun Elia) ===== */
+    .spotlight-section {
+      position: relative;
+      padding: 6.5rem 0;
+      overflow: hidden;
+      background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 50%, var(--bg) 100%);
+    }
+
+    .spotlight-section::before {
+      content: "";
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 163, 92, .08), transparent 68%);
+      top: -140px;
+      right: -140px;
+      pointer-events: none;
+    }
+
+    .spotlight-portrait {
+      position: relative;
+      aspect-ratio: 4/5;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .spotlight-portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(55%) brightness(.82);
+    }
+
+    .spotlight-frame {
+      position: absolute;
+      inset: 20px;
+      border: 1px solid rgba(201, 163, 92, .35);
+      pointer-events: none;
+    }
+
+    .spotlight-verse-card {
+      background: var(--surface);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.8rem;
+      height: 100%;
+      transition: all .4s var(--ease);
+      position: relative;
+    }
+
+    .spotlight-verse-card:hover {
+      border-color: var(--ink-gold);
+      border-style: solid;
+    }
+
+    .spotlight-verse-card .placeholder-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--muted);
+      line-height: 1.6;
+      min-height: 90px;
+    }
+
+    .spotlight-verse-card .edit-tag {
+      font-size: .64rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--ink-gold);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: .25rem .75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      margin-top: 1.2rem;
+    }
+
+    /* ===== Collection banners ===== */
+    .collection-tile {
+      position: relative;
+      height: 420px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .collection-tile img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .8s var(--ease);
+    }
+
+    .collection-tile:hover img {
+      transform: scale(1.08);
+    }
+
+    .collection-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(0, 0, 0, .85) 10%, transparent 65%);
+    }
+
+    .collection-body {
+      position: relative;
+      z-index: 2;
+      padding: 2rem;
+    }
+
+    /* ===== Timeline ===== */
+    .timeline-Kalam {
+      position: relative;
+      padding-left: 2.4rem;
+      border-left: 1px solid var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 3rem;
+    }
+
+    .timeline-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -2.56rem;
+      top: 4px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--ink-gold);
+    }
+
+    .timeline-year {
+      font-family: 'Playfair Display', serif;
+      color: var(--ink-gold);
+      font-size: 1.3rem;
+      font-style: italic;
+    }
+
+    .timeline-title {
+      color: var(--parchment);
+      font-size: 1.1rem;
+      margin-top: .3rem;
+    }
+
+    .timeline-desc {
+      color: var(--muted);
+      font-size: .92rem;
+      margin-top: .4rem;
+      max-width: 560px;
+    }
+
+    /* ===== Stats ===== */
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      color: var(--ink-gold);
+      font-weight: 700;
+    }
+
+    .stat-label {
+      font-size: .72rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ===== Why choose ===== */
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.4rem;
+      height: 100%;
+      transition: all .4s var(--ease);
+    }
+
+    .feature-card:hover {
+      border-color: var(--ink-gold);
+      background: var(--surface-2);
+    }
+
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: var(--ink-gold);
+      margin-bottom: 1.4rem;
+    }
+
+    /* ===== Testimonials ===== */
+    .testimonial-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.4rem;
+      height: 100%;
+    }
+
+    .testimonial-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--parchment);
+      line-height: 1.6;
+    }
+
+    .testimonial-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--ink-gold);
+    }
+
+    .stars i {
+      color: var(--ink-gold);
+      font-size: .82rem;
+    }
+
+    /* ===== Video ===== */
+    .video-section {
+      position: relative;
+      height: 60vh;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      margin: 0 var(--bs-gutter-x, .75rem);
+    }
+
+    .video-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(.5);
+    }
+
+    .play-btn {
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      border: 1px solid var(--ink-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-gold);
+      font-size: 1.6rem;
+      position: relative;
+      z-index: 2;
+      cursor: pointer;
+      transition: all .4s ease;
+    }
+
+    .play-btn::after {
+      content: "";
+      position: absolute;
+      inset: -14px;
+      border: 1px solid rgba(201, 163, 92, .3);
+      border-radius: 50%;
+      animation: pulseRing 2.4s ease-out infinite;
+    }
+
+    @keyframes pulseRing {
+      0% {
+        transform: scale(.9);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    .play-btn:hover {
+      background: var(--ink-gold);
+      color: #1a1305;
+    }
+
+    /* ===== Newsletter ===== */
+    .newsletter-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 4rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .newsletter-box::before {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(201, 163, 92, .1), transparent 70%);
+      top: -100px;
+      right: -100px;
+    }
+
+    /* ===== FAQ ===== */
+    .accordion-Kalam .accordion-item {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .accordion-Kalam .accordion-button {
+      background: transparent;
+      color: var(--parchment);
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      padding: 1.6rem 0;
+      box-shadow: none;
+    }
+
+    .accordion-Kalam .accordion-button:not(.collapsed) {
+      color: var(--ink-gold);
+      background: transparent;
+    }
+
+    .accordion-Kalam .accordion-button::after {
+      filter: invert(70%) sepia(40%) saturate(400%) hue-rotate(0deg);
+    }
+
+    .accordion-Kalam .accordion-body {
+      color: var(--muted);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      padding: 0 0 1.8rem;
+    }
+
+    /* ===== Contact ===== */
+    .form-floating-Kalam .form-control,
+    .form-floating-Kalam textarea {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--parchment);
+      border-radius: var(--radius);
+    }
+
+    .form-floating-Kalam .form-control:focus {
+      background: var(--surface);
+      border-color: var(--ink-gold);
+      box-shadow: none;
+      color: var(--parchment);
+    }
+
+    .form-floating-Kalam label {
+      color: var(--muted-dim);
+    }
+
+    .map-frame {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      height: 100%;
+      min-height: 340px;
+    }
+
+    /* ===== Instagram grid ===== */
+    .insta-tile {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 1/1;
+      border-radius: var(--radius);
+    }
+
+    .insta-tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .6s ease;
+    }
+
+    .insta-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(5, 5, 5, .75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity .4s ease;
+      color: var(--ink-gold);
+      font-size: 1.3rem;
+      gap: 1rem;
+    }
+
+    .insta-tile:hover img {
+      transform: scale(1.1);
+    }
+
+    .insta-tile:hover .insta-overlay {
+      opacity: 1;
+    }
+
+    /* ===== Footer ===== */
+    .footer-Kalam {
+      background: var(--bg-soft);
+      border-top: 1px solid var(--border);
+      padding: 5rem 0 2rem;
+    }
+
+    .footer-heading {
+      font-size: .72rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--ink-gold);
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-link {
+      color: var(--muted);
+      font-size: .92rem;
+      display: block;
+      margin-bottom: .7rem;
+      transition: color .3s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--ink-gold);
+      padding-left: 4px;
+    }
+
+    .social-circle {
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      margin-right: .6rem;
+      transition: all .3s ease;
+    }
+
+    .social-circle:hover {
+      border-color: var(--ink-gold);
+      color: var(--ink-gold);
+      transform: translateY(-3px);
+    }
+
+    /* ===== Back to top ===== */
+    #backToTop {
+      position: fixed;
+      bottom: 1.8rem;
+      right: 1.8rem;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      z-index: 999;
+      background: var(--ink-gold);
+      color: #1a1305;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all .4s ease;
+      border: none;
+      font-size: 1rem;
+    }
+
+    #backToTop.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    /* ===== Toast ===== */
+    .toast-Kalam {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      z-index: 3000;
+      background: var(--surface);
+      border: 1px solid var(--ink-gold);
+      color: var(--parchment);
+      padding: .85rem 1.6rem;
+      border-radius: var(--radius);
+      font-size: .85rem;
+      opacity: 0;
+      transition: all .4s var(--ease);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+
+    .toast-Kalam.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ===== Counter / misc ===== */
+    .wave-rule {
+      width: 60px;
+      height: 2px;
+      background: var(--sindoor-bright);
+      margin: 0 auto;
+    }
+
+    @media (max-width: 767px) {
+      .section-pad {
+        padding: 4rem 0;
+      }
+
+      .video-section {
+        height: 44vh;
+      }
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--muted-dim);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--ink-gold);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============ LOADER ============ -->
+  <div id="loader">
+    <div class="loader-mark">Kalam Ko Viram</div>
+    <div class="loader-line"></div>
+  </div>
+
+  <!-- ============ SCROLL PROGRESS ============ -->
+  <div id="scrollProgress"></div>
+  <div id="cursorGlow"></div>
+
+  <!-- ============ NAVBAR ============ -->
+  <nav class="navbar-Kalam" id="mainNav">
+    <div class="container d-flex align-items-center justify-content-between">
+      <a href="#home" class="brand-mark">Kalam<span>-Ko-</span>Viram</a>
+
+      <div class="d-none d-lg-flex align-items-center">
+        <a href="#home" class="nav-link-Kalam active">Home</a>
+        <a href="#categories" class="nav-link-Kalam">Categories</a>
+        <a href="#trending" class="nav-link-Kalam">Shayari</a>
+        <a href="#poets" class="nav-link-Kalam">Poets</a>
+        <a href="#spotlight" class="nav-link-Kalam">Spotlight</a>
+        <a href="#collections" class="nav-link-Kalam">Collections</a>
+        <a href="#contact" class="nav-link-Kalam">Contact</a>
+      </div>
+
+      <div class="d-flex align-items-center gap-2">
+        <button class="icon-btn d-none d-md-inline-flex" id="searchToggleBtn" title="Search"><i
+            class="bi bi-search"></i></button>
+        <button class="icon-btn" id="themeToggleBtn" title="Toggle theme"><i class="bi bi-moon-stars"
+            id="themeIcon"></i></button>
+        <a href="#" class="icon-btn d-none d-md-inline-flex" title="Your bookmarks" id="bookmarkNavBtn"><i
+            class="bi bi-bookmark-heart"></i></a>
+        <button class="icon-btn d-lg-none" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" title="Menu"><i
+            class="bi bi-list"></i></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============ MOBILE OFFCANVAS ============ -->
+  <div class="offcanvas offcanvas-end offcanvas-Kalam" tabindex="-1" id="mobileMenu">
+    <div class="offcanvas-header">
+      <span class="brand-mark">Kalam<span>-Ko-</span>Viram</span>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column gap-4 pt-4">
+      <a href="#home" class="nav-link-Kalam fs-5" data-bs-dismiss="offcanvas">Home</a>
+      <a href="#categories" class="nav-link-Kalam fs-5" data-bs-dismiss="offcanvas">Categories</a>
+      <a href="#trending" class="nav-link-Kalam fs-5" data-bs-dismiss="offcanvas">Shayari</a>
+      <a href="#poets" class="nav-link-Kalam fs-5" data-bs-dismiss="offcanvas">Poets</a>
+      <a href="#collections" class="nav-link-Kalam fs-5" data-bs-dismiss="offcanvas">Collections</a>
+      <a href="#faq" class="nav-link-Kalam fs-5" data-bs-dismiss="offcanvas">FAQ</a>
+      <a href="#contact" class="nav-link-Kalam fs-5" data-bs-dismiss="offcanvas">Contact</a>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="home">
+      <div class="hero-bg-glow"></div>
+      <i class="bi bi-feather floating-shape" style="font-size:2.4rem; top:22%; left:10%; animation-delay:0s;"></i>
+      <i class="bi bi-moon-stars floating-shape" style="font-size:1.8rem; top:65%; left:14%; animation-delay:2s;"></i>
+      <i class="bi bi-droplet floating-shape" style="font-size:1.6rem; top:30%; right:12%; animation-delay:1s;"></i>
+      <i class="bi bi-quote floating-shape" style="font-size:2.6rem; top:70%; right:9%; animation-delay:3s;"></i>
+
+      <div class="hero-content">
+        <div class="ink-seal"><i class="bi bi-droplet-fill"></i></div>
+        <p class="eyebrow mb-4" data-aos="fade-down" data-aos-duration="900">Where Every Word Breathes Emotion
+        </p>
+        <h1 class="hero-title" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
+          Verses for every<br /><em>silence you carry</em>
+        </h1>
+        <p class="hero-sub" data-aos="fade-up" data-aos-delay="350">
+          A living diwan of <span id="typed-text"></span>
+        </p>
+
+        <div class="hero-rotator" data-aos="fade-up" data-aos-delay="600">
+          <p class="hero-sher" id="heroSherText"></p>
+          <span class="hero-sher-author" id="heroSherAuthor"></span>
+          <div class="hero-rotator-controls">
+            <button class="hero-rotator-arrow" id="heroSherPrev" title="Previous sher"><i
+                class="bi bi-chevron-left"></i></button>
+            <div class="hero-rotator-dots" id="heroRotatorDots"></div>
+            <button class="hero-rotator-arrow" id="heroSherNext" title="Next sher"><i
+                class="bi bi-chevron-right"></i></button>
+          </div>
+        </div>
+        <div class="d-flex flex-wrap gap-3 justify-content-center mt-5" data-aos="fade-up" data-aos-delay="500">
+          <a href="#trending" class="btn-ink">Explore Shayari</a>
+          <a href="#poets" class="btn-outline-ink">Meet the Poets</a>
+        </div>
+      </div>
+
+      <div class="scroll-indicator">
+        <span>Scroll</span>
+        <div class="line"></div>
+      </div>
+    </section>
+
+    <!-- ============ SEARCH ============ -->
+    <section class="section-pad pt-0" id="search">
+      <div class="container" data-aos="fade-up">
+        <div class="search-wrap">
+          <p class="eyebrow mb-2 text-center">Find your feeling</p>
+          <h3 class="section-title text-center mb-4" style="font-size:1.8rem;">What is your heart searching
+            for tonight?</h3>
+          <div class="row justify-content-center">
+            <div class="col-lg-8">
+              <div class="search-input-group">
+                <input type="text" id="liveSearchInput" class="search-input-Kalam"
+                  placeholder="Try 'tanhai', 'ishq', or a poet's name…" autocomplete="off" />
+                <i class="bi bi-search search-icon-abs"></i>
+              </div>
+              <div id="searchSuggestions" class="mt-2 small text-muted-custom" style="min-height:20px;">
+              </div>
+            </div>
+          </div>
+          <div class="d-flex flex-wrap gap-2 justify-content-center mt-4">
+            <span class="search-chip active" data-cat="all">All</span>
+            <span class="search-chip" data-cat="ishq">Ishq</span>
+            <span class="search-chip" data-cat="tanhai">Tanhai</span>
+            <span class="search-chip" data-cat="zindagi">Zindagi</span>
+            <span class="search-chip" data-cat="junoon">Junoon</span>
+            <span class="search-chip" data-cat="dosti">Dosti</span>
+            <span class="search-chip" data-cat="hosla">Hosla</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CATEGORIES ============ -->
+    <section class="section-pad" id="categories">
+      <div class="container">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-5 gap-3"
+          data-aos="fade-up">
+          <div>
+            <p class="eyebrow mb-2">Moods of the Heart</p>
+            <h2 class="section-title">Trending Categories</h2>
+          </div>
+          <a href="#trending" class="nav-link-Kalam" style="margin:0;">View All Moods <i
+              class="bi bi-arrow-right ms-1"></i></a>
+        </div>
+
+        <div class="row g-4">
+          <!-- 15 categories -->
+          <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="0">
+            <div class="cat-card"><i class="bi bi-heart-fill cat-icon"></i>
+              <div class="cat-name">Ishq</div>
+              <div class="cat-count">3,240 Verses</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="50">
+            <div class="cat-card"><i class="bi bi-cloud-drizzle-fill cat-icon"></i>
+              <div class="cat-name">Udaasi</div>
+              <div class="cat-count">2,110 Verses</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+            <div class="cat-card"><i class="bi bi-fire cat-icon"></i>
+              <div class="cat-name">Andaaz</div>
+              <div class="cat-count">1,870 Verses</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="150">
+            <div class="cat-card"><i class="bi bi-stars cat-icon"></i>
+              <div class="cat-name">Hosla</div>
+              <div class="cat-count">1,540 Verses</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="0">
+            <div class="cat-card"><i class="bi bi-hourglass-split cat-icon"></i>
+              <div class="cat-name">Zindagi</div>
+              <div class="cat-count">2,760 Verses</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="50">
+            <div class="cat-card"><i class="bi bi-people-fill cat-icon"></i>
+              <div class="cat-name">Dosti</div>
+              <div class="cat-count">980 Verses</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+            <div class="cat-card"><i class="bi bi-flower3 cat-icon"></i>
+              <div class="cat-name">Romaani</div>
+              <div class="cat-count">2,010 Verses</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="150">
+            <div class="cat-card"><i class="bi bi-stars cat-icon"></i>
+              <div class="cat-name">Tehwaar</div>
+              <div class="cat-count">640 Verses</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="0">
+            <div class="cat-card"><i class="bi bi-tree-fill cat-icon"></i>
+              <div class="cat-name">Fitrat</div>
+              <div class="cat-count">1,120 Verses</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="50">
+            <div class="cat-card"><i class="bi bi-moon-stars-fill cat-icon"></i>
+              <div class="cat-name">Ruhaani</div>
+              <div class="cat-count">870 Verses</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+            <div class="cat-card"><i class="bi bi-sunrise-fill cat-icon"></i>
+              <div class="cat-name">Subah Bakhair</div>
+              <div class="cat-count">760 Verses</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="150">
+            <div class="cat-card"><i class="bi bi-moon-fill cat-icon"></i>
+              <div class="cat-name">Shab Bakhair</div>
+              <div class="cat-count">690 Verses</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="0">
+            <div class="cat-card"><i class="bi bi-cloud-fill cat-icon"></i>
+              <div class="cat-name">Tanhai</div>
+              <div class="cat-count">2,330 Verses</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="50">
+            <div class="cat-card"><i class="bi bi-heartbreak-fill cat-icon"></i>
+              <div class="cat-name">Judaai</div>
+              <div class="cat-count">1,980 Verses</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+            <div class="cat-card"><i class="bi bi-trophy-fill cat-icon"></i>
+              <div class="cat-name">Kaamyaabi</div>
+              <div class="cat-count">720 Verses</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Maqta Divider -->
+    <div class="container py-4">
+      <div class="divider-motif"><span><i class="bi bi-flower2"></i></span></div>
+    </div>
+
+    <!-- ============ TRENDING SHAYARI ============ -->
+    <section class="section-pad" id="trending">
+      <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+          <p class="eyebrow mb-2">This Week's Favourites</p>
+          <h2 class="section-title">Trending Shayari</h2>
+          <p class="section-lead mt-2">Verses the community is reading, saving and sharing right now.</p>
+        </div>
+
+        <div class="row g-4" id="shayariGrid">
+          <!-- Cards injected/enhanced by JS for like/bookmark state, static markup below -->
+          <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="0">
+            <div class="shayari-card" data-id="s1">
+              <i class="bi bi-quote quote-glyph"></i>
+              <div class="shayari-text">Kuch is tarah nibhaayi hai khaamoshi ne rasm,<br />jo dil mein reh
+                gaya, kabhi labon tak na aaya.</div>
+              <div class="shayari-meta">
+                <span class="shayari-author">— Tanhai</span>
+                <div>
+                  <button class="card-action-btn like-btn" title="Like"><i class="bi bi-heart"></i></button>
+                  <button class="card-action-btn copy-btn" title="Copy"><i class="bi bi-clipboard"></i></button>
+                  <button class="card-action-btn bookmark-btn" title="Bookmark"><i class="bi bi-bookmark"></i></button>
+                  <button class="card-action-btn share-btn" title="Share"><i class="bi bi-share"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="shayari-card" data-id="s2">
+              <i class="bi bi-quote quote-glyph"></i>
+              <div class="shayari-text">Manzil se zyada mujhe raaston se ulfat hai,<br />kyunki tere naam
+                ke har mod pe nishaan mile.</div>
+              <div class="shayari-meta">
+                <span class="shayari-author">— Ishq</span>
+                <div>
+                  <button class="card-action-btn like-btn" title="Like"><i class="bi bi-heart"></i></button>
+                  <button class="card-action-btn copy-btn" title="Copy"><i class="bi bi-clipboard"></i></button>
+                  <button class="card-action-btn bookmark-btn" title="Bookmark"><i class="bi bi-bookmark"></i></button>
+                  <button class="card-action-btn share-btn" title="Share"><i class="bi bi-share"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="shayari-card" data-id="s3">
+              <i class="bi bi-quote quote-glyph"></i>
+              <div class="shayari-text">Toot kar bhi jo sambhal jaaye woh hum hain,<br />hausle ki koi
+                doosri zubaan nahi hoti.</div>
+              <div class="shayari-meta">
+                <span class="shayari-author">— Hosla</span>
+                <div>
+                  <button class="card-action-btn like-btn" title="Like"><i class="bi bi-heart"></i></button>
+                  <button class="card-action-btn copy-btn" title="Copy"><i class="bi bi-clipboard"></i></button>
+                  <button class="card-action-btn bookmark-btn" title="Bookmark"><i class="bi bi-bookmark"></i></button>
+                  <button class="card-action-btn share-btn" title="Share"><i class="bi bi-share"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="0">
+            <div class="shayari-card" data-id="s4">
+              <i class="bi bi-quote quote-glyph"></i>
+              <div class="shayari-text">Waqt ke saath badalte hain mausam aur log,<br />par kuch yaadein
+                hain jo mausamon se pare hain.</div>
+              <div class="shayari-meta">
+                <span class="shayari-author">— Zindagi</span>
+                <div>
+                  <button class="card-action-btn like-btn" title="Like"><i class="bi bi-heart"></i></button>
+                  <button class="card-action-btn copy-btn" title="Copy"><i class="bi bi-clipboard"></i></button>
+                  <button class="card-action-btn bookmark-btn" title="Bookmark"><i class="bi bi-bookmark"></i></button>
+                  <button class="card-action-btn share-btn" title="Share"><i class="bi bi-share"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="shayari-card" data-id="s5">
+              <i class="bi bi-quote quote-glyph"></i>
+              <div class="shayari-text">Dosti woh chiraag hai jo andheron mein bhi,<br />bina kuch kahe
+                raasta dikha deta hai.</div>
+              <div class="shayari-meta">
+                <span class="shayari-author">— Dosti</span>
+                <div>
+                  <button class="card-action-btn like-btn" title="Like"><i class="bi bi-heart"></i></button>
+                  <button class="card-action-btn copy-btn" title="Copy"><i class="bi bi-clipboard"></i></button>
+                  <button class="card-action-btn bookmark-btn" title="Bookmark"><i class="bi bi-bookmark"></i></button>
+                  <button class="card-action-btn share-btn" title="Share"><i class="bi bi-share"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="shayari-card" data-id="s6">
+              <i class="bi bi-quote quote-glyph"></i>
+              <div class="shayari-text">Subah ki pehli kiran yeh keh gayi mujhse,<br />jo bhi beeta so
+                beeta, ab naye sirey se jee.</div>
+              <div class="shayari-meta">
+                <span class="shayari-author">— Subah Bakhair</span>
+                <div>
+                  <button class="card-action-btn like-btn" title="Like"><i class="bi bi-heart"></i></button>
+                  <button class="card-action-btn copy-btn" title="Copy"><i class="bi bi-clipboard"></i></button>
+                  <button class="card-action-btn bookmark-btn" title="Bookmark"><i class="bi bi-bookmark"></i></button>
+                  <button class="card-action-btn share-btn" title="Share"><i class="bi bi-share"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-5" data-aos="fade-up">
+          <a href="#" class="btn-outline-ink">Load More Verses</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DAILY QUOTE ============ -->
+    <section class="quote-section" data-aos="fade-in">
+      <div class="quote-box">
+        <div class="quote-mark">"</div>
+        <p class="quote-text">Alfaaz kam hote hain jab ehsaas gehra ho jaata hai —<br />isiliye shayari,
+          khaamoshi ka sabse khoobsurat lehja hai.</p>
+        <p class="mt-4 eyebrow" style="letter-spacing:.2em;">The Daily Verse · Kalam Ko Viram Editorial</p>
+      </div>
+    </section>
+
+    <!-- ============ FEATURED POETS ============ -->
+    <section class="section-pad" id="poets">
+      <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+          <p class="eyebrow mb-2">The Voices Behind the Verses</p>
+          <h2 class="section-title">Featured Poets</h2>
+          <p class="section-lead mt-2">From classical masters to contemporary icons of Urdu literature.</p>
+        </div>
+
+        <div class="swiper poetsSwiper" data-aos="fade-up">
+          <div class="swiper-wrapper pb-5">
+
+            <div class="swiper-slide">
+              <div class="poet-card">
+                <img src="https://picsum.photos/seed/ghalib-portrait/500/560" class="poet-img"
+                  alt="Portrait study inspired by classical Urdu poets" />
+                <div class="poet-body">
+                  <div class="poet-era">1797 – 1869</div>
+                  <div class="poet-name">Mirza Ghalib</div>
+                  <p class="poet-bio">Widely regarded as the last great classical poet of the Mughal
+                    era, Ghalib's ghazals fused philosophical depth with an unmatched command of
+                    Urdu and Persian idiom.</p>
+                  <a href="#" class="nav-link-Kalam p-0 mt-2 d-inline-block" style="margin:0;">Read
+                    More <i class="bi bi-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="poet-card">
+                <img src="https://picsum.photos/seed/iqbal-portrait/500/560" class="poet-img"
+                  alt="Portrait study inspired by classical Urdu poets" />
+                <div class="poet-body">
+                  <div class="poet-era">1877 – 1938</div>
+                  <div class="poet-name">Allama Iqbal</div>
+                  <p class="poet-bio">Philosopher-poet whose verses on selfhood, awakening and destiny
+                    shaped the literary and political imagination of an entire generation.</p>
+                  <a href="#" class="nav-link-Kalam p-0 mt-2 d-inline-block" style="margin:0;">Read
+                    More <i class="bi bi-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="poet-card">
+                <img src="https://picsum.photos/seed/faiz-portrait/500/560" class="poet-img"
+                  alt="Portrait study inspired by modern Urdu poets" />
+                <div class="poet-body">
+                  <div class="poet-era">1911 – 1984</div>
+                  <div class="poet-name">Faiz Ahmed Faiz</div>
+                  <p class="poet-bio">A poet of resistance and romance in equal measure, Faiz gave
+                    revolutionary politics the tenderness of a love letter.</p>
+                  <a href="#" class="nav-link-Kalam p-0 mt-2 d-inline-block" style="margin:0;">Read
+                    More <i class="bi bi-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="poet-card">
+                <img src="https://picsum.photos/seed/jaunelia-portrait/500/560" class="poet-img"
+                  alt="Portrait study inspired by modern Urdu poets" />
+                <div class="poet-body">
+                  <div class="poet-era">1931 – 2002</div>
+                  <div class="poet-name">Jaun Elia</div>
+                  <p class="poet-bio">Known for his unconventional style and restless intellect, Jaun
+                    Elia's poetry sits at the crossroads of despair, wit and quiet devastation.</p>
+                  <a href="#" class="nav-link-Kalam p-0 mt-2 d-inline-block" style="margin:0;">Read
+                    More <i class="bi bi-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="poet-card">
+                <img src="https://picsum.photos/seed/gulzar-portrait/500/560" class="poet-img"
+                  alt="Portrait study inspired by modern Urdu poets" />
+                <div class="poet-body">
+                  <div class="poet-era">Born 1934</div>
+                  <div class="poet-name">Gulzar</div>
+                  <p class="poet-bio">A master of imagery who writes as fluently for the screen as the
+                    page, Gulzar's verses turn small, ordinary moments into lingering metaphors.</p>
+                  <a href="#" class="nav-link-Kalam p-0 mt-2 d-inline-block" style="margin:0;">Read
+                    More <i class="bi bi-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="poet-card">
+                <img src="https://picsum.photos/seed/rahatindori-portrait/500/560" class="poet-img"
+                  alt="Portrait study inspired by modern Urdu poets" />
+                <div class="poet-body">
+                  <div class="poet-era">1950 – 2020</div>
+                  <div class="poet-name">Rahat Indori</div>
+                  <p class="poet-bio">Famed for his commanding stage presence, Indori's mushaira
+                    performances turned defiant, punchy couplets into cultural touchstones.</p>
+                  <a href="#" class="nav-link-Kalam p-0 mt-2 d-inline-block" style="margin:0;">Read
+                    More <i class="bi bi-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="poet-card">
+                <img src="https://picsum.photos/seed/bashirbadr-portrait/500/560" class="poet-img"
+                  alt="Portrait study inspired by modern Urdu poets" />
+                <div class="poet-body">
+                  <div class="poet-era">Born 1935</div>
+                  <div class="poet-name">Bashir Badr</div>
+                  <p class="poet-bio">A poet of gentle simplicity, Bashir Badr's ghazals speak of love
+                    and loss in language so plain it feels like a private conversation.</p>
+                  <a href="#" class="nav-link-Kalam p-0 mt-2 d-inline-block" style="margin:0;">Read
+                    More <i class="bi bi-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="poet-card">
+                <img src="https://picsum.photos/seed/ahmedfaraz-portrait/500/560" class="poet-img"
+                  alt="Portrait study inspired by modern Urdu poets" />
+                <div class="poet-body">
+                  <div class="poet-era">1931 – 2008</div>
+                  <div class="poet-name">Ahmed Faraz</div>
+                  <p class="poet-bio">Faraz's romantic yet politically charged verse made him one of
+                    the most recited poets of the modern Urdu canon.</p>
+                  <a href="#" class="nav-link-Kalam p-0 mt-2 d-inline-block" style="margin:0;">Read
+                    More <i class="bi bi-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="swiper-pagination mt-3"></div>
+        </div>
+        <div class="d-flex justify-content-center gap-3 mt-3">
+          <button class="icon-btn poets-prev"><i class="bi bi-arrow-left"></i></button>
+          <button class="icon-btn poets-next"><i class="bi bi-arrow-right"></i></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ POET SPOTLIGHT — JAUN ELIA ============ -->
+    <!--
+  NOTE FOR SOURABH: The four verse cards below are placeholders on purpose —
+  Jaun Elia's actual shayari is still under copyright, so it isn't reproduced here.
+  Just replace the text inside each <p class="placeholder-text"> with the sher you want
+  to feature (in Nastaliq, Devanagari, or Roman — whatever you're using elsewhere on the site).
+-->
+    <section class="spotlight-section" id="spotlight">
+      <div class="container">
+        <div class="row g-5 align-items-center">
+          <div class="col-lg-5" data-aos="fade-right">
+            <div class="spotlight-portrait">
+              <img src="https://picsum.photos/seed/jaunelia-spotlight/700/860"
+                alt="Portrait study inspired by the poet Jaun Elia" />
+              <div class="spotlight-frame"></div>
+            </div>
+          </div>
+          <div class="col-lg-7" data-aos="fade-left">
+            <p class="eyebrow mb-2">Poet Spotlight</p>
+            <h2 class="section-title mb-3">Jaun Elia <span class="font-sub fst-italic text-muted-custom fs-4">(1931 –
+                2002)</span></h2>
+            <p class="section-lead mb-4"
+              style="font-style:normal; font-family:'Poppins',sans-serif; font-size:1rem; color:var(--muted);">
+              Restless, self-doubting and fiercely original, Jaun Elia wrote as though every ghazal were a
+              private confession overheard by the reader. This corner of Kalam Ko Viram is reserved for his
+              diwan.
+            </p>
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="spotlight-verse-card">
+                  <i class="bi bi-quote quote-glyph"></i>
+                  <p class="placeholder-text">[ Add your first Jaun Elia sher here ]</p>
+                  <span class="edit-tag"><i class="bi bi-pencil"></i> Editable</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="spotlight-verse-card">
+                  <i class="bi bi-quote quote-glyph"></i>
+                  <p class="placeholder-text">[ Add your second Jaun Elia sher here ]</p>
+                  <span class="edit-tag"><i class="bi bi-pencil"></i> Editable</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="spotlight-verse-card">
+                  <i class="bi bi-quote quote-glyph"></i>
+                  <p class="placeholder-text">[ Add your third Jaun Elia sher here ]</p>
+                  <span class="edit-tag"><i class="bi bi-pencil"></i> Editable</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="spotlight-verse-card">
+                  <i class="bi bi-quote quote-glyph"></i>
+                  <p class="placeholder-text">[ Add your fourth Jaun Elia sher here ]</p>
+                  <span class="edit-tag"><i class="bi bi-pencil"></i> Editable</span>
+                </div>
+              </div>
+            </div>
+
+            <a href="#" class="btn-ink mt-4 d-inline-block">Open Full Diwan</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FEATURED COLLECTIONS ============ -->
+    <section class="section-pad" id="collections">
+      <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+          <p class="eyebrow mb-2">Curated Anthologies</p>
+          <h2 class="section-title">Featured Collections</h2>
+        </div>
+        <div class="row g-4">
+          <div class="col-lg-8" data-aos="fade-up">
+            <div class="collection-tile">
+              <img src="https://picsum.photos/seed/collection-ghazal/900/700" alt="Ghazal collection cover art" />
+              <div class="collection-overlay"></div>
+              <div class="collection-body">
+                <span class="eyebrow">42 Ghazals</span>
+                <h4 class="text-white mt-2" style="font-family:'Playfair Display',serif;">The Midnight
+                  Diwan</h4>
+                <a href="#" class="btn-outline-ink mt-3 d-inline-block">Open Collection</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="collection-tile" style="height:100%;">
+              <img src="https://picsum.photos/seed/collection-nazm/500/700" alt="Nazm collection cover art" />
+              <div class="collection-overlay"></div>
+              <div class="collection-body">
+                <span class="eyebrow">18 Nazms</span>
+                <h4 class="text-white mt-2" style="font-family:'Playfair Display',serif;">Letters to No
+                  One</h4>
+                <a href="#" class="btn-outline-ink mt-3 d-inline-block">Open Collection</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4" data-aos="fade-up">
+            <div class="collection-tile">
+              <img src="https://picsum.photos/seed/collection-kavita/500/500" alt="Hindi Kavita collection cover art" />
+              <div class="collection-overlay"></div>
+              <div class="collection-body">
+                <span class="eyebrow">27 Kavitayein</span>
+                <h4 class="text-white mt-2" style="font-family:'Playfair Display',serif;">Mitti Ki Awaaz
+                </h4>
+                <a href="#" class="btn-outline-ink mt-3 d-inline-block">Open Collection</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
+            <div class="collection-tile">
+              <img src="https://picsum.photos/seed/collection-shayari/900/500"
+                alt="Modern Shayari collection cover art" />
+              <div class="collection-overlay"></div>
+              <div class="collection-body">
+                <span class="eyebrow">65 Sher</span>
+                <h4 class="text-white mt-2" style="font-family:'Playfair Display',serif;">New Ink, Old
+                  Ache</h4>
+                <a href="#" class="btn-outline-ink mt-3 d-inline-block">Open Collection</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TIMELINE ============ -->
+    <section class="section-pad bg-surface" id="timeline">
+      <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+          <p class="eyebrow mb-2">A Living Tradition</p>
+          <h2 class="section-title">The Journey of Urdu Poetry</h2>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="timeline-Kalam">
+              <div class="timeline-item" data-aos="fade-up">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">17th Century</div>
+                <div class="timeline-title">Wali Deccani and the Deccan School</div>
+                <p class="timeline-desc">Often called the father of Urdu ghazal, Wali brought the
+                  language of the Deccan into a refined poetic form that later travelled north.</p>
+              </div>
+              <div class="timeline-item" data-aos="fade-up">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">18th Century</div>
+                <div class="timeline-title">Mir Taqi Mir and Delhi's Golden Age</div>
+                <p class="timeline-desc">Mir's melancholic simplicity set the emotional register for the
+                  ghazal that generations of poets would inherit.</p>
+              </div>
+              <div class="timeline-item" data-aos="fade-up">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">19th Century</div>
+                <div class="timeline-title">Ghalib and the Philosophical Turn</div>
+                <p class="timeline-desc">Ghalib pushed the ghazal toward abstraction and philosophy,
+                  layering wit with existential doubt.</p>
+              </div>
+              <div class="timeline-item" data-aos="fade-up">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">Early 20th Century</div>
+                <div class="timeline-title">Iqbal and the Poetry of Awakening</div>
+                <p class="timeline-desc">Iqbal's verse turned toward nationhood, self-realisation and
+                  spiritual reform, reaching far beyond literary circles.</p>
+              </div>
+              <div class="timeline-item" data-aos="fade-up">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">Mid-to-Late 20th Century</div>
+                <div class="timeline-title">The Progressive and Modern Voices</div>
+                <p class="timeline-desc">Faiz, Faraz, Jaun Elia and their contemporaries carried the
+                  ghazal and nazm into the language of protest, exile and modern longing.</p>
+              </div>
+              <div class="timeline-item" data-aos="fade-up">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">Today</div>
+                <div class="timeline-title">A Digital Diwan</div>
+                <p class="timeline-desc">Platforms like Kalam Ko Viram carry this centuries-old tradition
+                  into a new generation of readers and writers.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STATS ============ -->
+    <section class="section-pad">
+      <div class="container">
+        <div class="row text-center g-4">
+          <div class="col-6 col-md-3" data-aos="zoom-in">
+            <div class="stat-num counter" data-target="25000">0</div>
+            <div class="stat-label">Poems</div>
+          </div>
+          <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="100">
+            <div class="stat-num counter" data-target="500">0</div>
+            <div class="stat-label">Authors</div>
+          </div>
+          <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="200">
+            <div class="stat-num counter" data-target="2000000">0</div>
+            <div class="stat-label">Readers</div>
+          </div>
+          <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="300">
+            <div class="stat-num counter" data-target="100">0</div>
+            <div class="stat-label">Categories</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ WHY CHOOSE US ============ -->
+    <section class="section-pad bg-surface">
+      <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+          <p class="eyebrow mb-2">Our Promise</p>
+          <h2 class="section-title">Why Kalam Ko Viram</h2>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="0">
+            <div class="feature-card">
+              <div class="feature-icon"><i class="bi bi-collection"></i></div>
+              <h5 class="text-white mb-2" style="font-family:'Playfair Display',serif;">Curated, Not
+                Crowdsourced</h5>
+              <p class="text-muted-custom small mb-0">Every verse is reviewed by our editorial team for
+                authenticity and craft.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+            <div class="feature-card">
+              <div class="feature-icon"><i class="bi bi-translate"></i></div>
+              <h5 class="text-white mb-2" style="font-family:'Playfair Display',serif;">Urdu, Hindi &amp;
+                Transliteration</h5>
+              <p class="text-muted-custom small mb-0">Read every sher in Nastaliq script, Devanagari, or
+                Roman transliteration.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+            <div class="feature-card">
+              <div class="feature-icon"><i class="bi bi-bookmark-heart"></i></div>
+              <h5 class="text-white mb-2" style="font-family:'Playfair Display',serif;">Your Personal
+                Diwan</h5>
+              <p class="text-muted-custom small mb-0">Bookmark and organise verses into your own private
+                collections.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+            <div class="feature-card">
+              <div class="feature-icon"><i class="bi bi-mic"></i></div>
+              <h5 class="text-white mb-2" style="font-family:'Playfair Display',serif;">A Space for New
+                Voices</h5>
+              <p class="text-muted-custom small mb-0">Emerging poets can submit and share their own
+                shayari with our community.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TESTIMONIALS ============ -->
+    <section class="section-pad">
+      <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+          <p class="eyebrow mb-2">Readers Speak</p>
+          <h2 class="section-title">What Our Community Says</h2>
+        </div>
+        <div class="swiper testimonialsSwiper" data-aos="fade-up">
+          <div class="swiper-wrapper pb-5">
+            <div class="swiper-slide">
+              <div class="testimonial-card">
+                <div class="stars mb-3"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                <p class="testimonial-text">"I open Kalam Ko Viram before I open any news app. It's become
+                  my quiet ritual every morning."</p>
+                <div class="d-flex align-items-center gap-3 mt-4">
+                  <img src="https://picsum.photos/seed/reader-1/100/100" class="testimonial-avatar"
+                    alt="Reader avatar" />
+                  <div>
+                    <div class="text-white">Ayesha R.</div>
+                    <div class="small text-muted-custom">Lucknow</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="testimonial-card">
+                <div class="stars mb-3"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i></div>
+                <p class="testimonial-text">"The poet profiles finally gave me context for verses I'd
+                  been quoting for years without knowing their origin."</p>
+                <div class="d-flex align-items-center gap-3 mt-4">
+                  <img src="https://picsum.photos/seed/reader-2/100/100" class="testimonial-avatar"
+                    alt="Reader avatar" />
+                  <div>
+                    <div class="text-white">Devansh K.</div>
+                    <div class="small text-muted-custom">Bhopal</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="testimonial-card">
+                <div class="stars mb-3"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                <p class="testimonial-text">"Bookmarking shers into my own collection feels like keeping
+                  a diary written by better poets than me."</p>
+                <div class="d-flex align-items-center gap-3 mt-4">
+                  <img src="https://picsum.photos/seed/reader-3/100/100" class="testimonial-avatar"
+                    alt="Reader avatar" />
+                  <div>
+                    <div class="text-white">Meher F.</div>
+                    <div class="small text-muted-custom">Hyderabad</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="testimonial-card">
+                <div class="stars mb-3"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                <p class="testimonial-text">"Design-wise this is the only shayari site that doesn't feel
+                  like a WhatsApp forward. It feels like a library."</p>
+                <div class="d-flex align-items-center gap-3 mt-4">
+                  <img src="https://picsum.photos/seed/reader-4/100/100" class="testimonial-avatar"
+                    alt="Reader avatar" />
+                  <div>
+                    <div class="text-white">Kabir S.</div>
+                    <div class="small text-muted-custom">Jaipur</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VIDEO ============ -->
+    <section class="pb-5" data-aos="fade-up">
+      <div class="video-section">
+        <img class="video-bg" src="https://picsum.photos/seed/Kalam-video/1600/900"
+          alt="Ambient calligraphy and ink background" />
+        <div
+          class="position-relative z-2 h-100 d-flex flex-column align-items-center justify-content-center text-center">
+          <div class="play-btn" data-bs-toggle="modal" data-bs-target="#videoModal"><i class="bi bi-play-fill"></i>
+          </div>
+          <p class="text-white mt-4 font-sub fst-italic fs-4">Inside the Making of Kalam Ko Viram</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Video Modal -->
+    <div class="modal fade" id="videoModal" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content bg-surface border" style="border-color:var(--border)!important;">
+          <div class="modal-header border-0">
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body pt-0">
+            <div class="ratio ratio-16x9">
+              <div class="d-flex align-items-center justify-content-center text-muted-custom"
+                style="background:var(--surface-2);">
+                <span>Video player placeholder — embed your showreel here.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ NEWSLETTER ============ -->
+    <section class="section-pad">
+      <div class="container">
+        <div class="newsletter-box" data-aos="zoom-in">
+          <i class="bi bi-envelope-heart fs-1 text-gold mb-3 d-block"></i>
+          <h2 class="section-title mb-3">The Daily Dose of Soul</h2>
+          <p class="section-lead mb-4">One handpicked sher in your inbox, every morning — a moment of
+            tranquility before the world wakes up.</p>
+          <form class="d-flex flex-column flex-md-row gap-3 justify-content-center mx-auto" style="max-width:480px;"
+            id="newsletterForm">
+            <input type="email" class="form-control search-input-Kalam" placeholder="Your email address" required
+              id="newsletterEmail" />
+            <button type="submit" class="btn-ink text-nowrap">Subscribe</button>
+          </form>
+          <p class="small text-muted-custom mt-3 mb-0" id="newsletterMsg">No spam. Only soul.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="section-pad bg-surface" id="faq">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 mb-4 mb-lg-0" data-aos="fade-right">
+            <p class="eyebrow mb-2">Good to Know</p>
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-lead mt-3">Still curious? Reach out to us in the contact section below.</p>
+          </div>
+          <div class="col-lg-8" data-aos="fade-left">
+            <div class="accordion accordion-Kalam" id="faqAccordion">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">Is
+                    Kalam Ko Viram free to use?</button>
+                </h2>
+                <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">Yes — reading, bookmarking and sharing shayari is
+                    completely free. A premium tier unlocks offline diwans and early access to new
+                    poet features.</div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#faq2">Can I submit my own shayari?</button>
+                </h2>
+                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">Absolutely. Once you create an account, you can submit
+                    original verses for editorial review before they're published to the community
+                    feed.</div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#faq3">Do you offer both Urdu and Hindi scripts?</button>
+                </h2>
+                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">Every verse can be toggled between Nastaliq Urdu,
+                    Devanagari Hindi and Roman transliteration, so readers of any background can
+                    enjoy it.</div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#faq4">How are the featured poets selected?</button>
+                </h2>
+                <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">Our editorial team rotates featured poets monthly,
+                    balancing classical masters with contemporary voices recommended by the
+                    community.</div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#faq5">Is there a mobile app?</button>
+                </h2>
+                <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">Kalam Ko Viram is fully responsive and installable as a
+                    Progressive Web App — native iOS and Android apps are on our roadmap.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section-pad" id="contact">
+      <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+          <p class="eyebrow mb-2">Let's Talk</p>
+          <h2 class="section-title">Get in Touch</h2>
+        </div>
+        <div class="row g-4">
+          <div class="col-lg-6" data-aos="fade-right">
+            <form class="form-floating-Kalam" id="contactForm">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="cName" placeholder="Your Name" required />
+                <label for="cName">Your Name</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="cEmail" placeholder="Your Email" required />
+                <label for="cEmail">Your Email</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="cSubject" placeholder="Subject" required />
+                <label for="cSubject">Subject</label>
+              </div>
+              <div class="form-floating mb-3">
+                <textarea class="form-control" id="cMessage" placeholder="Message" style="height:140px"
+                  required></textarea>
+                <label for="cMessage">Your Message</label>
+              </div>
+              <button type="submit" class="btn-ink w-100">Send Message</button>
+            </form>
+            <div class="d-flex gap-2 mt-4">
+              <a href="#" class="social-circle"><i class="bi bi-instagram"></i></a>
+              <a href="#" class="social-circle"><i class="bi bi-twitter-x"></i></a>
+              <a href="#" class="social-circle"><i class="bi bi-facebook"></i></a>
+              <a href="#" class="social-circle"><i class="bi bi-youtube"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-6" data-aos="fade-left">
+            <div class="map-frame">
+              <iframe
+                src="https://www.openstreetmap.org/export/embed.html?bbox=77.35%2C23.15%2C77.50%2C23.30&layer=mapnik"
+                width="100%" height="100%" style="border:0; filter:grayscale(60%) invert(90%) contrast(85%);"
+                loading="lazy" title="Location map"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ INSTAGRAM GALLERY ============ -->
+    <section class="section-pad pt-0">
+      <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+          <p class="eyebrow mb-2">@KalamKoViram</p>
+          <h2 class="section-title">From Our Instagram</h2>
+        </div>
+        <div class="row g-2">
+          <div class="col-4 col-md-2" data-aos="fade-up">
+            <div class="insta-tile"><img src="https://picsum.photos/seed/insta-1/300/300"
+                alt="Instagram post preview" />
+              <div class="insta-overlay"><i class="bi bi-heart-fill"></i><i class="bi bi-chat-fill"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="50">
+            <div class="insta-tile"><img src="https://picsum.photos/seed/insta-2/300/300"
+                alt="Instagram post preview" />
+              <div class="insta-overlay"><i class="bi bi-heart-fill"></i><i class="bi bi-chat-fill"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="100">
+            <div class="insta-tile"><img src="https://picsum.photos/seed/insta-3/300/300"
+                alt="Instagram post preview" />
+              <div class="insta-overlay"><i class="bi bi-heart-fill"></i><i class="bi bi-chat-fill"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-4 col-md-2" data-aos="fade-up">
+            <div class="insta-tile"><img src="https://picsum.photos/seed/insta-4/300/300"
+                alt="Instagram post preview" />
+              <div class="insta-overlay"><i class="bi bi-heart-fill"></i><i class="bi bi-chat-fill"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="50">
+            <div class="insta-tile"><img src="https://picsum.photos/seed/insta-5/300/300"
+                alt="Instagram post preview" />
+              <div class="insta-overlay"><i class="bi bi-heart-fill"></i><i class="bi bi-chat-fill"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="100">
+            <div class="insta-tile"><img src="https://picsum.photos/seed/insta-6/300/300"
+                alt="Instagram post preview" />
+              <div class="insta-overlay"><i class="bi bi-heart-fill"></i><i class="bi bi-chat-fill"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer-Kalam">
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-4">
+          <div class="brand-mark mb-3">Kalam<span>-Ko-</span>Viram</div>
+          <p class="text-muted-custom small">A digital sanctuary for the lovers of words — preserving
+            tradition and pursuing sukoon, one verse at a time.</p>
+          <div class="d-flex gap-2 mt-3">
+            <a href="#" class="social-circle"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="social-circle"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" class="social-circle"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="social-circle"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+        <div class="col-6 col-lg-2">
+          <div class="footer-heading">Quick Links</div>
+          <a href="#home" class="footer-link">Home</a>
+          <a href="#trending" class="footer-link">Shayari</a>
+          <a href="#poets" class="footer-link">Poets</a>
+          <a href="#faq" class="footer-link">FAQ</a>
+          <a href="#contact" class="footer-link">Contact</a>
+        </div>
+        <div class="col-6 col-lg-2">
+          <div class="footer-heading">Categories</div>
+          <a href="#" class="footer-link">Ishq</a>
+          <a href="#" class="footer-link">Tanhai</a>
+          <a href="#" class="footer-link">Zindagi</a>
+          <a href="#" class="footer-link">Hosla</a>
+          <a href="#" class="footer-link">Dosti</a>
+        </div>
+        <div class="col-lg-4">
+          <div class="footer-heading">Stay in Touch</div>
+          <p class="text-muted-custom small">Subscribe for a handpicked sher every morning.</p>
+          <form class="d-flex gap-2" id="footerNewsletterForm">
+            <input type="email" class="form-control search-input-Kalam" placeholder="Email address" required
+              style="font-size:1rem;" />
+            <button class="btn-outline-ink text-nowrap" type="submit">Join</button>
+          </form>
+        </div>
+      </div>
+      <hr class="my-5" style="border-color:var(--border);" />
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+        <p class="small text-muted-custom mb-0">© 2026 Kalam Ko Viram. All rights reserved.</p>
+        <div class="d-flex gap-4">
+          <a href="#" class="footer-link mb-0">Privacy Policy</a>
+          <a href="#" class="footer-link mb-0">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top -->
+  <button id="backToTop" title="Back to top"><i class="bi bi-arrow-up"></i></button>
+
+  <!-- Toast -->
+  <div class="toast-Kalam" id="toastKalam"><i class="bi bi-check-circle-fill text-gold"></i><span
+      id="toastMsg">Done</span></div>
+
+  <!-- ============ SCRIPTS ============ -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+  <script>
+    /* =========================================================
+       Kalam Ko Viram — APP SCRIPT
+    ========================================================= */
+    document.addEventListener('DOMContentLoaded', function () {
+
+      // ---------- Loader ----------
+      window.addEventListener('load', function () {
+        setTimeout(() => document.getElementById('loader').classList.add('hide'), 500);
+      });
+
+      // ---------- AOS ----------
+      AOS.init({ once: true, duration: 800, easing: 'ease-out-cubic' });
+
+      // ---------- Typed.js ----------
+      if (document.getElementById('typed-text')) {
+        new Typed('#typed-text', {
+          strings: ['Ishq.', 'Zindagi.', 'Tanhai.', 'Hosla.', 'Ghazal.', 'Shayari.', 'Nazm.'],
+          typeSpeed: 60,
+          backSpeed: 35,
+          backDelay: 1400,
+          loop: true
+        });
+      }
+
+      // ---------- Rotating hero sher (changes every 30s) ----------
+      const heroShers = [
+        { text: "Kuch is tarah nibhaayi hai khaamoshi ne rasm,<br/>jo dil mein reh gaya, kabhi labon tak na aaya.", author: "Tanhai" },
+        { text: "Manzil se zyada mujhe raaston se ulfat hai,<br/>kyunki tere naam ke har mod pe nishaan mile.", author: "Ishq" },
+        { text: "Toot kar bhi jo sambhal jaaye woh hum hain,<br/>hausle ki koi doosri zubaan nahi hoti.", author: "Hosla" },
+        { text: "Waqt ke saath badalte hain mausam aur log,<br/>par kuch yaadein hain jo mausamon se pare hain.", author: "Zindagi" },
+        { text: "Dosti woh chiraag hai jo andheron mein bhi,<br/>bina kuch kahe raasta dikha deta hai.", author: "Dosti" },
+        { text: "Subah ki pehli kiran yeh keh gayi mujhse,<br/>jo bhi beeta so beeta, ab naye sirey se jee.", author: "Subah Bakhair" },
+        { text: "Alfaaz kam hote hain jab ehsaas gehra ho jaata hai,<br/>isiliye khaamoshi bhi ek shayari ban jaati hai.", author: "Khaamoshi" },
+        { text: "Har raat guzarti hai kisi khwaab ke sahare,<br/>aur har khwaab kisi apne ke naam se shuru hota hai.", author: "Yaadein" }
+      ];
+
+      const heroSherEl = document.getElementById('heroSherText');
+      const heroAuthorEl = document.getElementById('heroSherAuthor');
+      const heroDotsEl = document.getElementById('heroRotatorDots');
+      let heroSherIndex = 0;
+      let heroSherTimer = null;
+
+      if (heroSherEl && heroShers.length) {
+        heroShers.forEach((_, i) => {
+          const dot = document.createElement('span');
+          if (i === 0) dot.classList.add('active');
+          dot.addEventListener('click', () => showHeroSher(i, true));
+          heroDotsEl.appendChild(dot);
+        });
+
+        function showHeroSher(index, manual) {
+          heroSherEl.classList.remove('visible');
+          heroAuthorEl.classList.remove('visible');
+          setTimeout(() => {
+            heroSherIndex = index;
+            heroSherEl.innerHTML = heroShers[heroSherIndex].text;
+            heroAuthorEl.textContent = '— ' + heroShers[heroSherIndex].author;
+            heroSherEl.classList.add('visible');
+            heroAuthorEl.classList.add('visible');
+            [...heroDotsEl.children].forEach((d, i) => d.classList.toggle('active', i === heroSherIndex));
+          }, manual ? 300 : 500);
+          if (manual) resetHeroSherTimer();
+        }
+
+        function resetHeroSherTimer() {
+          clearInterval(heroSherTimer);
+          heroSherTimer = setInterval(() => {
+            showHeroSher((heroSherIndex + 1) % heroShers.length, false);
+          }, 30000);
+        }
+
+        // initial reveal
+        setTimeout(() => {
+          heroSherEl.innerHTML = heroShers[0].text;
+          heroAuthorEl.textContent = '— ' + heroShers[0].author;
+          heroSherEl.classList.add('visible');
+          heroAuthorEl.classList.add('visible');
+        }, 900);
+        resetHeroSherTimer();
+
+        document.getElementById('heroSherNext').addEventListener('click', () => {
+          showHeroSher((heroSherIndex + 1) % heroShers.length, true);
+        });
+        document.getElementById('heroSherPrev').addEventListener('click', () => {
+          showHeroSher((heroSherIndex - 1 + heroShers.length) % heroShers.length, true);
+        });
+      }
+
+      // ---------- Navbar scroll state ----------
+      const nav = document.getElementById('mainNav');
+      const scrollProgress = document.getElementById('scrollProgress');
+      const backToTop = document.getElementById('backToTop');
+
+      window.addEventListener('scroll', function () {
+        const y = window.scrollY;
+        nav.classList.toggle('scrolled', y > 60);
+        backToTop.classList.toggle('show', y > 500);
+
+        const docH = document.documentElement.scrollHeight - window.innerHeight;
+        scrollProgress.style.width = (docH > 0 ? (y / docH) * 100 : 0) + '%';
+      });
+
+      backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+      // ---------- Nav active link on scroll ----------
+      const sections = document.querySelectorAll('main section[id], section[id]');
+      const navLinks = document.querySelectorAll('.nav-link-Kalam');
+      const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            navLinks.forEach(l => l.classList.remove('active'));
+            const active = document.querySelector('.nav-link-Kalam[href="#' + entry.target.id + '"]');
+            if (active) active.classList.add('active');
+          }
+        });
+      }, { rootMargin: '-40% 0px -55% 0px' });
+      sections.forEach(s => navObserver.observe(s));
+
+      // ---------- Cursor glow (desktop) ----------
+      const glow = document.getElementById('cursorGlow');
+      if (window.matchMedia('(pointer: fine)').matches) {
+        document.addEventListener('mousemove', (e) => {
+          glow.style.opacity = 1;
+          glow.style.left = e.clientX + 'px';
+          glow.style.top = e.clientY + 'px';
+        });
+        document.addEventListener('mouseleave', () => glow.style.opacity = 0);
+      }
+
+      // ---------- Theme toggle ----------
+      const themeBtn = document.getElementById('themeToggleBtn');
+      const themeIcon = document.getElementById('themeIcon');
+      let savedTheme = 'dark';
+      try { savedTheme = localStorage.getItem('Kalam-theme') || 'dark'; } catch (e) { }
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        themeIcon.className = 'bi bi-sun';
+      }
+      themeBtn.addEventListener('click', function () {
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        if (isLight) {
+          document.documentElement.removeAttribute('data-theme');
+          themeIcon.className = 'bi bi-moon-stars';
+          try { localStorage.setItem('Kalam-theme', 'dark'); } catch (e) { }
+        } else {
+          document.documentElement.setAttribute('data-theme', 'light');
+          themeIcon.className = 'bi bi-sun';
+          try { localStorage.setItem('Kalam-theme', 'light'); } catch (e) { }
+        }
+      });
+
+      // ---------- Search toggle scrolls to search section ----------
+      document.getElementById('searchToggleBtn').addEventListener('click', function () {
+        document.getElementById('search').scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('liveSearchInput').focus();
+      });
+
+      // ---------- Live search suggestions (client-side demo) ----------
+      const searchData = ['Ishq — 3,240 verses', 'Tanhai — 2,330 verses', 'Zindagi — 2,760 verses', 'Hosla — 1,540 verses', 'Dosti — 980 verses', 'Mirza Ghalib', 'Allama Iqbal', 'Faiz Ahmed Faiz', 'Jaun Elia', 'Gulzar', 'Rahat Indori'];
+      const searchInput = document.getElementById('liveSearchInput');
+      const suggestionsBox = document.getElementById('searchSuggestions');
+      searchInput.addEventListener('input', function () {
+        const val = this.value.trim().toLowerCase();
+        if (!val) { suggestionsBox.innerHTML = ''; return; }
+        const matches = searchData.filter(item => item.toLowerCase().includes(val)).slice(0, 5);
+        suggestionsBox.innerHTML = matches.length
+          ? matches.map(m => `<span class="search-chip" style="margin:2px;">${m}</span>`).join('')
+          : 'No matches — try another mood or poet name.';
+      });
+
+      document.querySelectorAll('.search-chip[data-cat]').forEach(chip => {
+        chip.addEventListener('click', function () {
+          document.querySelectorAll('.search-chip[data-cat]').forEach(c => c.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+
+      // ---------- Category card ripple + scroll ----------
+      document.querySelectorAll('.cat-card').forEach(card => {
+        card.addEventListener('click', function (e) {
+          createRipple(e, this);
+          document.getElementById('trending').scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+
+      function createRipple(e, el) {
+        const circle = document.createElement('span');
+        const rect = el.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        circle.style.cssText = `position:absolute;border-radius:50%;pointer-events:none;background:rgba(201,163,92,.35);
+      width:${size}px;height:${size}px;left:${e.clientX - rect.left - size / 2}px;top:${e.clientY - rect.top - size / 2}px;
+      transform:scale(0);animation:rippleAnim .6s ease-out;`;
+        el.style.position = 'relative';
+        el.appendChild(circle);
+        setTimeout(() => circle.remove(), 650);
+      }
+      const rippleStyle = document.createElement('style');
+      rippleStyle.textContent = '@keyframes rippleAnim{to{transform:scale(2.5);opacity:0;}}';
+      document.head.appendChild(rippleStyle);
+
+      // ---------- Shayari card actions: like / copy / bookmark / share ----------
+      let bookmarks = [];
+      try { bookmarks = JSON.parse(localStorage.getItem('Kalam-bookmarks') || '[]'); } catch (e) { bookmarks = []; }
+
+      function showToast(msg, icon = 'bi-check-circle-fill') {
+        const toast = document.getElementById('toastKalam');
+        document.getElementById('toastMsg').textContent = msg;
+        toast.querySelector('i').className = 'bi ' + icon + ' text-gold';
+        toast.classList.add('show');
+        clearTimeout(window._toastTimer);
+        window._toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+      }
+
+      document.querySelectorAll('.shayari-card').forEach(card => {
+        const id = card.dataset.id;
+        const bookmarkBtn = card.querySelector('.bookmark-btn');
+        if (bookmarks.includes(id) && bookmarkBtn) {
+          bookmarkBtn.classList.add('bookmarked');
+          bookmarkBtn.querySelector('i').className = 'bi bi-bookmark-fill';
+        }
+      });
+
+      document.querySelectorAll('.like-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+          this.classList.toggle('liked');
+          this.querySelector('i').className = this.classList.contains('liked') ? 'bi bi-heart-fill' : 'bi bi-heart';
+          if (this.classList.contains('liked')) showToast('Added to your likes', 'bi-heart-fill');
+        });
+      });
+
+      document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+          const text = this.closest('.shayari-card').querySelector('.shayari-text').innerText;
+          const fallbackCopy = () => {
+            const ta = document.createElement('textarea');
+            ta.value = text; document.body.appendChild(ta); ta.select();
+            try { document.execCommand('copy'); } catch (e) { }
+            ta.remove();
+          };
+          if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).catch(fallbackCopy);
+          } else {
+            fallbackCopy();
+          }
+          showToast('Sher copied to clipboard', 'bi-clipboard-check-fill');
+        });
+      });
+
+      document.querySelectorAll('.bookmark-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+          const card = this.closest('.shayari-card');
+          const id = card.dataset.id;
+          const isBookmarked = this.classList.toggle('bookmarked');
+          this.querySelector('i').className = isBookmarked ? 'bi bi-bookmark-fill' : 'bi bi-bookmark';
+          if (isBookmarked) {
+            if (!bookmarks.includes(id)) bookmarks.push(id);
+            showToast('Saved to your Diwan', 'bi-bookmark-fill');
+          } else {
+            bookmarks = bookmarks.filter(b => b !== id);
+            showToast('Removed from your Diwan', 'bi-bookmark');
+          }
+          try { localStorage.setItem('Kalam-bookmarks', JSON.stringify(bookmarks)); } catch (e) { }
+        });
+      });
+
+      document.querySelectorAll('.share-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+          const text = this.closest('.shayari-card').querySelector('.shayari-text').innerText;
+          if (navigator.share) {
+            navigator.share({ title: 'Kalam Ko Viram', text }).catch(() => { });
+          } else {
+            showToast('Share link copied — paste it anywhere', 'bi-share-fill');
+          }
+        });
+      });
+
+      document.getElementById('bookmarkNavBtn').addEventListener('click', function (e) {
+        e.preventDefault();
+        showToast(bookmarks.length ? `You have ${bookmarks.length} saved verse(s)` : 'Your Diwan is empty — bookmark a sher to begin', 'bi-bookmark-heart-fill');
+      });
+
+      // ---------- Counters ----------
+      const counters = document.querySelectorAll('.counter');
+      const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            counterObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      counters.forEach(c => counterObserver.observe(c));
+
+      function animateCounter(el) {
+        const target = parseInt(el.dataset.target, 10);
+        const duration = 1800;
+        const start = performance.now();
+        function tick(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const value = Math.floor(eased * target);
+          el.textContent = value >= 1000000 ? (value / 1000000).toFixed(1) + 'M+' : value >= 1000 ? (value / 1000).toFixed(value % 1000 === 0 ? 0 : 1) + 'K+' : value;
+          if (progress < 1) requestAnimationFrame(tick);
+          else el.textContent = target >= 1000000 ? (target / 1000000) + 'M+' : target >= 1000 ? (target / 1000) + 'K+' : target + '+';
+        }
+        requestAnimationFrame(tick);
+      }
+
+      // ---------- Swipers ----------
+      const poetsSwiper = new Swiper('.poetsSwiper', {
+        slidesPerView: 1.15,
+        spaceBetween: 24,
+        loop: true,
+        pagination: { el: '.poetsSwiper .swiper-pagination', clickable: true },
+        keyboard: { enabled: true },
+        breakpoints: {
+          576: { slidesPerView: 2 },
+          992: { slidesPerView: 3 },
+          1200: { slidesPerView: 4 }
+        }
+      });
+      document.querySelector('.poets-next').addEventListener('click', () => poetsSwiper.slideNext());
+      document.querySelector('.poets-prev').addEventListener('click', () => poetsSwiper.slidePrev());
+
+      new Swiper('.testimonialsSwiper', {
+        slidesPerView: 1,
+        spaceBetween: 24,
+        loop: true,
+        autoplay: { delay: 4500, disableOnInteraction: false },
+        pagination: { el: '.testimonialsSwiper .swiper-pagination', clickable: true },
+        breakpoints: { 768: { slidesPerView: 2 }, 1200: { slidesPerView: 3 } }
+      });
+
+      // ---------- Card tilt (desktop only, subtle) ----------
+      if (window.matchMedia('(pointer: fine)').matches) {
+        document.querySelectorAll('.shayari-card, .spotlight-verse-card').forEach(card => {
+          card.addEventListener('mousemove', function (e) {
+            const r = this.getBoundingClientRect();
+            const x = (e.clientX - r.left) / r.width - 0.5;
+            const y = (e.clientY - r.top) / r.height - 0.5;
+            this.style.transform = `perspective(700px) rotateX(${(-y * 4).toFixed(2)}deg) rotateY(${(x * 4).toFixed(2)}deg) translateY(-4px)`;
+          });
+          card.addEventListener('mouseleave', function () {
+            this.style.transform = 'perspective(700px) rotateX(0) rotateY(0) translateY(0)';
+          });
+        });
+
+        // ---------- Magnetic buttons ----------
+        document.querySelectorAll('.btn-ink, .btn-outline-ink').forEach(btn => {
+          btn.addEventListener('mousemove', function (e) {
+            const r = this.getBoundingClientRect();
+            const x = (e.clientX - r.left - r.width / 2) * 0.25;
+            const y = (e.clientY - r.top - r.height / 2) * 0.35;
+            this.style.transform = `translate(${x}px, ${y}px)`;
+          });
+          btn.addEventListener('mouseleave', function () {
+            this.style.transform = 'translate(0,0)';
+          });
+        });
+
+        // ---------- Hero floating shapes parallax ----------
+        const heroEl = document.querySelector('.hero');
+        if (heroEl) {
+          heroEl.addEventListener('mousemove', function (e) {
+            const r = this.getBoundingClientRect();
+            const x = (e.clientX - r.left) / r.width - 0.5;
+            const y = (e.clientY - r.top) / r.height - 0.5;
+            this.querySelectorAll('.floating-shape').forEach((shape, i) => {
+              const depth = (i + 1) * 6;
+              shape.style.transform = `translate(${x * depth}px, ${y * depth}px)`;
+            });
+          });
+        }
+      }
+
+      // ---------- GSAP hero + card entrances ----------
+      if (window.gsap) {
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.utils.toArray('.shayari-card, .poet-card, .feature-card, .cat-card').forEach((el) => {
+          gsap.from(el, {
+            y: 30, opacity: 0, duration: .8, ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 92%' }
+          });
+        });
+      }
+
+      // ---------- Forms (demo validation + toast, no backend) ----------
+      function bindDemoForm(formId, msg) {
+        const form = document.getElementById(formId);
+        if (!form) return;
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          if (!form.checkValidity()) { form.reportValidity(); return; }
+          showToast(msg, 'bi-check-circle-fill');
+          form.reset();
+        });
+      }
+      bindDemoForm('newsletterForm', 'Subscribed! Check your inbox tomorrow morning.');
+      bindDemoForm('footerNewsletterForm', 'Subscribed! Check your inbox tomorrow morning.');
+      bindDemoForm('contactForm', 'Message sent — we will reply within 48 hours.');
+
+    });
+  </script>
+</body>
+
+</html>

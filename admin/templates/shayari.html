@@ -1,0 +1,712 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    /* Page-specific overrides (keep local, because base.html already provides most styling) */
+    .hero-shayari {
+        position: relative;
+        min-height: 85vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 5rem;
+        overflow: hidden;
+        background: url('https://picsum.photos/seed/kalam-shayari-hero/1920/1080') center/cover no-repeat fixed;
+    }
+
+    .hero-shayari::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(5,5,5,0.7), #050505);
+        z-index: 1;
+    }
+
+    .hero-shayari #hero-canvas {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    .hero-shayari .hero-content {
+        position: relative;
+        z-index: 3;
+        text-align: center;
+        max-width: 800px;
+        padding: 0 1rem;
+    }
+
+    .hero-shayari .hero-title {
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        font-weight: 700;
+    }
+
+    .hero-shayari .hero-title span {
+        color: #C9A35C;
+        font-style: italic;
+    }
+
+    .search-box {
+        background: rgba(17, 17, 17, 0.85);
+        border: 1px solid rgba(201, 163, 92, 0.18);
+        border-radius: 50px;
+        padding: 0.5rem 0.5rem 0.5rem 2rem;
+        display: flex;
+        align-items: center;
+        margin: 3rem auto;
+        max-width: 600px;
+        box-shadow: 0 10px 30px rgba(201, 163, 92, 0.12);
+        transition: all 0.3s;
+    }
+
+    .search-box:focus-within {
+        border-color: #C9A35C;
+        transform: translateY(-2px);
+    }
+
+    .search-input {
+        background: transparent;
+        border: none;
+        color: #F5EEDC;
+        width: 100%;
+        font-size: 1.1rem;
+    }
+
+    .search-input:focus { outline: none; }
+
+    .search-btn {
+        background: #C9A35C;
+        color: #000;
+        border: none;
+        border-radius: 50px;
+        padding: 0.8rem 2rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: 0.3s;
+    }
+
+    .search-btn:hover { background: #E8C98A; }
+
+    .hero-stats {
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+    }
+
+    .stat-item { text-align: center; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; color: #C9A35C; font-weight: 700; }
+    .stat-label { font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: #B7AC9A; }
+
+    .cat-card {
+        background: rgba(17, 17, 17, 0.85);
+        border: 1px solid rgba(201, 163, 92, 0.18);
+        border-radius: 12px;
+        padding: 2rem 1rem;
+        text-align: center;
+        transition: all 0.4s ease;
+        cursor: pointer;
+        height: 100%;
+    }
+
+    .cat-card:hover {
+        border-color: #C9A35C;
+        transform: translateY(-10px);
+        background: #1a1a1a;
+        box-shadow: 0 10px 30px rgba(201, 163, 92, 0.12);
+    }
+
+    .cat-icon { font-size: 2.5rem; color: #C9A35C; margin-bottom: 1rem; }
+    .cat-title { font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .cat-count { font-size: 0.8rem; color: #B7AC9A; }
+
+    .featured-card {
+        background: rgba(17, 17, 17, 0.85);
+        border: 1px solid #C9A35C;
+        border-radius: 16px;
+        padding: 4rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .featured-card::before {
+        content: '\201C';
+        position: absolute;
+        top: -20px;
+        left: 20px;
+        font-family: 'Playfair Display', serif;
+        font-size: 12rem;
+        color: rgba(201, 163, 92, 0.1);
+        line-height: 1;
+    }
+
+    .featured-text { font-size: 2rem; line-height: 1.6; position: relative; z-index: 2; text-align: center; }
+    .featured-author { color: #C9A35C; font-size: 1.1rem; text-align: center; margin-top: 2rem; letter-spacing: 2px; text-transform: uppercase; }
+
+    .masonry-grid { column-count: 3; column-gap: 1.5rem; }
+    @media (max-width: 992px) { .masonry-grid { column-count: 2; } }
+    @media (max-width: 576px) { .masonry-grid { column-count: 1; } }
+
+    .shayari-card {
+        background: rgba(17, 17, 17, 0.85);
+        border: 1px solid rgba(201, 163, 92, 0.18);
+        border-radius: 12px;
+        padding: 2.5rem 2rem;
+        margin-bottom: 1.5rem;
+        break-inside: avoid;
+        transition: all 0.4s ease;
+        position: relative;
+    }
+
+    .shayari-card:hover { border-color: #C9A35C; transform: translateY(-5px); box-shadow: 0 10px 30px rgba(201, 163, 92, 0.12); }
+
+    .shayari-card-text { font-size: 1.4rem; line-height: 1.6; margin-bottom: 2rem; }
+
+    .shayari-card-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid rgba(201, 163, 92, 0.18);
+        padding-top: 1rem;
+    }
+
+    .shayari-card-tags span {
+        font-size: 0.75rem;
+        background: rgba(201,163,92,0.1);
+        color: #C9A35C;
+        padding: 4px 10px;
+        border-radius: 20px;
+        margin-right: 5px;
+    }
+
+    .shayari-actions button { background: none; border: none; color: #B7AC9A; font-size: 1.1rem; margin-left: 10px; transition: 0.3s; }
+    .shayari-actions button:hover { color: #C9A35C; }
+
+    .trending-slider { padding: 2rem 0; }
+
+    .trending-card {
+        background: linear-gradient(145deg, #1a1a1a, #050505);
+        border: 1px solid rgba(201, 163, 92, 0.18);
+        border-radius: 12px;
+        padding: 3rem 2rem;
+        text-align: center;
+        height: auto;
+    }
+
+    .swiper-pagination-bullet { background: #B7AC9A; }
+    .swiper-pagination-bullet-active { background: #C9A35C; }
+
+    .quote-banner {
+        background: url('https://picsum.photos/seed/quote-bg/1920/600') center/cover fixed;
+        padding: 8rem 0;
+        position: relative;
+        text-align: center;
+    }
+
+    .quote-banner::before { content: ''; position: absolute; inset: 0; background: rgba(5,5,5,0.85); }
+    .quote-banner-content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+
+    .collection-card {
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        aspect-ratio: 4/3;
+        cursor: pointer;
+    }
+
+    .collection-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+    .collection-card:hover img { transform: scale(1.1); }
+
+    .collection-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(5,5,5,0.9), transparent);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 2rem;
+    }
+
+    .newsletter-cta {
+        background: rgba(17, 17, 17, 0.85);
+        border: 1px solid #C9A35C;
+        border-radius: 16px;
+        padding: 4rem 2rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .newsletter-cta::before {
+        content: '';
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(201, 163, 92, 0.15) 0%, transparent 70%);
+        top: -100px;
+        right: -100px;
+    }
+
+    .pagination-Kalam { display: flex; justify-content: center; gap: 10px; margin-top: 4rem; }
+    .page-link-Kalam {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(201, 163, 92, 0.18);
+        border-radius: 50%;
+        color: #F5EEDC;
+        text-decoration: none;
+        transition: 0.3s;
+        font-family: 'Playfair Display', serif;
+    }
+
+    .page-link-Kalam:hover,
+    .page-link-Kalam.active {
+        background: #C9A35C;
+        color: #000;
+        border-color: #C9A35C;
+    }
+</style>
+
+<!-- HERO SECTION -->
+<section class="hero-shayari">
+    <canvas id="hero-canvas"></canvas>
+    <div class="container hero-content" data-aos="fade-up" data-aos-duration="1500">
+        <h1 class="hero-title mb-4">Discover the Magic of <br><span id="typed-text"></span></h1>
+        <p class="font-sub" style="font-size: 1.4rem; color: #B7AC9A;">Immerse yourself in words that speak what the heart feels.</p>
+
+        <form action="/search" method="GET" class="search-box">
+            <i class="bi bi-search text-muted-custom" style="font-size: 1.2rem;"></i>
+            <input type="text" name="q" class="search-input" placeholder="Search for emotions, poets, or words...">
+            <button type="submit" class="search-btn">Search</button>
+        </form>
+        <div class="hero-stats">
+            <div class="stat-item">
+                <div class="stat-num">50K+</div>
+                <div class="stat-label">Shayaris</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">2M+</div>
+                <div class="stat-label">Readers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">100+</div>
+                <div class="stat-label">Categories</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CATEGORY SECTION -->
+<section class="py-5 mt-5">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <h2 class="section-title">Explore Categories</h2>
+                <p class="section-lead font-sub">Find words for every emotion</p>
+                <div class="divider-motif"><span>❖</span></div>
+            </div>
+            <div class="row g-4">
+                <!-- Django Template Loop Example -->
+                <!-- {% for category in categories %} -->
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="cat-card">
+                        <i class="bi bi-heart cat-icon"></i>
+                        <h3 class="cat-title font-sub">Love Shayari</h3>
+                        <p class="cat-count">1,240 Posts</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="cat-card">
+                        <i class="bi bi-cloud-rain cat-icon"></i>
+                        <h3 class="cat-title font-sub">Sad Shayari</h3>
+                        <p class="cat-count">980 Posts</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="cat-card">
+                        <i class="bi bi-fire cat-icon"></i>
+                        <h3 class="cat-title font-sub">Attitude</h3>
+                        <p class="cat-count">560 Posts</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="400">
+                    <div class="cat-card">
+                        <i class="bi bi-people cat-icon"></i>
+                        <h3 class="cat-title font-sub">Friendship</h3>
+                        <p class="cat-count">720 Posts</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="cat-card">
+                        <i class="bi bi-stars cat-icon"></i>
+                        <h3 class="cat-title font-sub">Motivation</h3>
+                        <p class="cat-count">450 Posts</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="cat-card">
+                        <i class="bi bi-tree cat-icon"></i>
+                        <h3 class="cat-title font-sub">Nature</h3>
+                        <p class="cat-count">310 Posts</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="cat-card">
+                        <i class="bi bi-calendar-event cat-icon"></i>
+                        <h3 class="cat-title font-sub">Festivals</h3>
+                        <p class="cat-count">890 Posts</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="400">
+                    <div class="cat-card">
+                        <i class="bi bi-compass cat-icon"></i>
+                        <h3 class="cat-title font-sub">Life</h3>
+                        <p class="cat-count">1,050 Posts</p>
+                    </div>
+                </div>
+                <!-- {% endfor %} -->
+            </div>
+        </div>
+    </section>
+    <!-- FEATURED SHAYARI -->
+    <section class="py-5">
+        <div class="container" data-aos="zoom-in" data-aos-duration="1000">
+            <div class="featured-card">
+                <div class="row align-items-center">
+                    <div class="col-12 text-center">
+                        <h4 class="text-gold mb-4" style="letter-spacing: 2px;">POEM OF THE DAY</h4>
+                        <div class="featured-text font-sub font-urdu">
+                            "हज़ारों ख़्वाहिशें ऐसी कि हर ख़्वाहिश पे दम निकले,<br>
+                            बहुत निकले मेरे अरमान लेकिन फिर भी कम निकले।"
+                        </div>
+                        <div class="featured-author">— Mirza Ghalib</div>
+                        <button class="btn btn-outline-warning mt-4 rounded-pill px-4" style="border-color: var(--gold); color: var(--gold);">Read Full Ghazal</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- TRENDING TODAY (SWIPER) -->
+    <section class="py-5 bg-surface-light">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <h2 class="section-title">Trending Today</h2>
+                <div class="divider-motif" style="width: 200px;"><span>🔥</span></div>
+            </div>
+            <div class="swiper trending-slider" data-aos="fade-up" data-aos-delay="200">
+                <div class="swiper-wrapper">
+                    <!-- {% for trend in trending %} -->
+                    <div class="swiper-slide">
+                        <div class="trending-card">
+                            <p class="font-sub" style="font-size: 1.5rem; line-height: 1.6; color: var(--primary-text);">
+                                "वक़्त की धुप हो या तेज़ आंधियां,<br>कुछ रिश्ते कभी रंग नहीं बदलते।"
+                            </p>
+                            <div class="mt-4 pt-3 border-top" style="border-color: var(--border-color) !important;">
+                                <span class="text-gold font-sub fs-5">Author Unknown</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="trending-card">
+                            <p class="font-sub" style="font-size: 1.5rem; line-height: 1.6; color: var(--primary-text);">
+                                "मुस्कुराते चेहरों के पीछे भी एक दर्द होता है,<br>जिसे सिर्फ रात का अँधेरा समझता है।"
+                            </p>
+                            <div class="mt-4 pt-3 border-top" style="border-color: var(--border-color) !important;">
+                                <span class="text-gold font-sub fs-5">Night Muse</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="trending-card">
+                            <p class="font-sub" style="font-size: 1.5rem; line-height: 1.6; color: var(--primary-text);">
+                                "मंज़िल मिले न मिले ये तो मुकद्दर की बात है,<br>हम कोशिश भी न करें ये तो गलत बात है।"
+                            </p>
+                            <div class="mt-4 pt-3 border-top" style="border-color: var(--border-color) !important;">
+                                <span class="text-gold font-sub fs-5">Inspirational</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="trending-card">
+                            <p class="font-sub font-urdu" style="font-size: 1.5rem; line-height: 1.6; color: var(--primary-text);">
+                                "तुम नहीं तो ज़िन्दगी में क्या रह जायेगा,<br>बस एक खालीपन और ये तन्हा दिल।"
+                            </p>
+                            <div class="mt-4 pt-3 border-top" style="border-color: var(--border-color) !important;">
+                                <span class="text-gold font-sub fs-5">Sad Romance</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- {% endfor %} -->
+                </div>
+                <!-- Pagination -->
+                <div class="swiper-pagination mt-4 position-static"></div>
+            </div>
+        </div>
+    </section>
+    <!-- LATEST SHAYARI (MASONRY GRID) -->
+    <section class="py-5 mt-4">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-5" data-aos="fade-up">
+                <div>
+                    <h2 class="section-title">Latest Updates</h2>
+                    <p class="section-lead font-sub mb-0">Fresh ink from the writers' desk</p>
+                </div>
+                <div>
+                    <select class="form-select bg-transparent text-primary-text border-warning" style="border-color: var(--gold) !important;">
+                        <option value="newest" style="background: #111;">Newest First</option>
+                        <option value="popular" style="background: #111;">Most Liked</option>
+                    </select>
+                </div>
+            </div>
+            <div class="masonry-grid">
+                <!-- Django Template Backend Structure -->
+                <!-- {% for post in latest_posts %} -->
+                
+                <div class="shayari-card" data-aos="fade-up">
+                    <div class="shayari-card-text font-sub">
+                        "वो जो ख्वाब थे मेरे ज़ेहन में,<br>ना मैं कह सका ना मैं लिख सका,<br>ज़ुबान मिली तो कटी हुई,<br>कलम मिला तो बिका हुआ।"
+                    </div>
+                    <div class="shayari-card-meta">
+                        <div class="shayari-card-tags">
+                            <span>Deep</span>
+                            <span>Society</span>
+                        </div>
+                        <div class="shayari-actions">
+                            <button><i class="bi bi-heart"></i></button>
+                            <button><i class="bi bi-share"></i></button>
+                            <button><i class="bi bi-bookmark"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="shayari-card" data-aos="fade-up">
+                    <div class="shayari-card-text font-sub">
+                        "आवाज़ में ठहराव था, आँखों में नमी थी,<br>और कह रहे थे कि हम खुश बहुत हैं।"
+                    </div>
+                    <div class="shayari-card-meta">
+                        <div class="shayari-card-tags">
+                            <span>Sad</span>
+                        </div>
+                        <div class="shayari-actions">
+                            <button><i class="bi bi-heart"></i></button>
+                            <button><i class="bi bi-share"></i></button>
+                            <button><i class="bi bi-bookmark"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="shayari-card" data-aos="fade-up">
+                    <div class="shayari-card-text font-sub font-urdu">
+                        "अजीब दस्तूर है ज़माने का,<br>अच्छी यादें रुलाती हैं, और बुरी यादें हँसाती हैं।"
+                    </div>
+                    <div class="shayari-card-meta">
+                        <div class="shayari-card-tags">
+                            <span>Life</span>
+                        </div>
+                        <div class="shayari-actions">
+                            <button><i class="bi bi-heart"></i></button>
+                            <button><i class="bi bi-share"></i></button>
+                            <button><i class="bi bi-bookmark"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="shayari-card" data-aos="fade-up">
+                    <div class="shayari-card-text font-sub">
+                        "चाय सी उबल रही है ज़िंदगी,<br>और हम हैं कि चुस्कियां लेने के शौक़ीन हैं।"
+                    </div>
+                    <div class="shayari-card-meta">
+                        <div class="shayari-card-tags">
+                            <span>Morning</span>
+                            <span>Life</span>
+                        </div>
+                        <div class="shayari-actions">
+                            <button><i class="bi bi-heart"></i></button>
+                            <button><i class="bi bi-share"></i></button>
+                            <button><i class="bi bi-bookmark"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="shayari-card" data-aos="fade-up">
+                    <div class="shayari-card-text font-sub">
+                        "तुझे भूलने की ज़िद थी,<br>और मैं खुद को ही भुला बैठा।"
+                    </div>
+                    <div class="shayari-card-meta">
+                        <div class="shayari-card-tags">
+                            <span>Love</span>
+                            <span>Heartbreak</span>
+                        </div>
+                        <div class="shayari-actions">
+                            <button><i class="bi bi-heart"></i></button>
+                            <button><i class="bi bi-share"></i></button>
+                            <button><i class="bi bi-bookmark"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="shayari-card" data-aos="fade-up">
+                    <div class="shayari-card-text font-sub">
+                        "ख़ामोशी का भी अपना एक शोर होता है,<br>बस सुनने वाले के पास एहसास होना चाहिए।"
+                    </div>
+                    <div class="shayari-card-meta">
+                        <div class="shayari-card-tags">
+                            <span>Silence</span>
+                        </div>
+                        <div class="shayari-actions">
+                            <button><i class="bi bi-heart"></i></button>
+                            <button><i class="bi bi-share"></i></button>
+                            <button><i class="bi bi-bookmark"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- {% endfor %} -->
+            </div>
+            <!-- Pagination -->
+            <div class="pagination-Kalam" data-aos="fade-up">
+                <a href="#" class="page-link-Kalam"><i class="bi bi-chevron-left"></i></a>
+                <a href="#" class="page-link-Kalam active">1</a>
+                <a href="#" class="page-link-Kalam">2</a>
+                <a href="#" class="page-link-Kalam">3</a>
+                <span class="text-muted-custom mt-2">...</span>
+                <a href="#" class="page-link-Kalam">12</a>
+                <a href="#" class="page-link-Kalam"><i class="bi bi-chevron-right"></i></a>
+            </div>
+        </div>
+    </section>
+    <!-- QUOTE BANNER PARALLAX -->
+    <section class="quote-banner my-5">
+        <div class="quote-banner-content" data-aos="zoom-in">
+            <i class="bi bi-quote text-gold mb-3 d-block" style="font-size: 3rem;"></i>
+            <h2 class="font-sub" style="font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.4;">"Poetry is when an emotion has found its thought and the thought has found words."</h2>
+            <p class="text-gold mt-4" style="letter-spacing: 2px;">— ROBERT FROST</p>
+        </div>
+    </section>
+    <!-- POPULAR COLLECTIONS -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">Popular Collections</h2>
+                <div class="divider-motif"><span>❖</span></div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="collection-card">
+                        <img src="https://picsum.photos/seed/col1/800/600" alt="Collection">
+                        <div class="collection-overlay">
+                            <h3 class="font-sub text-white" style="font-size: 2rem;">Midnight Musings</h3>
+                            <p class="text-gold mb-0">120 Poems</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="collection-card">
+                        <img src="https://picsum.photos/seed/col2/800/600" alt="Collection">
+                        <div class="collection-overlay">
+                            <h3 class="font-sub text-white" style="font-size: 2rem;">Sufi Expressions</h3>
+                            <p class="text-gold mb-0">85 Poems</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- NEWSLETTER CTA -->
+    <section class="py-5 mb-5">
+        <div class="container" data-aos="fade-up">
+            <div class="newsletter-cta">
+                <h2 class="section-title mb-3">Never Miss a Word</h2>
+                <p class="font-sub" style="font-size: 1.4rem; color: var(--secondary-text); margin-bottom: 2rem;">Get the most beautiful verses delivered directly to your inbox every weekend.</p>
+                
+                <form action="/subscribe" method="POST" class="d-flex justify-content-center gap-2 flex-wrap">
+                    <!-- {% csrf_token %} -->
+                    <input type="email" class="form-control bg-transparent text-white" placeholder="Enter your email address" style="max-width: 350px; border-color: var(--border-color); border-radius: 50px; padding-left: 20px;">
+                    <button type="submit" class="btn text-dark fw-bold rounded-pill px-4" style="background: var(--gold);">SUBSCRIBE NOW</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script>
+        // 1. Initialize AOS
+        AOS.init({ once: true, offset: 50 });
+        // 2. Typed.js for Hero Section
+        new Typed('#typed-text', {
+            strings: ['Love Shayari', 'Sad Verses', 'Sufi Poetry', 'Life Quotes'],
+            typeSpeed: 60,
+            backSpeed: 40,
+            backDelay: 2000,
+            loop: true
+        });
+        // 3. Swiper for Trending
+        new Swiper('.trending-slider', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            loop: true,
+            autoplay: { delay: 4000, disableOnInteraction: false },
+            pagination: { el: '.swiper-pagination', clickable: true },
+            breakpoints: {
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 }
+            }
+        });
+        // 4. GSAP Floating Particles on Hero Canvas
+        const canvas = document.getElementById('hero-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function resizeCanvas() {
+            const hero = document.querySelector('.hero');
+            canvas.width = hero.clientWidth;
+            canvas.height = hero.clientHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedY = Math.random() * -1 - 0.5; 
+                this.speedX = (Math.random() - 0.5) * 1;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                if (this.y < 0) {
+                    this.y = canvas.height;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(201, 163, 92, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+        for (let i = 0; i < 100; i++) particles.push(new Particle());
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+        // 5. Navbar blur effect on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.navbar-Kalam');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(17, 17, 17, 0.9)';
+            } else {
+                nav.style.background = 'rgba(17, 17, 17, 0.65)';
+            }
+        });
+    </script>
+{% endblock %}
+

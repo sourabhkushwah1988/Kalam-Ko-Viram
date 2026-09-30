@@ -1,0 +1,697 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kalam Ko Viram | Contact</title>
+    <meta name="description" content="Get in touch for business inquiries, collaborations, and general messages." />
+
+    <!-- Favicon -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖋️</text></svg>" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Poppins:wght@300;400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap"
+        rel="stylesheet" />
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #050505;
+            --bg-soft: #0b0a09;
+            --surface: #0f0e0d;
+            --surface-2: #161412;
+            --ink-gold: #c9a35c;
+            --ink-gold-bright: #e8c98a;
+            --sindoor: #7a2e2e;
+            --sindoor-bright: #a83f3f;
+            --parchment: #ede7dc;
+            --muted: #9a9186;
+            --muted-dim: #6b655d;
+            --border: rgba(201, 163, 92, 0.16);
+            --glass: rgba(20, 18, 16, 0.55);
+            --shadow-gold: 0 0 40px rgba(201, 163, 92, 0.12);
+            --radius: 2px;
+            --radius-lg: 6px;
+            --ease: cubic-bezier(.16, 1, .3, 1);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--parchment);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(circle at 1px 1px, rgba(201, 163, 92, 0.06) 1px, transparent 0);
+            background-size: 26px 26px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+        }
+
+        .font-sub {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .text-gold {
+            color: var(--ink-gold) !important;
+        }
+
+        .text-sindoor {
+            color: var(--sindoor-bright) !important;
+        }
+
+        .bg-surface {
+            background: var(--surface);
+        }
+
+        .bg-surface-2 {
+            background: var(--surface-2);
+        }
+
+        .divider-motif {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--ink-gold) 50%, transparent);
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .divider-motif span {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--bg);
+            padding: 0 14px;
+            color: var(--ink-gold);
+            font-size: 1.1rem;
+        }
+
+        /* Buttons */
+        .btn-ink {
+            background: var(--ink-gold);
+            color: #1a1305;
+            border: none;
+            padding: .85rem 2.2rem;
+            font-size: .72rem;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            font-weight: 600;
+            border-radius: var(--radius);
+            position: relative;
+            overflow: hidden;
+            transition: all .4s var(--ease);
+        }
+
+        .btn-ink:hover {
+            background: var(--ink-gold-bright);
+            box-shadow: var(--shadow-gold);
+            transform: translateY(-2px);
+        }
+
+        /* Navbar */
+        .navbar-Kalam {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.1rem 0;
+            transition: all .5s var(--ease);
+            background: var(--glass);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand-mark {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: var(--parchment);
+            text-decoration: none;
+        }
+
+        .brand-mark span {
+            color: var(--ink-gold);
+        }
+
+        .nav-link-Kalam {
+            font-size: .72rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: var(--muted);
+            margin: 0 .95rem;
+            position: relative;
+            padding-bottom: 4px;
+            transition: color .3s ease;
+            text-decoration: none;
+        }
+
+        .nav-link-Kalam:hover,
+        .nav-link-Kalam.active {
+            color: var(--ink-gold);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 50vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            padding-top: 8rem;
+            padding-bottom: 4rem;
+        }
+
+        .hero-title {
+            font-size: clamp(2.6rem, 6vw, 4.5rem);
+            font-weight: 700;
+            color: var(--parchment);
+        }
+
+        .hero-title em {
+            color: var(--ink-gold);
+            font-style: italic;
+        }
+
+        .hero-sub {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.35rem;
+            color: var(--muted);
+            margin-top: 1.4rem;
+            font-style: italic;
+        }
+
+        .section-pad {
+            padding: 5rem 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            font-size: clamp(1.9rem, 3.4vw, 2.8rem);
+            color: var(--parchment);
+            font-weight: 600;
+        }
+
+        .section-lead {
+            color: var(--muted);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        /* Forms */
+        .form-control-Kalam,
+        .form-select-Kalam {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--parchment);
+            border-radius: var(--radius);
+            padding: 1rem 1.25rem;
+            transition: all .3s ease;
+        }
+
+        .form-control-Kalam:focus,
+        .form-select-Kalam:focus {
+            background: var(--surface);
+            border-color: var(--ink-gold);
+            box-shadow: none;
+            color: var(--parchment);
+        }
+
+        .form-control-Kalam::placeholder {
+            color: var(--muted-dim);
+        }
+
+        .form-label-Kalam {
+            color: var(--ink-gold);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-select-Kalam {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23c9a35c' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 16px 12px;
+        }
+
+        /* Nav Tabs for Form */
+        .nav-tabs-Kalam {
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-tabs-Kalam .nav-link {
+            background: transparent;
+            border: none;
+            color: var(--muted);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-style: italic;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid transparent;
+            border-radius: 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tabs-Kalam .nav-link:hover {
+            color: var(--parchment);
+        }
+
+        .nav-tabs-Kalam .nav-link.active {
+            color: var(--ink-gold);
+            border-bottom-color: var(--ink-gold);
+        }
+
+        /* Social & Location */
+        .contact-info-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            height: 100%;
+        }
+
+        .info-icon {
+            font-size: 1.5rem;
+            color: var(--ink-gold);
+            margin-bottom: 1rem;
+        }
+
+        .social-circle {
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            margin-right: 0.8rem;
+            margin-bottom: 0.8rem;
+            transition: all .3s ease;
+            font-size: 1.1rem;
+            text-decoration: none;
+        }
+
+        .social-circle:hover {
+            border-color: var(--ink-gold);
+            color: var(--ink-gold);
+            transform: translateY(-3px);
+        }
+
+        /* Map */
+        .map-container {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Newsletter */
+        .newsletter-box {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter-box::before {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(201, 163, 92, .08), transparent 70%);
+            top: -100px;
+            right: -100px;
+            pointer-events: none;
+        }
+
+        /* FAQ Accordion */
+        .accordion-Kalam .accordion-item {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .accordion-Kalam .accordion-button {
+            background: transparent;
+            color: var(--parchment);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            padding: 1.6rem 0;
+            box-shadow: none;
+        }
+
+        .accordion-Kalam .accordion-button:not(.collapsed) {
+            color: var(--ink-gold);
+            background: transparent;
+        }
+
+        .accordion-Kalam .accordion-button::after {
+            filter: invert(70%) sepia(40%) saturate(400%) hue-rotate(0deg);
+        }
+
+        .accordion-Kalam .accordion-body {
+            color: var(--muted);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.05rem;
+            padding: 0 0 1.8rem;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title">Let's <em>Connect</em></h1>
+            <p class="hero-sub">Whether for words, business, or collaborations, we are just a message away.</p>
+        </div>
+    </section>
+    <!-- CONTACT, BUSINESS & COLLABORATION FORMS -->
+    <section id="forms" class="section-pad bg-surface-2" style="padding-top: 2rem;">
+        <div class="container">
+            <div class="row">
+                <!-- Left Info Col -->
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <div class="contact-info-card">
+                        <h3 class="font-sub text-gold mb-4" style="font-size: 1.8rem;">Direct Contacts</h3>
+
+                        <div class="mb-4">
+                            <i class="bi bi-envelope info-icon"></i>
+                            <h5 style="font-size: 0.85rem; letter-spacing: 0.1em; color: var(--muted);">EMAIL</h5>
+                            <p style="color: var(--parchment);">inquiries@kalamkoviram.com</p>
+                        </div>
+
+                        <div class="mb-4">
+                            <i class="bi bi-telephone info-icon"></i>
+                            <h5 style="font-size: 0.85rem; letter-spacing: 0.1em; color: var(--muted);">PHONE</h5>
+                            <p style="color: var(--parchment);">+91 98765 43210</p>
+                        </div>
+                        <div class="mt-5">
+                            <h5
+                                style="font-size: 0.85rem; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 1rem;">
+                                SOCIAL LINKS</h5>
+                            <div class="d-flex flex-wrap">
+                                <a href="#" class="social-circle"><i class="bi bi-instagram"></i></a>
+                                <a href="#" class="social-circle"><i class="bi bi-twitter-x"></i></a>
+                                <a href="#" class="social-circle"><i class="bi bi-facebook"></i></a>
+                                <a href="#" class="social-circle"><i class="bi bi-youtube"></i></a>
+                                <a href="#" class="social-circle"><i class="bi bi-spotify"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Forms Col -->
+                <div class="col-lg-8">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs-Kalam" id="contactTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="general-tab" data-bs-toggle="tab"
+                                data-bs-target="#general" type="button" role="tab" aria-selected="true">General
+                                Contact</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="business-tab" data-bs-toggle="tab" data-bs-target="#business"
+                                type="button" role="tab" aria-selected="false">Business Inquiry</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="collab-tab" data-bs-toggle="tab" data-bs-target="#collab"
+                                type="button" role="tab" aria-selected="false">Collaboration</button>
+                        </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content" id="contactTabsContent">
+
+                        <!-- General Contact Form -->
+                        <div class="tab-pane fade show active" id="general" role="tabpanel">
+                            <form>
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <label class="form-label-Kalam">Your Name</label>
+                                        <input type="text" class="form-control-Kalam w-100" placeholder="John Doe">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label-Kalam">Email Address</label>
+                                        <input type="email" class="form-control-Kalam w-100"
+                                            placeholder="john@example.com">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label-Kalam">Subject</label>
+                                        <input type="text" class="form-control-Kalam w-100"
+                                            placeholder="How can we help?">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label-Kalam">Message</label>
+                                        <textarea class="form-control-Kalam w-100" rows="5"
+                                            placeholder="Write your message here..."></textarea>
+                                    </div>
+                                    <div class="col-12 mt-4 text-end">
+                                        <button type="button" class="btn-ink">Send Message</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Business Inquiry Form -->
+                        <div class="tab-pane fade" id="business" role="tabpanel">
+                            <form>
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <label class="form-label-Kalam">Company / Organization</label>
+                                        <input type="text" class="form-control-Kalam w-100"
+                                            placeholder="Your Company Name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label-Kalam">Contact Person</label>
+                                        <input type="text" class="form-control-Kalam w-100" placeholder="Full Name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label-Kalam">Email Address</label>
+                                        <input type="email" class="form-control-Kalam w-100"
+                                            placeholder="official@company.com">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label-Kalam">Inquiry Type</label>
+                                        <select class="form-select-Kalam w-100">
+                                            <option value="">Select Category</option>
+                                            <option value="event">Event Booking</option>
+                                            <option value="publishing">Publishing Rights</option>
+                                            <option value="media">Media & Press</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label-Kalam">Inquiry Details</label>
+                                        <textarea class="form-control-Kalam w-100" rows="5"
+                                            placeholder="Provide details of your business proposal..."></textarea>
+                                    </div>
+                                    <div class="col-12 mt-4 text-end">
+                                        <button type="button" class="btn-ink">Submit Inquiry</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Collaboration Form -->
+                        <div class="tab-pane fade" id="collab" role="tabpanel">
+                            <form>
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <label class="form-label-Kalam">Artist / Creator Name</label>
+                                        <input type="text" class="form-control-Kalam w-100"
+                                            placeholder="Your Name or Alias">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label-Kalam">Primary Platform URL</label>
+                                        <input type="url" class="form-control-Kalam w-100"
+                                            placeholder="Instagram/YouTube link">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label-Kalam">Collaboration Concept</label>
+                                        <textarea class="form-control-Kalam w-100" rows="5"
+                                            placeholder="Tell us about your idea for collaboration..."></textarea>
+                                    </div>
+                                    <div class="col-12 mt-4 text-end">
+                                        <button type="button" class="btn-ink">Propose Collaboration</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- LOCATION & GOOGLE MAP -->
+    <section id="location" class="section-pad">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Location</h2>
+                <div class="divider-motif"><span>📍</span></div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-lg-5 mb-4 mb-lg-0">
+                    <h3 class="font-sub text-gold mb-3" style="font-size: 2rem;">Headquarters</h3>
+                    <p style="color: var(--muted); font-size: 1.1rem; line-height: 1.6;">
+                        123, Mirza Ghalib Marg,<br>
+                        Near Red Fort, Old Delhi,<br>
+                        New Delhi, 110006<br>
+                        India
+                    </p>
+                    <div class="mt-4">
+                        <h5 style="font-size: 0.8rem; letter-spacing: 0.1em; color: var(--parchment);">VISITING HOURS
+                        </h5>
+                        <p style="color: var(--muted); font-size: 0.95rem;">Monday - Friday: 10:00 AM - 6:00
+                            PM<br>Weekends by appointment only.</p>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="map-container">
+                        <!-- Embed Google Map -->
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3679.320217449901!2d75.89447917508336!3d22.753494679363172!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396303007ecc0873%3A0xb1d93ad32c3a1299!2sBeta24!5e0!3m2!1sen!2sin!4v1783057727781!5m2!1sen!2sin"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- NEWSLETTER -->
+    <section class="section-pad bg-surface-2">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="newsletter-box">
+                        <h2 class="section-title mb-3">Join the Newsletter</h2>
+                        <p
+                            style="color: var(--muted); font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-style: italic; margin-bottom: 2rem;">
+                            Subscribe to receive the latest verses, event updates, and exclusive stories directly in
+                            your inbox.</p>
+
+                        <form class="d-flex flex-column flex-sm-row gap-3 justify-content-center align-items-center">
+                            <input type="email" class="form-control-Kalam"
+                                style="max-width: 350px; width: 100%; border-radius: 30px; padding: 0.8rem 1.5rem;"
+                                placeholder="Your email address">
+                            <button type="button" class="btn-ink"
+                                style="border-radius: 30px; padding: 0.8rem 2rem;">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- FAQ -->
+    <section id="faq" class="section-pad">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Support FAQ</h2>
+                <div class="divider-motif"><span>❓</span></div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="accordion accordion-Kalam" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq1">
+                                    How long does it take to get a response?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    For general inquiries, we usually respond within 24-48 business hours. For business
+                                    or collaboration requests, please allow up to 3-5 business days for our team to
+                                    review your proposal.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq2">
+                                    Can I use your poetry for my project?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    You may share the verses on social media with proper credit. For commercial use,
+                                    music, or publishing, you must submit a Business Inquiry to obtain the necessary
+                                    licensing rights.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq3">
+                                    Are you open to event bookings?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Yes! Please use the Business Inquiry form and select "Event Booking" to provide
+                                    details about the date, venue, and audience for your event.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Navbar blur on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.navbar-Kalam');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(20, 18, 16, 0.85)';
+            } else {
+                nav.style.background = 'rgba(20, 18, 16, 0.55)';
+            }
+        });
+    </script>
+{% endblock %}
+

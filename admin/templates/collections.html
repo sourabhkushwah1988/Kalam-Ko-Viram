@@ -1,0 +1,1094 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+        /* =========================================================
+   Kalam Ko Viram — WRITINGS PAGE
+   Shares the same design tokens as the homepage.
+========================================================= */
+        :root {
+            --bg: #050505;
+            --bg-soft: #0b0a09;
+            --surface: #0f0e0d;
+            --surface-2: #161412;
+            --ink-gold: #c9a35c;
+            --ink-gold-bright: #e8c98a;
+            --sindoor: #7a2e2e;
+            --sindoor-bright: #a83f3f;
+            --parchment: #ede7dc;
+            --muted: #9a9186;
+            --muted-dim: #6b655d;
+            --border: rgba(201, 163, 92, 0.16);
+            --glass: rgba(20, 18, 16, 0.55);
+            --shadow-gold: 0 0 40px rgba(201, 163, 92, 0.12);
+            --radius: 2px;
+            --radius-lg: 6px;
+            --ease: cubic-bezier(.16, 1, .3, 1);
+        }
+
+        [data-theme="light"] {
+            --bg: #f6f2e9;
+            --bg-soft: #f0ead9;
+            --surface: #fffdf8;
+            --surface-2: #f2ead9;
+            --parchment: #211d17;
+            --muted: #5c5548;
+            --muted-dim: #8a8271;
+            --border: rgba(122, 46, 46, 0.15);
+            --glass: rgba(255, 253, 248, 0.7);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--parchment);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            overflow-x: hidden;
+            transition: background .5s var(--ease), color .5s var(--ease);
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(circle at 1px 1px, rgba(201, 163, 92, 0.06) 1px, transparent 0);
+            background-size: 26px 26px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        ::selection {
+            background: var(--ink-gold);
+            color: #050505;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+        }
+
+        .font-sub {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .text-gold {
+            color: var(--ink-gold) !important;
+        }
+
+        .text-muted-custom {
+            color: var(--muted) !important;
+        }
+
+        .bg-surface {
+            background: var(--surface);
+        }
+
+        .eyebrow {
+            letter-spacing: .32em;
+            font-size: .68rem;
+            text-transform: uppercase;
+            color: var(--ink-gold);
+            font-weight: 600;
+        }
+
+        .btn-ink {
+            background: var(--ink-gold);
+            color: #1a1305;
+            border: none;
+            padding: .75rem 1.8rem;
+            font-size: .72rem;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            font-weight: 600;
+            border-radius: var(--radius);
+            transition: all .4s var(--ease);
+        }
+
+        .btn-ink:hover {
+            background: var(--ink-gold-bright);
+            box-shadow: var(--shadow-gold);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-ink {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--parchment);
+            padding: .75rem 1.8rem;
+            font-size: .72rem;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            font-weight: 600;
+            border-radius: var(--radius);
+            transition: all .4s var(--ease);
+        }
+
+        .btn-outline-ink:hover {
+            border-color: var(--ink-gold);
+            color: var(--ink-gold);
+            background: rgba(201, 163, 92, .06);
+        }
+
+        .icon-btn {
+            width: 38px;
+            height: 38px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            color: var(--muted);
+            background: transparent;
+            transition: all .3s ease;
+            cursor: pointer;
+        }
+
+        .icon-btn:hover {
+            color: var(--ink-gold);
+            border-color: var(--ink-gold);
+            background: rgba(201, 163, 92, .08);
+        }
+
+        .brand-mark {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: var(--parchment);
+        }
+
+        .brand-mark span {
+            color: var(--ink-gold);
+        }
+
+        .nav-link-Kalam {
+            font-size: .72rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: var(--muted);
+            margin: 0 .95rem;
+            position: relative;
+            padding-bottom: 4px;
+            transition: color .3s ease;
+        }
+
+        .nav-link-Kalam::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 1px;
+            background: var(--ink-gold);
+            transition: width .35s var(--ease);
+        }
+
+        .nav-link-Kalam:hover,
+        .nav-link-Kalam.active {
+            color: var(--ink-gold);
+        }
+
+        .nav-link-Kalam:hover::after,
+        .nav-link-Kalam.active::after {
+            width: 100%;
+        }
+
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .nav-dropdown-caret {
+            font-size: .58rem;
+            transition: transform .35s var(--ease), color .3s ease;
+        }
+
+        .nav-dropdown:hover .nav-dropdown-caret {
+            transform: rotate(180deg);
+            color: var(--ink-gold);
+        }
+
+        .nav-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 18px);
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            min-width: 210px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: .55rem;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity .35s var(--ease), transform .35s var(--ease), visibility .35s;
+            box-shadow: 0 24px 48px -12px rgba(0, 0, 0, .6);
+            z-index: 1100;
+        }
+
+        .nav-dropdown-menu::before {
+            content: "";
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 11px;
+            height: 11px;
+            background: var(--surface);
+            border-left: 1px solid var(--border);
+            border-top: 1px solid var(--border);
+        }
+
+        .nav-dropdown:hover .nav-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .nav-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: .65rem;
+            padding: .6rem .75rem;
+            border-radius: 4px;
+            border-left: 2px solid transparent;
+            color: var(--muted);
+            font-size: .78rem;
+            transition: all .25s ease;
+        }
+
+        .nav-dropdown-item i {
+            color: var(--ink-gold);
+            font-size: .95rem;
+            width: 16px;
+            text-align: center;
+            opacity: .85;
+        }
+
+        .nav-dropdown-item:hover {
+            background: rgba(201, 163, 92, .08);
+            color: var(--ink-gold);
+            border-left-color: var(--ink-gold);
+            padding-left: 1rem;
+        }
+
+        .offcanvas-Kalam {
+            background: var(--bg-soft);
+            color: var(--parchment);
+            border-left: 1px solid var(--border);
+        }
+
+        .mobile-submenu-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .mobile-submenu-toggle .bi-chevron-down {
+            font-size: .8rem;
+            color: var(--ink-gold);
+            transition: transform .35s var(--ease);
+        }
+
+        .mobile-submenu-toggle[aria-expanded="true"] .bi-chevron-down {
+            transform: rotate(180deg);
+        }
+
+        .mobile-submenu {
+            border-left: 1px solid var(--border);
+            margin-top: 1rem;
+            margin-left: .3rem;
+            padding-left: 1.1rem;
+            display: flex;
+            flex-direction: column;
+            gap: .9rem;
+        }
+
+        .mobile-submenu a {
+            font-size: .95rem;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+        }
+
+        .mobile-submenu a i {
+            color: var(--ink-gold);
+            font-size: .85rem;
+        }
+
+        .mobile-submenu a:hover {
+            color: var(--ink-gold);
+        }
+
+        /* ===== Page header ===== */
+        .page-header {
+            padding: 9rem 0 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(122, 46, 46, .16), transparent 65%);
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            filter: blur(40px);
+            z-index: 0;
+        }
+
+        .page-title {
+            font-size: clamp(2.2rem, 4.4vw, 3.4rem);
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-lead {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--muted);
+            position: relative;
+            z-index: 1;
+            margin-top: .6rem;
+        }
+
+        /* ===== Tabs ===== */
+        .writings-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .6rem;
+            justify-content: center;
+            margin: 2rem 0 2.4rem;
+        }
+
+        .writings-tab {
+            border: 1px solid var(--border);
+            color: var(--muted);
+            background: transparent;
+            padding: .6rem 1.5rem;
+            border-radius: 30px;
+            font-size: .8rem;
+            letter-spacing: .08em;
+            cursor: pointer;
+            transition: all .3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+        }
+
+        .writings-tab i {
+            font-size: .9rem;
+            color: var(--ink-gold);
+            opacity: .8;
+        }
+
+        .writings-tab:hover {
+            border-color: var(--ink-gold);
+            color: var(--ink-gold);
+        }
+
+        .writings-tab.active {
+            background: var(--ink-gold);
+            border-color: var(--ink-gold);
+            color: #1a1305;
+        }
+
+        .writings-tab.active i {
+            color: #1a1305;
+            opacity: 1;
+        }
+
+        /* ===== Toolbar ===== */
+        .toolbar-Kalam {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.4rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2.6rem;
+        }
+
+        .toolbar-search {
+            position: relative;
+            flex: 1 1 260px;
+            min-width: 220px;
+        }
+
+        .toolbar-search input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            color: var(--parchment);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            padding: .5rem 2.2rem .5rem .1rem;
+        }
+
+        .toolbar-search input:focus {
+            outline: none;
+            border-color: var(--ink-gold);
+        }
+
+        .toolbar-search input::placeholder {
+            color: var(--muted-dim);
+        }
+
+        .toolbar-search i {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--ink-gold);
+        }
+
+        .toolbar-select {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--parchment);
+            font-size: .78rem;
+            letter-spacing: .04em;
+            padding: .55rem 2rem .55rem .9rem;
+            border-radius: var(--radius);
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23c9a35c'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right .9rem center;
+            cursor: pointer;
+        }
+
+        .toolbar-select:focus {
+            outline: none;
+            border-color: var(--ink-gold);
+        }
+
+        .results-count {
+            font-size: .78rem;
+            letter-spacing: .06em;
+            color: var(--muted);
+            white-space: nowrap;
+        }
+
+        /* ===== Content cards ===== */
+        .write-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            height: 100%;
+            position: relative;
+            transition: all .4s var(--ease);
+        }
+
+        .write-card:hover {
+            border-color: var(--ink-gold);
+            transform: translateY(-6px);
+            box-shadow: 0 24px 50px -28px rgba(0, 0, 0, .7);
+        }
+
+        .write-type-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            font-size: .64rem;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--ink-gold);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: .25rem .8rem;
+            margin-bottom: 1.1rem;
+        }
+
+        .write-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.35rem;
+            line-height: 1.55;
+            font-style: italic;
+            color: var(--parchment);
+            min-height: 110px;
+        }
+
+        .write-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 1.4rem;
+            padding-top: 1.1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .write-cat {
+            font-size: .74rem;
+            letter-spacing: .06em;
+            color: var(--muted);
+            text-transform: uppercase;
+        }
+
+        .write-actions button {
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: .95rem;
+            margin-left: .8rem;
+            cursor: pointer;
+            transition: all .3s ease;
+        }
+
+        .write-actions button:hover {
+            color: var(--ink-gold);
+            transform: scale(1.15);
+        }
+
+        .write-actions button.liked {
+            color: var(--sindoor-bright);
+        }
+
+        .write-actions button.bookmarked {
+            color: var(--ink-gold);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 1rem;
+            color: var(--muted);
+        }
+
+        .empty-state i {
+            font-size: 2.4rem;
+            color: var(--ink-gold);
+            opacity: .5;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* ===== Pagination ===== */
+        .pagination-Kalam {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: .5rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .page-btn {
+            min-width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--muted);
+            font-size: .82rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all .3s ease;
+        }
+
+        .page-btn:hover:not(:disabled) {
+            border-color: var(--ink-gold);
+            color: var(--ink-gold);
+        }
+
+        .page-btn.active {
+            background: var(--ink-gold);
+            border-color: var(--ink-gold);
+            color: #1a1305;
+        }
+
+        .page-btn:disabled {
+            opacity: .35;
+            cursor: not-allowed;
+        }
+
+        .footer-heading {
+            font-size: .72rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--ink-gold);
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-link {
+            color: var(--muted);
+            font-size: .92rem;
+            display: block;
+            margin-bottom: .7rem;
+            transition: color .3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--ink-gold);
+            padding-left: 4px;
+        }
+
+        .social-circle {
+            width: 38px;
+            height: 38px;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            margin-right: .6rem;
+            transition: all .3s ease;
+        }
+
+        .social-circle:hover {
+            border-color: var(--ink-gold);
+            color: var(--ink-gold);
+            transform: translateY(-3px);
+        }
+
+        #backToTop {
+            position: fixed;
+            bottom: 1.8rem;
+            right: 1.8rem;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            z-index: 999;
+            background: var(--ink-gold);
+            color: #1a1305;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all .4s ease;
+            border: none;
+            font-size: 1rem;
+        }
+
+        #backToTop.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .toast-Kalam {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            z-index: 3000;
+            background: var(--surface);
+            border: 1px solid var(--ink-gold);
+            color: var(--parchment);
+            padding: .85rem 1.6rem;
+            border-radius: var(--radius);
+            font-size: .85rem;
+            opacity: 0;
+            transition: all .4s var(--ease);
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+        }
+
+        .toast-Kalam.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--muted-dim);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--ink-gold);
+        }
+    </style>
+    <main>
+
+        <!-- ============ PAGE HEADER ============ -->
+        <section class="page-header">
+            <div class="page-header-glow"></div>
+            <div class="container">
+                <p class="eyebrow mb-2" data-aos="fade-down">The Full Diwan</p>
+                <h1 class="page-title" data-aos="fade-up">Writings</h1>
+                <p class="page-lead" data-aos="fade-up" data-aos-delay="100">Every Shayari, Kavita, Ghazal and Nazm —
+                    searchable, filterable, yours to explore.</p>
+            </div>
+        </section>
+
+        <div class="container pb-5">
+
+            <!-- ============ TABS ============ -->
+            <div class="writings-tabs" data-aos="fade-up" id="writingsTabs">
+                <button class="writings-tab active" data-type="all"><i class="bi bi-collection"></i> All</button>
+                <button class="writings-tab" data-type="shayari"><i class="bi bi-feather"></i> Shayari</button>
+                <button class="writings-tab" data-type="kavita"><i class="bi bi-journal-text"></i> Kavita</button>
+                <button class="writings-tab" data-type="ghazal"><i class="bi bi-vinyl"></i> Ghazal</button>
+                <button class="writings-tab" data-type="nazm"><i class="bi bi-book"></i> Nazm</button>
+            </div>
+
+            <!-- ============ TOOLBAR: Search / Filter / Sort ============ -->
+            <div class="toolbar-Kalam" data-aos="fade-up">
+                <div class="toolbar-search">
+                    <input type="text" id="writeSearch" placeholder="Search by words, mood, or feeling…"
+                        autocomplete="off" />
+                    <i class="bi bi-search"></i>
+                </div>
+
+                <select class="toolbar-select" id="categoryFilter" title="Filter by category">
+                    <option value="all">All Categories</option>
+                    <option value="Love">Love</option>
+                    <option value="Sad">Sad</option>
+                    <option value="Motivation">Motivation</option>
+                    <option value="Friendship">Friendship</option>
+                    <option value="Nature">Nature</option>
+                    <option value="Life">Life</option>
+                    <option value="Maa">Maa</option>
+                    <option value="Pita">Pita</option>
+                    <option value="Festival">Festival</option>
+                    <option value="Attitude">Attitude</option>
+                    <option value="Broken Heart">Broken Heart</option>
+                    <option value="Good Morning">Good Morning</option>
+                    <option value="Good Night">Good Night</option>
+                    <option value="Success">Success</option>
+                    <option value="Pain">Pain</option>
+                </select>
+
+                <select class="toolbar-select" id="sortSelect" title="Sort results">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="az">A – Z</option>
+                    <option value="popular">Most Popular</option>
+                </select>
+
+                <span class="results-count ms-auto" id="resultsCount">Showing 0 of 0</span>
+            </div>
+
+            <!-- ============ RESULTS GRID ============ -->
+            <div class="row g-4" id="writingsGrid"></div>
+
+            <div class="empty-state d-none" id="emptyState">
+                <i class="bi bi-cup-hot"></i>
+                <p class="mb-0">No writings match that search just yet — try a different word or clear the filters.</p>
+            </div>
+
+            <!-- ============ PAGINATION ============ -->
+            <div class="pagination-Kalam" id="pagination"></div>
+
+        </div>
+
+    </main>
+
+    <button id="backToTop" title="Back to top"><i class="bi bi-arrow-up"></i></button>
+    <div class="toast-Kalam" id="toastKalam"><i class="bi bi-check-circle-fill text-gold"></i><span
+            id="toastMsg">Done</span></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <script>
+        /* =========================================================
+           Kalam Ko Viram — WRITINGS PAGE SCRIPT
+           Dummy dataset simulating a "post_type" backend (Shayari /
+           Kavita / Ghazal / Nazm). Swap DATA with an API call later —
+           the rendering, filtering, sorting and pagination logic
+           below doesn't need to change.
+        ========================================================= */
+        document.addEventListener('DOMContentLoaded', function () {
+
+            AOS.init({ once: true, duration: 700, easing: 'ease-out-cubic' });
+
+            // ---------- Dataset ----------
+            const DATA = [
+                { id: 'w1', type: 'shayari', cat: 'Pain', text: "Kuch is tarah nibhaayi hai khaamoshi ne rasm,<br/>jo dil mein reh gaya, kabhi labon tak na aaya.", date: '2026-06-28', likes: 412 },
+                { id: 'w2', type: 'shayari', cat: 'Love', text: "Manzil se zyada mujhe raaston se ulfat hai,<br/>kyunki tere naam ke har mod pe nishaan mile.", date: '2026-06-30', likes: 530 },
+                { id: 'w3', type: 'shayari', cat: 'Motivation', text: "Toot kar bhi jo sambhal jaaye woh hum hain,<br/>hausle ki koi doosri zubaan nahi hoti.", date: '2026-06-20', likes: 298 },
+                { id: 'w4', type: 'shayari', cat: 'Life', text: "Waqt ke saath badalte hain mausam aur log,<br/>par kuch yaadein hain jo mausamon se pare hain.", date: '2026-06-15', likes: 187 },
+                { id: 'w5', type: 'shayari', cat: 'Friendship', text: "Dosti woh chiraag hai jo andheron mein bhi,<br/>bina kuch kahe raasta dikha deta hai.", date: '2026-06-10', likes: 245 },
+                { id: 'w6', type: 'shayari', cat: 'Broken Heart', text: "Judaai ka gham utna bura nahi jitna,<br/>yaadon ka rehna phir bhi baaki reh jaana.", date: '2026-05-30', likes: 156 },
+                { id: 'w7', type: 'kavita', cat: 'Nature', text: "Nadiyon ke kinare baithe hum, socha kitna kuch,<br/>paani beh gaya, par sawaal reh gaye kuch.", date: '2026-06-25', likes: 203 },
+                { id: 'w8', type: 'kavita', cat: 'Maa', text: "Maa ke aanchal ki chhaon jaisa,<br/>koi ghar nahi hota is duniya mein.", date: '2026-06-18', likes: 389 },
+                { id: 'w9', type: 'kavita', cat: 'Life', text: "Zindagi ek kitaab hai, jise har din likha jaata hai,<br/>kuch panne udaas, kuch khushi se bhare.", date: '2026-06-05', likes: 171 },
+                { id: 'w10', type: 'kavita', cat: 'Pita', text: "Pita ke haathon ki lakeerein, mehnat ki kahaani,<br/>chup rehkar bhi keh dete hain apni zindagaani.", date: '2026-05-28', likes: 264 },
+                { id: 'w11', type: 'ghazal', cat: 'Love', text: "Har mulaaqat mein ik naya afsaana likhte hain,<br/>hum tumhe khat nahi, khud ko samjhaate hain.", date: '2026-06-27', likes: 341 },
+                { id: 'w12', type: 'ghazal', cat: 'Pain', text: "Shehar ki bheed mein tanha hi rehte hain,<br/>log milte hain magar humsafar nahi milte.", date: '2026-06-12', likes: 198 },
+                { id: 'w13', type: 'ghazal', cat: 'Motivation', text: "Toofan se darr kar kinara nahi milta,<br/>lehron se lad kar hi doobta sitara nahi milta.", date: '2026-06-08', likes: 222 },
+                { id: 'w14', type: 'ghazal', cat: 'Broken Heart', text: "Bichadne ka gham itna nahi jitna,<br/>ye ehsaas ke ab kabhi milna nahi shayad.", date: '2026-05-22', likes: 167 },
+                { id: 'w15', type: 'nazm', cat: 'Life', text: "Chalte raho, ruko mat, ye zindagi ka usool hai,<br/>thehar gaye jo kahin, waqt bhi bhool jaata hai.", date: '2026-06-22', likes: 176 },
+                { id: 'w16', type: 'nazm', cat: 'Nature', text: "Pahaadon ki khamoshi mein ek sabak chhupa hai,<br/>bina kuch kahe bhi bahut kuch keh diya jaata hai.", date: '2026-06-02', likes: 143 },
+                { id: 'w17', type: 'nazm', cat: 'Maa', text: "Maa ki duayein saath chalti hain har safar mein,<br/>dikhti nahi par mehsoos hoti hain har pal mein.", date: '2026-05-18', likes: 305 },
+                { id: 'w18', type: 'nazm', cat: 'Friendship', text: "Dosti kisi rishte ka mohtaaj nahi hoti,<br/>bas ek waqt pe saath khada hona kaafi hota hai.", date: '2026-06-14', likes: 189 },
+                { id: 'w19', type: 'shayari', cat: 'Love', text: "Teri baaton mein woh jaadu hai ke jo bhi sune,<br/>khud ko kho kar bhi khushi mehsoos kare.", date: '2026-06-29', likes: 276 },
+                { id: 'w20', type: 'shayari', cat: 'Life', text: "Girna bhi zaroori hai seekhne ke liye udna,<br/>har chot ek naya sabak hoti hai zindagi ka.", date: '2026-06-19', likes: 211 },
+                { id: 'w21', type: 'kavita', cat: 'Pain', text: "Akeli shaam, khaali kamra, aur ek chaay ka pyaala,<br/>kabhi kabhi tanhai bhi lagti hai humsafar sa.", date: '2026-06-06', likes: 132 },
+                { id: 'w22', type: 'ghazal', cat: 'Friendship', text: "Purani dosti ke kisse naye lagte hain,<br/>jab bhi milte hain woh log, waqt thehar jaata hai.", date: '2026-05-25', likes: 158 },
+                { id: 'w23', type: 'nazm', cat: 'Motivation', text: "Girkar uthna hi asli jeet hoti hai dost,<br/>haarna tab hota hai jab koshish chhoot jaati hai.", date: '2026-06-03', likes: 194 },
+                { id: 'w24', type: 'kavita', cat: 'Broken Heart', text: "Bichadne ke baad bhi kuch reh jaata hai saath,<br/>khushbu, yaadein, aur adhoori si baat.", date: '2026-05-15', likes: 148 },
+                { id: 'w25', type: 'shayari', cat: 'Sad', text: "Aankhon mein nami hai par honton pe muskaan hai,<br/>dard chhupaana bhi ek fan hota hai shayad.", date: '2026-06-24', likes: 203 },
+                { id: 'w26', type: 'nazm', cat: 'Sad', text: "Kuch raatein rone ke liye hi banti hain,<br/>subah hote hi phir chehra sambhal jaata hai.", date: '2026-06-01', likes: 129 },
+                { id: 'w27', type: 'shayari', cat: 'Festival', text: "Diyon ki roshni mein ghar ka aangan chamka,<br/>tyohaar sirf tareekh nahi, ek ehsaas hota hai.", date: '2026-06-26', likes: 167 },
+                { id: 'w28', type: 'kavita', cat: 'Attitude', text: "Jo poochein humse hum kya hain, keh dena,<br/>jo hain woh hain, kisi ki raay ke mohtaaj nahi.", date: '2026-06-16', likes: 288 },
+                { id: 'w29', type: 'shayari', cat: 'Good Morning', text: "Subah ki dhoop mein ek naya waada chhupa hai,<br/>uth kar dekh, kal se behtar aaj bana hai.", date: '2026-06-30', likes: 174 },
+                { id: 'w30', type: 'shayari', cat: 'Good Night', text: "Chaand bhi thak kar sitaron mein chhup jaata hai,<br/>so jao ab, kal phir se safar shuru hoga.", date: '2026-06-30', likes: 161 },
+                { id: 'w31', type: 'nazm', cat: 'Success', text: "Kaamyaabi shor nahi machaati aane se pehle,<br/>woh chup-chaap un logon ke ghar aati hai jo lade hain.", date: '2026-06-11', likes: 236 },
+                { id: 'w32', type: 'ghazal', cat: 'Success', text: "Manzil mubarak ho, magar raste na bhoolna,<br/>jinhone chhoda saath tha jab tanha the tum.", date: '2026-05-20', likes: 181 },
+            ];
+
+            const PAGE_SIZE = 9;
+            let state = { type: 'all', cat: 'all', query: '', sort: 'newest', page: 1 };
+
+            // ---------- Read URL params on load ----------
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('type')) state.type = params.get('type');
+            if (params.get('cat')) state.cat = params.get('cat');
+
+            const typeMeta = {
+                shayari: { label: 'Shayari', icon: 'bi-feather' },
+                kavita: { label: 'Kavita', icon: 'bi-journal-text' },
+                ghazal: { label: 'Ghazal', icon: 'bi-vinyl' },
+                nazm: { label: 'Nazm', icon: 'bi-book' }
+            };
+
+            // ---------- Sync tabs/filters to state on load ----------
+            document.querySelectorAll('.writings-tab').forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.type === state.type);
+            });
+            document.getElementById('categoryFilter').value = state.cat;
+
+            // ---------- Bookmarks (shared with homepage localStorage key) ----------
+            let bookmarks = [];
+            try { bookmarks = JSON.parse(localStorage.getItem('Kalam-bookmarks') || '[]'); } catch (e) { bookmarks = []; }
+
+            function showToast(msg, icon = 'bi-check-circle-fill') {
+                const toast = document.getElementById('toastKalam');
+                document.getElementById('toastMsg').textContent = msg;
+                toast.querySelector('i').className = 'bi ' + icon + ' text-gold';
+                toast.classList.add('show');
+                clearTimeout(window._toastTimer);
+                window._toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+            }
+
+            function getFiltered() {
+                let items = DATA.slice();
+                if (state.type !== 'all') items = items.filter(i => i.type === state.type);
+                if (state.cat !== 'all') items = items.filter(i => i.cat === state.cat);
+                if (state.query.trim()) {
+                    const q = state.query.trim().toLowerCase();
+                    items = items.filter(i => i.text.toLowerCase().includes(q) || i.cat.toLowerCase().includes(q));
+                }
+                switch (state.sort) {
+                    case 'newest': items.sort((a, b) => new Date(b.date) - new Date(a.date)); break;
+                    case 'oldest': items.sort((a, b) => new Date(a.date) - new Date(b.date)); break;
+                    case 'az': items.sort((a, b) => a.text.localeCompare(b.text)); break;
+                    case 'popular': items.sort((a, b) => b.likes - a.likes); break;
+                }
+                return items;
+            }
+
+            function render() {
+                const filtered = getFiltered();
+                const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+                state.page = Math.min(state.page, totalPages);
+                const start = (state.page - 1) * PAGE_SIZE;
+                const pageItems = filtered.slice(start, start + PAGE_SIZE);
+
+                const grid = document.getElementById('writingsGrid');
+                const empty = document.getElementById('emptyState');
+                document.getElementById('resultsCount').textContent =
+                    `Showing ${filtered.length === 0 ? 0 : start + 1}–${Math.min(start + PAGE_SIZE, filtered.length)} of ${filtered.length}`;
+
+                if (pageItems.length === 0) {
+                    grid.innerHTML = '';
+                    empty.classList.remove('d-none');
+                } else {
+                    empty.classList.add('d-none');
+                    grid.innerHTML = pageItems.map(item => {
+                        const meta = typeMeta[item.type];
+                        const isBookmarked = bookmarks.includes(item.id);
+                        return `
+                <div class="col-md-6 col-lg-4">
+                    <div class="write-card">
+                        <span class="write-type-badge"><i class="bi ${meta.icon}"></i> ${meta.label}</span>
+                        <div class="write-text">${item.text}</div>
+                        <div class="write-meta">
+                            <span class="write-cat">— ${item.cat}</span>
+                            <div class="write-actions">
+                                <button class="like-btn" data-id="${item.id}" title="Like"><i class="bi bi-heart"></i></button>
+                                <button class="copy-btn" data-id="${item.id}" title="Copy"><i class="bi bi-clipboard"></i></button>
+                                <button class="bookmark-btn ${isBookmarked ? 'bookmarked' : ''}" data-id="${item.id}" title="Bookmark"><i class="bi ${isBookmarked ? 'bi-bookmark-fill' : 'bi-bookmark'}"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+                    }).join('');
+                }
+
+                renderPagination(totalPages);
+                bindCardActions();
+            }
+
+            function renderPagination(totalPages) {
+                const pag = document.getElementById('pagination');
+                if (totalPages <= 1) { pag.innerHTML = ''; return; }
+                let html = `<button class="page-btn" id="pagePrev" ${state.page === 1 ? 'disabled' : ''}><i class="bi bi-chevron-left"></i></button>`;
+                for (let p = 1; p <= totalPages; p++) {
+                    html += `<button class="page-btn ${p === state.page ? 'active' : ''}" data-page="${p}">${p}</button>`;
+                }
+                html += `<button class="page-btn" id="pageNext" ${state.page === totalPages ? 'disabled' : ''}><i class="bi bi-chevron-right"></i></button>`;
+                pag.innerHTML = html;
+
+                pag.querySelectorAll('[data-page]').forEach(btn => {
+                    btn.addEventListener('click', () => { state.page = parseInt(btn.dataset.page, 10); render(); window.scrollTo({ top: document.querySelector('.writings-tabs').offsetTop - 100, behavior: 'smooth' }); });
+                });
+                const prev = document.getElementById('pagePrev');
+                const next = document.getElementById('pageNext');
+                if (prev) prev.addEventListener('click', () => { if (state.page > 1) { state.page--; render(); } });
+                if (next) next.addEventListener('click', () => { if (state.page < totalPages) { state.page++; render(); } });
+            }
+
+            function bindCardActions() {
+                document.querySelectorAll('.like-btn').forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        this.classList.toggle('liked');
+                        this.querySelector('i').className = this.classList.contains('liked') ? 'bi bi-heart-fill' : 'bi bi-heart';
+                        if (this.classList.contains('liked')) showToast('Added to your likes', 'bi-heart-fill');
+                    });
+                });
+                document.querySelectorAll('.copy-btn').forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        const text = this.closest('.write-card').querySelector('.write-text').innerText;
+                        const fallback = () => { const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) { } ta.remove(); };
+                        if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).catch(fallback); else fallback();
+                        showToast('Copied to clipboard', 'bi-clipboard-check-fill');
+                    });
+                });
+                document.querySelectorAll('.bookmark-btn').forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        const id = this.dataset.id;
+                        const isBookmarked = this.classList.toggle('bookmarked');
+                        this.querySelector('i').className = isBookmarked ? 'bi bi-bookmark-fill' : 'bi bi-bookmark';
+                        if (isBookmarked) { if (!bookmarks.includes(id)) bookmarks.push(id); showToast('Saved to your Diwan', 'bi-bookmark-fill'); }
+                        else { bookmarks = bookmarks.filter(b => b !== id); showToast('Removed from your Diwan', 'bi-bookmark'); }
+                        try { localStorage.setItem('Kalam-bookmarks', JSON.stringify(bookmarks)); } catch (e) { }
+                    });
+                });
+            }
+
+            // ---------- Tabs ----------
+            document.querySelectorAll('.writings-tab').forEach(tab => {
+                tab.addEventListener('click', function () {
+                    document.querySelectorAll('.writings-tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    state.type = this.dataset.type;
+                    state.page = 1;
+                    render();
+                });
+            });
+
+            // ---------- Search (debounced) ----------
+            let searchTimer;
+            document.getElementById('writeSearch').addEventListener('input', function () {
+                clearTimeout(searchTimer);
+                const val = this.value;
+                searchTimer = setTimeout(() => { state.query = val; state.page = 1; render(); }, 250);
+            });
+
+            // ---------- Category filter ----------
+            document.getElementById('categoryFilter').addEventListener('change', function () {
+                state.cat = this.value; state.page = 1; render();
+            });
+
+            // ---------- Sort ----------
+            document.getElementById('sortSelect').addEventListener('change', function () {
+                state.sort = this.value; state.page = 1; render();
+            });
+
+            render();
+
+            // ---------- Navbar scroll + back to top ----------
+            const scrollProgress = document.getElementById('scrollProgress');
+            const backToTop = document.getElementById('backToTop');
+            window.addEventListener('scroll', function () {
+                const y = window.scrollY;
+                backToTop.classList.toggle('show', y > 500);
+                const docH = document.documentElement.scrollHeight - window.innerHeight;
+                scrollProgress.style.width = (docH > 0 ? (y / docH) * 100 : 0) + '%';
+            });
+            backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+            // ---------- Theme toggle (shared with homepage) ----------
+            const themeBtn = document.getElementById('themeToggleBtn');
+            const themeIcon = document.getElementById('themeIcon');
+            let savedTheme = 'dark';
+            try { savedTheme = localStorage.getItem('Kalam-theme') || 'dark'; } catch (e) { }
+            if (savedTheme === 'light') { document.documentElement.setAttribute('data-theme', 'light'); themeIcon.className = 'bi bi-sun'; }
+            themeBtn.addEventListener('click', function () {
+                const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+                if (isLight) { document.documentElement.removeAttribute('data-theme'); themeIcon.className = 'bi bi-moon-stars'; try { localStorage.setItem('Kalam-theme', 'dark'); } catch (e) { } }
+                else { document.documentElement.setAttribute('data-theme', 'light'); themeIcon.className = 'bi bi-sun'; try { localStorage.setItem('Kalam-theme', 'light'); } catch (e) { } }
+            });
+
+            // ---------- Subscribe buttons ----------
+            document.getElementById('subscribeNavBtn')?.addEventListener('click', () => document.querySelector('.footer-Kalam')?.scrollIntoView({ behavior: 'smooth' }));
+            document.getElementById('mobileSubscribeBtn')?.addEventListener('click', () => setTimeout(() => document.querySelector('.footer-Kalam')?.scrollIntoView({ behavior: 'smooth' }), 350));
+
+            // ---------- Footer newsletter demo ----------
+            document.getElementById('footerNewsletterForm')?.addEventListener('submit', function (e) {
+                e.preventDefault();
+                showToast('Subscribed! Check your inbox tomorrow morning.', 'bi-check-circle-fill');
+                this.reset();
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,778 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kalam Ko Viram | About the Author</title>
+    <meta name="description"
+        content="Discover the journey, achievements, and upcoming events of the author behind Kalam Ko Viram." />
+
+    <!-- Favicon -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖋️</text></svg>" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Poppins:wght@300;400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap"
+        rel="stylesheet" />
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #050505;
+            --bg-soft: #0b0a09;
+            --surface: #0f0e0d;
+            --surface-2: #161412;
+            --ink-gold: #c9a35c;
+            --ink-gold-bright: #e8c98a;
+            --sindoor: #7a2e2e;
+            --sindoor-bright: #a83f3f;
+            --parchment: #ede7dc;
+            --muted: #9a9186;
+            --muted-dim: #6b655d;
+            --border: rgba(201, 163, 92, 0.16);
+            --glass: rgba(20, 18, 16, 0.55);
+            --shadow-gold: 0 0 40px rgba(201, 163, 92, 0.12);
+            --radius: 2px;
+            --radius-lg: 6px;
+            --ease: cubic-bezier(.16, 1, .3, 1);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--parchment);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(circle at 1px 1px, rgba(201, 163, 92, 0.06) 1px, transparent 0);
+            background-size: 26px 26px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+        }
+
+        .text-gold {
+            color: var(--ink-gold) !important;
+        }
+
+        .text-sindoor {
+            color: var(--sindoor-bright) !important;
+        }
+
+        .bg-surface {
+            background: var(--surface);
+        }
+
+        .bg-surface-2 {
+            background: var(--surface-2);
+        }
+
+        .divider-motif {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--ink-gold) 50%, transparent);
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .divider-motif span {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--bg);
+            padding: 0 14px;
+            color: var(--ink-gold);
+            font-size: 1.1rem;
+        }
+
+        .navbar-Kalam {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.1rem 0;
+            transition: all .5s var(--ease);
+            background: var(--glass);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand-mark {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: var(--parchment);
+            text-decoration: none;
+        }
+
+        .brand-mark span {
+            color: var(--ink-gold);
+        }
+
+        .nav-link-Kalam {
+            font-size: .72rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: var(--muted);
+            margin: 0 .95rem;
+            position: relative;
+            padding-bottom: 4px;
+            transition: color .3s ease;
+            text-decoration: none;
+        }
+
+        .nav-link-Kalam:hover,
+        .nav-link-Kalam.active {
+            color: var(--ink-gold);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 80vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            padding-top: 6rem;
+        }
+
+        .hero-title {
+            font-size: clamp(2.6rem, 6vw, 5.2rem);
+            font-weight: 700;
+            color: var(--parchment);
+        }
+
+        .hero-title em {
+            color: var(--ink-gold);
+            font-style: italic;
+        }
+
+        .hero-sub {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.35rem;
+            color: var(--muted);
+            margin-top: 1.4rem;
+            font-style: italic;
+        }
+
+        .section-pad {
+            padding: 5rem 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            font-size: clamp(1.9rem, 3.4vw, 2.8rem);
+            color: var(--parchment);
+            font-weight: 600;
+        }
+
+        .section-lead {
+            color: var(--muted);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        /* Cards and Elements */
+        .feature-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2.4rem;
+            height: 100%;
+            transition: all .4s var(--ease);
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            border-color: var(--ink-gold);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: var(--ink-gold);
+            margin: 0 auto 1.4rem;
+        }
+
+        .poet-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all .4s var(--ease);
+        }
+
+        .poet-card:hover {
+            border-color: var(--ink-gold);
+        }
+
+        .poet-img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            filter: grayscale(60%) brightness(.85);
+            transition: all .6s ease;
+        }
+
+        .poet-card:hover .poet-img {
+            filter: grayscale(0%) brightness(1);
+        }
+
+        .poet-body {
+            padding: 1.6rem;
+            text-align: center;
+        }
+
+        .timeline-Kalam {
+            position: relative;
+            padding-left: 2.4rem;
+            border-left: 1px solid var(--border);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 3rem;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -2.56rem;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--bg);
+            border: 2px solid var(--ink-gold);
+        }
+
+        .timeline-year {
+            font-family: 'Playfair Display', serif;
+            color: var(--ink-gold);
+            font-size: 1.3rem;
+            font-style: italic;
+        }
+
+        .timeline-title {
+            color: var(--parchment);
+            font-size: 1.1rem;
+            margin-top: .3rem;
+        }
+
+        .timeline-desc {
+            color: var(--muted);
+            font-size: .92rem;
+            margin-top: .4rem;
+        }
+
+        .insta-tile {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1/1;
+            border-radius: var(--radius);
+        }
+
+        .insta-tile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .6s ease;
+        }
+
+        .insta-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(5, 5, 5, .75);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity .4s ease;
+            color: var(--ink-gold);
+            font-size: 1.3rem;
+        }
+
+        .insta-tile:hover img {
+            transform: scale(1.1);
+        }
+
+        .insta-tile:hover .insta-overlay {
+            opacity: 1;
+        }
+
+        .accordion-Kalam .accordion-item {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .accordion-Kalam .accordion-button {
+            background: transparent;
+            color: var(--parchment);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            padding: 1.6rem 0;
+            box-shadow: none;
+        }
+
+        .accordion-Kalam .accordion-button:not(.collapsed) {
+            color: var(--ink-gold);
+            background: transparent;
+        }
+
+        .accordion-Kalam .accordion-button::after {
+            filter: invert(70%) sepia(40%) saturate(400%) hue-rotate(0deg);
+        }
+
+        .accordion-Kalam .accordion-body {
+            color: var(--muted);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.05rem;
+            padding: 0 0 1.8rem;
+        }
+
+        .testimonial-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2.4rem;
+            height: 100%;
+        }
+
+        .testimonial-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.15rem;
+            color: var(--parchment);
+            line-height: 1.6;
+        }
+
+        .testimonial-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--ink-gold);
+        }
+
+        .stars i {
+            color: var(--ink-gold);
+            font-size: .82rem;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- AUTHOR HERO -->
+    <section id="author" class="hero">
+        <div class="container">
+            <h1 class="hero-title">Meet the <em>Author</em></h1>
+            <p class="hero-sub">Where words breathe and stories live forever.</p>
+        </div>
+    </section>
+    <!-- BIOGRAPHY -->
+    <section id="biography" class="section-pad bg-surface-2">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Biography</h2>
+                <p class="section-lead">A life penned in ink</p>
+                <div class="divider-motif"><span>🖋️</span></div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-lg-5 mb-4 mb-lg-0">
+                    <img src="https://picsum.photos/seed/kalam-author/800/1000" alt="Author Portrait"
+                        class="img-fluid rounded" style="border: 1px solid var(--border);">
+                </div>
+                <div class="col-lg-6 offset-lg-1">
+                    <p style="color: var(--muted); font-size: 1.1rem; line-height: 1.8;">
+                        Born with a pen in hand and poetry in the soul, our author has spent a lifetime translating the
+                        unsaid emotions of the human heart into verses that resonate globally. Deeply influenced by
+                        classical Ghazals and modern romanticism, the writings bridge the gap between profound
+                        melancholy and euphoric love.
+                    </p>
+                    <p style="color: var(--muted); font-size: 1.1rem; line-height: 1.8; margin-top: 1rem;">
+                        With a deep understanding of Urdu and Hindi literature, they have crafted a unique sanctuary
+                        where every emotion finds a home. Kalam Ko Viram is not just a collection, but a living diary of
+                        these experiences.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- JOURNEY -->
+    <section id="journey" class="section-pad">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">The Journey</h2>
+                <div class="divider-motif"><span>✨</span></div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="bi bi-compass"></i></div>
+                        <h3 class="font-sub text-gold mb-2" style="font-size: 1.5rem;">The Origin</h3>
+                        <p style="color: var(--muted); font-size: 0.95rem;">Finding inspiration in the quiet corners of
+                            ancient cities and old libraries.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="bi bi-pen"></i></div>
+                        <h3 class="font-sub text-gold mb-2" style="font-size: 1.5rem;">The Expression</h3>
+                        <p style="color: var(--muted); font-size: 0.95rem;">Translating raw sorrow and profound joy into
+                            rhythmic poetic meter.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="bi bi-globe"></i></div>
+                        <h3 class="font-sub text-gold mb-2" style="font-size: 1.5rem;">The Connection</h3>
+                        <p style="color: var(--muted); font-size: 0.95rem;">Reaching thousands of hearts across the
+                            globe through the digital sanctuary.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- AWARDS & ACHIEVEMENTS -->
+    <section id="awards" class="section-pad bg-surface-2">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Awards & Achievements</h2>
+                <div class="divider-motif"><span>🏆</span></div>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-3">
+                    <div class="feature-card">
+                        <h4 class="text-gold" style="font-size: 2rem;">2018</h4>
+                        <p class="font-sub mt-2" style="color: var(--parchment); font-size: 1.2rem;">Sahitya Puraskar
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-card">
+                        <h4 class="text-gold" style="font-size: 2rem;">2021</h4>
+                        <p class="font-sub mt-2" style="color: var(--parchment); font-size: 1.2rem;">Best Digital Poet
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-card">
+                        <h4 class="text-gold" style="font-size: 2rem;">1M+</h4>
+                        <p class="font-sub mt-2" style="color: var(--parchment); font-size: 1.2rem;">Readers Globally
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- BOOKS -->
+    <section id="books" class="section-pad">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Published Works</h2>
+                <p class="section-lead">The library of the soul</p>
+                <div class="divider-motif"><span>📚</span></div>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-4 col-lg-3">
+                    <div class="poet-card">
+                        <img src="https://picsum.photos/seed/book1/600/800" alt="Book 1" class="poet-img" />
+                        <div class="poet-body">
+                            <h3 class="font-sub" style="color: var(--parchment); font-size: 1.4rem;">Echoes of Silence
+                            </h3>
+                            <span
+                                style="color: var(--ink-gold); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;">2019</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3">
+                    <div class="poet-card">
+                        <img src="https://picsum.photos/seed/book2/600/800" alt="Book 2" class="poet-img" />
+                        <div class="poet-body">
+                            <h3 class="font-sub" style="color: var(--parchment); font-size: 1.4rem;">Midnight Musings
+                            </h3>
+                            <span
+                                style="color: var(--ink-gold); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;">2021</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3">
+                    <div class="poet-card">
+                        <img src="https://picsum.photos/seed/book3/600/800" alt="Book 3" class="poet-img" />
+                        <div class="poet-body">
+                            <h3 class="font-sub" style="color: var(--parchment); font-size: 1.4rem;">The Unsaid Verses
+                            </h3>
+                            <span
+                                style="color: var(--ink-gold); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;">2023</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- MEDIA GALLERY -->
+    <section id="gallery" class="section-pad bg-surface-2">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Media Gallery</h2>
+                <div class="divider-motif"><span>🖼️</span></div>
+            </div>
+            <div class="row g-3">
+                <div class="col-6 col-md-3">
+                    <div class="insta-tile">
+                        <img src="https://picsum.photos/seed/gal1/600/600" alt="Gallery Image">
+                        <div class="insta-overlay"><i class="bi bi-zoom-in"></i></div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="insta-tile">
+                        <img src="https://picsum.photos/seed/gal2/600/600" alt="Gallery Image">
+                        <div class="insta-overlay"><i class="bi bi-zoom-in"></i></div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="insta-tile">
+                        <img src="https://picsum.photos/seed/gal3/600/600" alt="Gallery Image">
+                        <div class="insta-overlay"><i class="bi bi-zoom-in"></i></div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="insta-tile">
+                        <img src="https://picsum.photos/seed/gal4/600/600" alt="Gallery Image">
+                        <div class="insta-overlay"><i class="bi bi-zoom-in"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- EVENTS -->
+    <section id="events" class="section-pad">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Upcoming Events</h2>
+                <div class="divider-motif"><span>📅</span></div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="feature-card text-start d-md-flex align-items-center justify-content-between">
+                        <div>
+                            <h3 class="font-sub text-gold mb-2" style="font-size: 1.8rem;">Jashn-e-Adab Poetry Meet</h3>
+                            <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 0;">An evening of soulful
+                                recitations and Ghazals.</p>
+                        </div>
+                        <div class="text-md-end mt-3 mt-md-0">
+                            <h4 style="color: var(--parchment); font-size: 1.2rem;">New Delhi</h4>
+                            <p style="color: var(--sindoor-bright); font-size: 0.9rem;">25th October 2024</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- TIMELINE -->
+    <section id="timeline" class="section-pad bg-surface-2">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Timeline</h2>
+                <div class="divider-motif"><span>⏳</span></div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="timeline-Kalam">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-year">2010</div>
+                            <h4 class="timeline-title">The First Verse</h4>
+                            <p class="timeline-desc">Penned the very first poem that laid the foundation of this
+                                journey.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-year">2015</div>
+                            <h4 class="timeline-title">First Mushaira</h4>
+                            <p class="timeline-desc">Performed live for the first time in front of an audience of
+                                hundreds.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-year">2019</div>
+                            <h4 class="timeline-title">Debut Anthology Published</h4>
+                            <p class="timeline-desc">Released 'Echoes of Silence', which became an instant bestseller.
+                            </p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-year">2024</div>
+                            <h4 class="timeline-title">Kalam Ko Viram</h4>
+                            <p class="timeline-desc">Launched the digital sanctuary for poetry lovers globally.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- FAQ -->
+    <section id="faq" class="section-pad">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">FAQ</h2>
+                <p class="section-lead">Curiosities answered</p>
+                <div class="divider-motif"><span>❓</span></div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="accordion accordion-Kalam" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq1">
+                                    Where does your inspiration come from?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Life, with all its beautiful complexities, heartbreaks, and moments of joy, serves
+                                    as an endless well of inspiration.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq2">
+                                    Are your books available internationally?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Yes, my books are available globally through all major online bookstores and select
+                                    physical retailers.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq3">
+                                    How can I invite you for an event?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    You can reach out through the contact page or my official social media channels to
+                                    discuss event invitations.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="section-pad bg-surface-2">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Testimonials</h2>
+                <p class="section-lead">Echoes from the readers</p>
+                <div class="divider-motif"><span>❤️</span></div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"Every word feels like it was written just for me. A true maestro of
+                            emotions whose verses have healed my soul."</p>
+                        <div class="d-flex align-items-center mt-4">
+                            <img src="https://picsum.photos/seed/user1/100/100" alt="User"
+                                class="testimonial-avatar me-3">
+                            <div>
+                                <h5 class="font-sub text-gold" style="font-size: 1.2rem; margin-bottom: 2px;">Aisha K.
+                                </h5>
+                                <div class="stars">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"Reading these verses is like finding solace in a chaotic world. The
+                            depth of the Ghazals is simply unmatched."</p>
+                        <div class="d-flex align-items-center mt-4">
+                            <img src="https://picsum.photos/seed/user2/100/100" alt="User"
+                                class="testimonial-avatar me-3">
+                            <div>
+                                <h5 class="font-sub text-gold" style="font-size: 1.2rem; margin-bottom: 2px;">Rahul S.
+                                </h5>
+                                <div class="stars">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Navbar blur on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.navbar-Kalam');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(20, 18, 16, 0.85)';
+            } else {
+                nav.style.background = 'rgba(20, 18, 16, 0.55)';
+            }
+        });
+    </script>
+{% endblock %}
+
