@@ -542,6 +542,12 @@
             margin-bottom: 1.1rem;
         }
 
+        .write-title {
+            color: var(--parchment);
+            font-size: 1.05rem;
+            margin: 0 0 .75rem;
+        }
+
         .write-text {
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.35rem;
@@ -788,21 +794,9 @@
 
                 <select class="toolbar-select" id="categoryFilter" title="Filter by category">
                     <option value="all">All Categories</option>
-                    <option value="Love">Love</option>
-                    <option value="Sad">Sad</option>
-                    <option value="Motivation">Motivation</option>
-                    <option value="Friendship">Friendship</option>
-                    <option value="Nature">Nature</option>
-                    <option value="Life">Life</option>
-                    <option value="Maa">Maa</option>
-                    <option value="Pita">Pita</option>
-                    <option value="Festival">Festival</option>
-                    <option value="Attitude">Attitude</option>
-                    <option value="Broken Heart">Broken Heart</option>
-                    <option value="Good Morning">Good Morning</option>
-                    <option value="Good Night">Good Night</option>
-                    <option value="Success">Success</option>
-                    <option value="Pain">Pain</option>
+                    {% for category in categories %}
+                    <option value="{{ category.slug }}">{{ category.name }}</option>
+                    {% endfor %}
                 </select>
 
                 <select class="toolbar-select" id="sortSelect" title="Sort results">
@@ -837,6 +831,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 
+    {{ poetry_data|json_script:"poetry-data" }}
     <script>
         /* =========================================================
            Kalam Ko Viram — WRITINGS PAGE SCRIPT
@@ -849,41 +844,7 @@
 
             AOS.init({ once: true, duration: 700, easing: 'ease-out-cubic' });
 
-            // ---------- Dataset ----------
-            const DATA = [
-                { id: 'w1', type: 'shayari', cat: 'Pain', text: "Kuch is tarah nibhaayi hai khaamoshi ne rasm,<br/>jo dil mein reh gaya, kabhi labon tak na aaya.", date: '2026-06-28', likes: 412 },
-                { id: 'w2', type: 'shayari', cat: 'Love', text: "Manzil se zyada mujhe raaston se ulfat hai,<br/>kyunki tere naam ke har mod pe nishaan mile.", date: '2026-06-30', likes: 530 },
-                { id: 'w3', type: 'shayari', cat: 'Motivation', text: "Toot kar bhi jo sambhal jaaye woh hum hain,<br/>hausle ki koi doosri zubaan nahi hoti.", date: '2026-06-20', likes: 298 },
-                { id: 'w4', type: 'shayari', cat: 'Life', text: "Waqt ke saath badalte hain mausam aur log,<br/>par kuch yaadein hain jo mausamon se pare hain.", date: '2026-06-15', likes: 187 },
-                { id: 'w5', type: 'shayari', cat: 'Friendship', text: "Dosti woh chiraag hai jo andheron mein bhi,<br/>bina kuch kahe raasta dikha deta hai.", date: '2026-06-10', likes: 245 },
-                { id: 'w6', type: 'shayari', cat: 'Broken Heart', text: "Judaai ka gham utna bura nahi jitna,<br/>yaadon ka rehna phir bhi baaki reh jaana.", date: '2026-05-30', likes: 156 },
-                { id: 'w7', type: 'kavita', cat: 'Nature', text: "Nadiyon ke kinare baithe hum, socha kitna kuch,<br/>paani beh gaya, par sawaal reh gaye kuch.", date: '2026-06-25', likes: 203 },
-                { id: 'w8', type: 'kavita', cat: 'Maa', text: "Maa ke aanchal ki chhaon jaisa,<br/>koi ghar nahi hota is duniya mein.", date: '2026-06-18', likes: 389 },
-                { id: 'w9', type: 'kavita', cat: 'Life', text: "Zindagi ek kitaab hai, jise har din likha jaata hai,<br/>kuch panne udaas, kuch khushi se bhare.", date: '2026-06-05', likes: 171 },
-                { id: 'w10', type: 'kavita', cat: 'Pita', text: "Pita ke haathon ki lakeerein, mehnat ki kahaani,<br/>chup rehkar bhi keh dete hain apni zindagaani.", date: '2026-05-28', likes: 264 },
-                { id: 'w11', type: 'ghazal', cat: 'Love', text: "Har mulaaqat mein ik naya afsaana likhte hain,<br/>hum tumhe khat nahi, khud ko samjhaate hain.", date: '2026-06-27', likes: 341 },
-                { id: 'w12', type: 'ghazal', cat: 'Pain', text: "Shehar ki bheed mein tanha hi rehte hain,<br/>log milte hain magar humsafar nahi milte.", date: '2026-06-12', likes: 198 },
-                { id: 'w13', type: 'ghazal', cat: 'Motivation', text: "Toofan se darr kar kinara nahi milta,<br/>lehron se lad kar hi doobta sitara nahi milta.", date: '2026-06-08', likes: 222 },
-                { id: 'w14', type: 'ghazal', cat: 'Broken Heart', text: "Bichadne ka gham itna nahi jitna,<br/>ye ehsaas ke ab kabhi milna nahi shayad.", date: '2026-05-22', likes: 167 },
-                { id: 'w15', type: 'nazm', cat: 'Life', text: "Chalte raho, ruko mat, ye zindagi ka usool hai,<br/>thehar gaye jo kahin, waqt bhi bhool jaata hai.", date: '2026-06-22', likes: 176 },
-                { id: 'w16', type: 'nazm', cat: 'Nature', text: "Pahaadon ki khamoshi mein ek sabak chhupa hai,<br/>bina kuch kahe bhi bahut kuch keh diya jaata hai.", date: '2026-06-02', likes: 143 },
-                { id: 'w17', type: 'nazm', cat: 'Maa', text: "Maa ki duayein saath chalti hain har safar mein,<br/>dikhti nahi par mehsoos hoti hain har pal mein.", date: '2026-05-18', likes: 305 },
-                { id: 'w18', type: 'nazm', cat: 'Friendship', text: "Dosti kisi rishte ka mohtaaj nahi hoti,<br/>bas ek waqt pe saath khada hona kaafi hota hai.", date: '2026-06-14', likes: 189 },
-                { id: 'w19', type: 'shayari', cat: 'Love', text: "Teri baaton mein woh jaadu hai ke jo bhi sune,<br/>khud ko kho kar bhi khushi mehsoos kare.", date: '2026-06-29', likes: 276 },
-                { id: 'w20', type: 'shayari', cat: 'Life', text: "Girna bhi zaroori hai seekhne ke liye udna,<br/>har chot ek naya sabak hoti hai zindagi ka.", date: '2026-06-19', likes: 211 },
-                { id: 'w21', type: 'kavita', cat: 'Pain', text: "Akeli shaam, khaali kamra, aur ek chaay ka pyaala,<br/>kabhi kabhi tanhai bhi lagti hai humsafar sa.", date: '2026-06-06', likes: 132 },
-                { id: 'w22', type: 'ghazal', cat: 'Friendship', text: "Purani dosti ke kisse naye lagte hain,<br/>jab bhi milte hain woh log, waqt thehar jaata hai.", date: '2026-05-25', likes: 158 },
-                { id: 'w23', type: 'nazm', cat: 'Motivation', text: "Girkar uthna hi asli jeet hoti hai dost,<br/>haarna tab hota hai jab koshish chhoot jaati hai.", date: '2026-06-03', likes: 194 },
-                { id: 'w24', type: 'kavita', cat: 'Broken Heart', text: "Bichadne ke baad bhi kuch reh jaata hai saath,<br/>khushbu, yaadein, aur adhoori si baat.", date: '2026-05-15', likes: 148 },
-                { id: 'w25', type: 'shayari', cat: 'Sad', text: "Aankhon mein nami hai par honton pe muskaan hai,<br/>dard chhupaana bhi ek fan hota hai shayad.", date: '2026-06-24', likes: 203 },
-                { id: 'w26', type: 'nazm', cat: 'Sad', text: "Kuch raatein rone ke liye hi banti hain,<br/>subah hote hi phir chehra sambhal jaata hai.", date: '2026-06-01', likes: 129 },
-                { id: 'w27', type: 'shayari', cat: 'Festival', text: "Diyon ki roshni mein ghar ka aangan chamka,<br/>tyohaar sirf tareekh nahi, ek ehsaas hota hai.", date: '2026-06-26', likes: 167 },
-                { id: 'w28', type: 'kavita', cat: 'Attitude', text: "Jo poochein humse hum kya hain, keh dena,<br/>jo hain woh hain, kisi ki raay ke mohtaaj nahi.", date: '2026-06-16', likes: 288 },
-                { id: 'w29', type: 'shayari', cat: 'Good Morning', text: "Subah ki dhoop mein ek naya waada chhupa hai,<br/>uth kar dekh, kal se behtar aaj bana hai.", date: '2026-06-30', likes: 174 },
-                { id: 'w30', type: 'shayari', cat: 'Good Night', text: "Chaand bhi thak kar sitaron mein chhup jaata hai,<br/>so jao ab, kal phir se safar shuru hoga.", date: '2026-06-30', likes: 161 },
-                { id: 'w31', type: 'nazm', cat: 'Success', text: "Kaamyaabi shor nahi machaati aane se pehle,<br/>woh chup-chaap un logon ke ghar aati hai jo lade hain.", date: '2026-06-11', likes: 236 },
-                { id: 'w32', type: 'ghazal', cat: 'Success', text: "Manzil mubarak ho, magar raste na bhoolna,<br/>jinhone chhoda saath tha jab tanha the tum.", date: '2026-05-20', likes: 181 },
-            ];
+            const DATA = JSON.parse(document.getElementById('poetry-data').textContent);
 
             const PAGE_SIZE = 9;
             let state = { type: 'all', cat: 'all', query: '', sort: 'newest', page: 1 };
@@ -922,10 +883,10 @@
             function getFiltered() {
                 let items = DATA.slice();
                 if (state.type !== 'all') items = items.filter(i => i.type === state.type);
-                if (state.cat !== 'all') items = items.filter(i => i.cat === state.cat);
+                if (state.cat !== 'all') items = items.filter(i => i.cat_slug === state.cat);
                 if (state.query.trim()) {
                     const q = state.query.trim().toLowerCase();
-                    items = items.filter(i => i.text.toLowerCase().includes(q) || i.cat.toLowerCase().includes(q));
+                    items = items.filter(i => `${i.title} ${i.text} ${i.cat} ${i.author}`.toLowerCase().includes(q));
                 }
                 switch (state.sort) {
                     case 'newest': items.sort((a, b) => new Date(b.date) - new Date(a.date)); break;
@@ -956,13 +917,15 @@
                     grid.innerHTML = pageItems.map(item => {
                         const meta = typeMeta[item.type];
                         const isBookmarked = bookmarks.includes(item.id);
+                        const escaped = value => String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
                         return `
                 <div class="col-md-6 col-lg-4">
-                    <div class="write-card">
+                    <div class="write-card" data-id="${item.id}">
                         <span class="write-type-badge"><i class="bi ${meta.icon}"></i> ${meta.label}</span>
-                        <div class="write-text">${item.text}</div>
+                        <h3 class="write-title">${escaped(item.title)}</h3>
+                        <div class="write-text">${escaped(item.text).replace(/\r?\n/g, '<br>')}</div>
                         <div class="write-meta">
-                            <span class="write-cat">— ${item.cat}</span>
+                            <span class="write-cat">— ${escaped(item.author)} · ${escaped(item.cat)}</span>
                             <div class="write-actions">
                                 <button class="like-btn" data-id="${item.id}" title="Like"><i class="bi bi-heart"></i></button>
                                 <button class="copy-btn" data-id="${item.id}" title="Copy"><i class="bi bi-clipboard"></i></button>

@@ -1,0 +1,6 @@
+{% extends "admin_portal/base.html" %}
+{% block title %}Settings{% endblock %}
+{% block content %}
+<div class="page-head"><div><div class="eyebrow">Portal configuration</div><h1>Settings</h1></div></div>
+<div class="card"><h2>Application environment</h2><table><tbody><tr><th>Database engine</th><td>{{ database_engine }}</td></tr><tr><th>Debug mode</th><td>{% if debug_enabled %}Enabled{% else %}Disabled{% endif %}</td></tr><tr><th>Application timezone</th><td>{{ timezone_name }}</td></tr></tbody></table><p class="muted">These values are read-only here and are managed by the site operator.</p></div>
+{% endblock %}

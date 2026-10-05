@@ -1,0 +1,8 @@
+{% extends "admin_portal/base.html" %}
+{% block title %}Confirm delete{% endblock %}
+{% block content %}
+<div class="page-head"><div><div class="eyebrow">Please confirm</div><h1>Delete item</h1></div></div>
+<div class="card"><p>Are you sure you want to delete <strong>{{ object }}</strong>? This action cannot be undone.</p>
+{% if delete_error %}<p class="form-errors">{{ delete_error }}</p>{% endif %}
+<form method="post">{% csrf_token %}<div class="actions"><button class="btn btn-danger" type="submit">Delete permanently</button><a class="btn" href="{% url cancel_url %}">Cancel</a></div></form></div>
+{% endblock %}

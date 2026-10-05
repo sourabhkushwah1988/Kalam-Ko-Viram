@@ -1,0 +1,6 @@
+{% extends "admin_portal/base.html" %}
+{% block title %}System health{% endblock %}
+{% block content %}
+<div class="page-head"><div><div class="eyebrow">System status</div><h1>System Health</h1></div></div>
+<div class="card"><table><tbody><tr><th>Database connection</th><td><span class="badge {% if database_status != 'Connected' %}badge-draft{% endif %}">{{ database_status }}</span></td></tr>{% if perms.kalam.view_poetry %}<tr><th>Poetry records</th><td>{% if poetry_count != None %}{{ poetry_count }}{% else %}Unavailable{% endif %}</td></tr>{% endif %}<tr><th>Debug mode</th><td>{% if debug_enabled %}Enabled{% else %}Disabled{% endif %}</td></tr></tbody></table>{% if database_error %}<p class="form-errors">{{ database_error }}</p>{% endif %}</div>
+{% endblock %}

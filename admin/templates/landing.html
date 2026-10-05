@@ -1758,14 +1758,9 @@
                     </div>
                 </div>
                 <div class="d-flex flex-wrap gap-3 justify-content-center mt-5" data-aos="fade-up" data-aos-delay="500">
-                    <a href="shayari" class="btn-ink">Explore Shayari</a>
-                    <a href="poets" class="btn-outline-ink">Meet the Poets</a>
+                    <a href="/shayari/" class="btn-ink">Explore Shayari</a>
+                    <a href="#poets" class="btn-outline-ink">Meet the Poets</a>
                 </div>
-            </div>
-
-            <div class="scroll-indicator">
-                <span>Scroll</span>
-                <div class="line"></div>
             </div>
         </section>
 
@@ -1800,6 +1795,34 @@
             </div>
         </section>
 
+        <section class="section-pad pt-0" data-aos="fade-up">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div style="background:rgba(201,163,92,0.06); border:1px solid rgba(201,163,92,0.2); border-radius:18px; padding:2rem 1.5rem; height:100%;">
+                            <div class="eyebrow mb-3">01</div>
+                            <h3 class="mb-3" style="font-size:1.7rem;">Curated Poetry</h3>
+                            <p style="color:var(--muted); line-height:1.8; margin:0;">A richly selected collection of verses that move through heartbreak, hope, devotion, and longing.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div style="background:rgba(122,46,46,0.08); border:1px solid rgba(201,163,92,0.2); border-radius:18px; padding:2rem 1.5rem; height:100%;">
+                            <div class="eyebrow mb-3">02</div>
+                            <h3 class="mb-3" style="font-size:1.7rem;">Elegant Reading</h3>
+                            <p style="color:var(--muted); line-height:1.8; margin:0;">Every page is tuned for a deeper reading experience with calm spacing, warm contrast, and emotional focus.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div style="background:rgba(201,163,92,0.06); border:1px solid rgba(201,163,92,0.2); border-radius:18px; padding:2rem 1.5rem; height:100%;">
+                            <div class="eyebrow mb-3">03</div>
+                            <h3 class="mb-3" style="font-size:1.7rem;">Modern Literary Brand</h3>
+                            <p style="color:var(--muted); line-height:1.8; margin:0;">A premium look that feels artistic, memorable, and polished enough for long-term growth.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- ============ CATEGORIES ============ -->
         <section class="section-pad" id="categories">
             <div class="container">
@@ -1809,102 +1832,22 @@
                         <p class="eyebrow mb-2">Moods of the Heart</p>
                         <h2 class="section-title">Trending Categories</h2>
                     </div>
-                    <a href="trending" class="nav-link-Kalam" style="margin:0;">View All Moods <i
+                    <a href="/shayari/" class="nav-link-Kalam" style="margin:0;">View All Moods <i
                             class="bi bi-arrow-right ms-1"></i></a>
                 </div>
 
                 <div class="row g-4">
-                    <!-- 15 categories -->
-                    <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="0">
-                        <div class="cat-card"><i class="bi bi-heart-fill cat-icon"></i>
-                            <div class="cat-name">Ishq</div>
-                            <div class="cat-count">3,240 Verses</div>
-                        </div>
+                    {% for category in categories %}
+                    <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'1' }}00">
+                        <a href="/shayari/?category={{ category.slug }}" class="cat-card d-block">
+                            <i class="bi bi-heart-fill cat-icon"></i>
+                            <div class="cat-name">{{ category.name }}</div>
+                            <div class="cat-count">{{ category.published_count }} Verses</div>
+                        </a>
                     </div>
-                    <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="50">
-                        <div class="cat-card"><i class="bi bi-cloud-drizzle-fill cat-icon"></i>
-                            <div class="cat-name">Udaasi</div>
-                            <div class="cat-count">2,110 Verses</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-                        <div class="cat-card"><i class="bi bi-fire cat-icon"></i>
-                            <div class="cat-name">Andaaz</div>
-                            <div class="cat-count">1,870 Verses</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="150">
-                        <div class="cat-card"><i class="bi bi-stars cat-icon"></i>
-                            <div class="cat-name">Hosla</div>
-                            <div class="cat-count">1,540 Verses</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="0">
-                        <div class="cat-card"><i class="bi bi-hourglass-split cat-icon"></i>
-                            <div class="cat-name">Zindagi</div>
-                            <div class="cat-count">2,760 Verses</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="50">
-                        <div class="cat-card"><i class="bi bi-people-fill cat-icon"></i>
-                            <div class="cat-name">Dosti</div>
-                            <div class="cat-count">980 Verses</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-                        <div class="cat-card"><i class="bi bi-flower3 cat-icon"></i>
-                            <div class="cat-name">Romaani</div>
-                            <div class="cat-count">2,010 Verses</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="150">
-                        <div class="cat-card"><i class="bi bi-stars cat-icon"></i>
-                            <div class="cat-name">Tehwaar</div>
-                            <div class="cat-count">640 Verses</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="0">
-                        <div class="cat-card"><i class="bi bi-tree-fill cat-icon"></i>
-                            <div class="cat-name">Fitrat</div>
-                            <div class="cat-count">1,120 Verses</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="50">
-                        <div class="cat-card"><i class="bi bi-moon-stars-fill cat-icon"></i>
-                            <div class="cat-name">Ruhaani</div>
-                            <div class="cat-count">870 Verses</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-                        <div class="cat-card"><i class="bi bi-sunrise-fill cat-icon"></i>
-                            <div class="cat-name">Subah Bakhair</div>
-                            <div class="cat-count">760 Verses</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="150">
-                        <div class="cat-card"><i class="bi bi-moon-fill cat-icon"></i>
-                            <div class="cat-name">Shab Bakhair</div>
-                            <div class="cat-count">690 Verses</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="0">
-                        <div class="cat-card"><i class="bi bi-cloud-fill cat-icon"></i>
-                            <div class="cat-name">Tanhai</div>
-                            <div class="cat-count">2,330 Verses</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="50">
-                        <div class="cat-card"><i class="bi bi-heartbreak-fill cat-icon"></i>
-                            <div class="cat-name">Judaai</div>
-                            <div class="cat-count">1,980 Verses</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-                        <div class="cat-card"><i class="bi bi-trophy-fill cat-icon"></i>
-                            <div class="cat-name">Kaamyaabi</div>
-                            <div class="cat-count">720 Verses</div>
-                        </div>
-                    </div>
+                    {% empty %}
+                    <p class="text-center text-muted-custom">Categories appear here when published poetry is added.</p>
+                    {% endfor %}
                 </div>
             </div>
         </section>
@@ -1924,131 +1867,29 @@
                 </div>
 
                 <div class="row g-4" id="shayariGrid">
-                    <!-- Cards injected/enhanced by JS for like/bookmark state, static markup below -->
-                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="0">
-                        <div class="shayari-card" data-id="s1">
+                    {% for poetry in trending_poetry %}
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'0' }}00">
+                        <div class="shayari-card" data-id="{{ poetry.pk }}">
                             <i class="bi bi-quote quote-glyph"></i>
-                            <div class="shayari-text">Kuch is tarah nibhaayi hai khaamoshi ne rasm,<br />jo dil mein reh
-                                gaya, kabhi labon tak na aaya.</div>
+                            <div class="shayari-text">{{ poetry.content|linebreaksbr }}</div>
                             <div class="shayari-meta">
-                                <span class="shayari-author">— Tanhai</span>
+                                <span class="shayari-author">— {{ poetry.author.name }} · {{ poetry.category.name }}</span>
                                 <div>
-                                    <button class="card-action-btn like-btn" title="Like"><i
-                                            class="bi bi-heart"></i></button>
-                                    <button class="card-action-btn copy-btn" title="Copy"><i
-                                            class="bi bi-clipboard"></i></button>
-                                    <button class="card-action-btn bookmark-btn" title="Bookmark"><i
-                                            class="bi bi-bookmark"></i></button>
-                                    <button class="card-action-btn share-btn" title="Share"><i
-                                            class="bi bi-share"></i></button>
+                                    <button class="card-action-btn like-btn" title="Like"><i class="bi bi-heart"></i></button>
+                                    <button class="card-action-btn copy-btn" title="Copy"><i class="bi bi-clipboard"></i></button>
+                                    <button class="card-action-btn bookmark-btn" title="Bookmark"><i class="bi bi-bookmark"></i></button>
+                                    <button class="card-action-btn share-btn" title="Share"><i class="bi bi-share"></i></button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                        <div class="shayari-card" data-id="s2">
-                            <i class="bi bi-quote quote-glyph"></i>
-                            <div class="shayari-text">Manzil se zyada mujhe raaston se ulfat hai,<br />kyunki tere naam
-                                ke har mod pe nishaan mile.</div>
-                            <div class="shayari-meta">
-                                <span class="shayari-author">— Ishq</span>
-                                <div>
-                                    <button class="card-action-btn like-btn" title="Like"><i
-                                            class="bi bi-heart"></i></button>
-                                    <button class="card-action-btn copy-btn" title="Copy"><i
-                                            class="bi bi-clipboard"></i></button>
-                                    <button class="card-action-btn bookmark-btn" title="Bookmark"><i
-                                            class="bi bi-bookmark"></i></button>
-                                    <button class="card-action-btn share-btn" title="Share"><i
-                                            class="bi bi-share"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                        <div class="shayari-card" data-id="s3">
-                            <i class="bi bi-quote quote-glyph"></i>
-                            <div class="shayari-text">Toot kar bhi jo sambhal jaaye woh hum hain,<br />hausle ki koi
-                                doosri zubaan nahi hoti.</div>
-                            <div class="shayari-meta">
-                                <span class="shayari-author">— Hosla</span>
-                                <div>
-                                    <button class="card-action-btn like-btn" title="Like"><i
-                                            class="bi bi-heart"></i></button>
-                                    <button class="card-action-btn copy-btn" title="Copy"><i
-                                            class="bi bi-clipboard"></i></button>
-                                    <button class="card-action-btn bookmark-btn" title="Bookmark"><i
-                                            class="bi bi-bookmark"></i></button>
-                                    <button class="card-action-btn share-btn" title="Share"><i
-                                            class="bi bi-share"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="0">
-                        <div class="shayari-card" data-id="s4">
-                            <i class="bi bi-quote quote-glyph"></i>
-                            <div class="shayari-text">Waqt ke saath badalte hain mausam aur log,<br />par kuch yaadein
-                                hain jo mausamon se pare hain.</div>
-                            <div class="shayari-meta">
-                                <span class="shayari-author">— Zindagi</span>
-                                <div>
-                                    <button class="card-action-btn like-btn" title="Like"><i
-                                            class="bi bi-heart"></i></button>
-                                    <button class="card-action-btn copy-btn" title="Copy"><i
-                                            class="bi bi-clipboard"></i></button>
-                                    <button class="card-action-btn bookmark-btn" title="Bookmark"><i
-                                            class="bi bi-bookmark"></i></button>
-                                    <button class="card-action-btn share-btn" title="Share"><i
-                                            class="bi bi-share"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                        <div class="shayari-card" data-id="s5">
-                            <i class="bi bi-quote quote-glyph"></i>
-                            <div class="shayari-text">Dosti woh chiraag hai jo andheron mein bhi,<br />bina kuch kahe
-                                raasta dikha deta hai.</div>
-                            <div class="shayari-meta">
-                                <span class="shayari-author">— Dosti</span>
-                                <div>
-                                    <button class="card-action-btn like-btn" title="Like"><i
-                                            class="bi bi-heart"></i></button>
-                                    <button class="card-action-btn copy-btn" title="Copy"><i
-                                            class="bi bi-clipboard"></i></button>
-                                    <button class="card-action-btn bookmark-btn" title="Bookmark"><i
-                                            class="bi bi-bookmark"></i></button>
-                                    <button class="card-action-btn share-btn" title="Share"><i
-                                            class="bi bi-share"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                        <div class="shayari-card" data-id="s6">
-                            <i class="bi bi-quote quote-glyph"></i>
-                            <div class="shayari-text">Subah ki pehli kiran yeh keh gayi mujhse,<br />jo bhi beeta so
-                                beeta, ab naye sirey se jee.</div>
-                            <div class="shayari-meta">
-                                <span class="shayari-author">— Subah Bakhair</span>
-                                <div>
-                                    <button class="card-action-btn like-btn" title="Like"><i
-                                            class="bi bi-heart"></i></button>
-                                    <button class="card-action-btn copy-btn" title="Copy"><i
-                                            class="bi bi-clipboard"></i></button>
-                                    <button class="card-action-btn bookmark-btn" title="Bookmark"><i
-                                            class="bi bi-bookmark"></i></button>
-                                    <button class="card-action-btn share-btn" title="Share"><i
-                                            class="bi bi-share"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% empty %}
+                    <p class="text-center text-muted-custom">No published trending verses yet.</p>
+                    {% endfor %}
                 </div>
 
                 <div class="text-center mt-5" data-aos="fade-up">
-                    <a href=" " class="btn-outline-ink">Load More Verses</a>
+                    <a href="#poets" class="btn-outline-ink">Load More Verses</a>
                 </div>
             </div>
         </section>
@@ -2057,9 +1898,10 @@
         <section class="quote-section" data-aos="fade-in">
             <div class="quote-box">
                 <div class="quote-mark">"</div>
-                <p class="quote-text">Alfaaz kam hote hain jab ehsaas gehra ho jaata hai —<br />isiliye shayari,
-                    khaamoshi ka sabse khoobsurat lehja hai.</p>
-                <p class="mt-4 eyebrow" style="letter-spacing:.2em;">The Daily Verse · Kalam Ko Viram Editorial</p>
+                {% if daily_poetry %}
+                <p class="quote-text">{{ daily_poetry.content|linebreaksbr }}</p>
+                <p class="mt-4 eyebrow" style="letter-spacing:.2em;">The Daily Verse · {{ daily_poetry.author.name }}</p>
+                {% endif %}
             </div>
         </section>
 
@@ -2085,7 +1927,7 @@
                                     <p class="poet-bio">Widely regarded as the last great classical poet of the Mughal
                                         era, Ghalib's ghazals fused philosophical depth with an unmatched command of
                                         Urdu and Persian idiom.</p>
-                                    <a href=" " class="nav-link-Kalam p-0 mt-2 d-inline-block" style="margin:0;">Read
+                                    <a href="#trending" class="nav-link-Kalam p-0 mt-2 d-inline-block" style="margin:0;">Read
                                         More <i class="bi bi-arrow-right"></i></a>
                                 </div>
                             </div>
@@ -2100,7 +1942,7 @@
                                     <div class="poet-name">Allama Iqbal</div>
                                     <p class="poet-bio">Philosopher-poet whose verses on selfhood, awakening and destiny
                                         shaped the literary and political imagination of an entire generation.</p>
-                                    <a href=" " class="nav-link-Kalam p-0 mt-2 d-inline-block" style="margin:0;">Read
+                                    <a href="#trending" class="nav-link-Kalam p-0 mt-2 d-inline-block" style="margin:0;">Read
                                         More <i class="bi bi-arrow-right"></i></a>
                                 </div>
                             </div>
@@ -2115,7 +1957,7 @@
                                     <div class="poet-name">Faiz Ahmed Faiz</div>
                                     <p class="poet-bio">A poet of resistance and romance in equal measure, Faiz gave
                                         revolutionary politics the tenderness of a love letter.</p>
-                                    <a href=" " class="nav-link-Kalam p-0 mt-2 d-inline-block" style="margin:0;">Read
+                                    <a href="#trending" class="nav-link-Kalam p-0 mt-2 d-inline-block" style="margin:0;">Read
                                         More <i class="bi bi-arrow-right"></i></a>
                                 </div>
                             </div>
@@ -2130,7 +1972,7 @@
                                     <div class="poet-name">Jaun Elia</div>
                                     <p class="poet-bio">Known for his unconventional style and restless intellect, Jaun
                                         Elia's poetry sits at the crossroads of despair, wit and quiet devastation.</p>
-                                    <a href=" " class="nav-link-Kalam p-0 mt-2 d-inline-block" style="margin:0;">Read
+                                    <a href="#trending" class="nav-link-Kalam p-0 mt-2 d-inline-block" style="margin:0;">Read
                                         More <i class="bi bi-arrow-right"></i></a>
                                 </div>
                             </div>
@@ -2145,7 +1987,7 @@
                                     <div class="poet-name">Gulzar</div>
                                     <p class="poet-bio">A master of imagery who writes as fluently for the screen as the
                                         page, Gulzar's verses turn small, ordinary moments into lingering metaphors.</p>
-                                    <a href=" " class="nav-link-Kalam p-0 mt-2 d-inline-block" style="margin:0;">Read
+                                    <a href="#trending" class="nav-link-Kalam p-0 mt-2 d-inline-block" style="margin:0;">Read
                                         More <i class="bi bi-arrow-right"></i></a>
                                 </div>
                             </div>
@@ -2160,7 +2002,7 @@
                                     <div class="poet-name">Rahat Indori</div>
                                     <p class="poet-bio">Famed for his commanding stage presence, Indori's mushaira
                                         performances turned defiant, punchy couplets into cultural touchstones.</p>
-                                    <a href=" " class="nav-link-Kalam p-0 mt-2 d-inline-block" style="margin:0;">Read
+                                    <a href="#trending" class="nav-link-Kalam p-0 mt-2 d-inline-block" style="margin:0;">Read
                                         More <i class="bi bi-arrow-right"></i></a>
                                 </div>
                             </div>
@@ -2175,7 +2017,7 @@
                                     <div class="poet-name">Bashir Badr</div>
                                     <p class="poet-bio">A poet of gentle simplicity, Bashir Badr's ghazals speak of love
                                         and loss in language so plain it feels like a private conversation.</p>
-                                    <a href=" " class="nav-link-Kalam p-0 mt-2 d-inline-block" style="margin:0;">Read
+                                    <a href="#trending" class="nav-link-Kalam p-0 mt-2 d-inline-block" style="margin:0;">Read
                                         More <i class="bi bi-arrow-right"></i></a>
                                 </div>
                             </div>
@@ -2190,7 +2032,7 @@
                                     <div class="poet-name">Ahmed Faraz</div>
                                     <p class="poet-bio">Faraz's romantic yet politically charged verse made him one of
                                         the most recited poets of the modern Urdu canon.</p>
-                                    <a href=" " class="nav-link-Kalam p-0 mt-2 d-inline-block" style="margin:0;">Read
+                                    <a href="#trending" class="nav-link-Kalam p-0 mt-2 d-inline-block" style="margin:0;">Read
                                         More <i class="bi bi-arrow-right"></i></a>
                                 </div>
                             </div>
@@ -2207,12 +2049,6 @@
         </section>
 
         <!-- ============ POET SPOTLIGHT — JAUN ELIA ============ -->
-        <!--
-  NOTE FOR SOURABH: The four verse cards below are placeholders on purpose —
-  Jaun Elia's actual shayari is still under copyright, so it isn't reproduced here.
-  Just replace the text inside each <p class="placeholder-text"> with the sher you want
-  to feature (in Nastaliq, Devanagari, or Roman — whatever you're using elsewhere on the site).
--->
         <section class="spotlight-section" id="spotlight">
             <div class="container">
                 <div class="row g-5 align-items-center">
@@ -2237,37 +2073,19 @@
                         </p>
 
                         <div class="row g-3">
+                            {% for poetry in spotlight_poetry %}
                             <div class="col-md-6">
                                 <div class="spotlight-verse-card">
                                     <i class="bi bi-quote quote-glyph"></i>
-                                    <p class="placeholder-text">[ Add your first Jaun Elia sher here ]</p>
-                                    <span class="edit-tag"><i class="bi bi-pencil"></i> Editable</span>
+                                    <p>{{ poetry.content|linebreaksbr }}</p>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="spotlight-verse-card">
-                                    <i class="bi bi-quote quote-glyph"></i>
-                                    <p class="placeholder-text">[ Add your second Jaun Elia sher here ]</p>
-                                    <span class="edit-tag"><i class="bi bi-pencil"></i> Editable</span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="spotlight-verse-card">
-                                    <i class="bi bi-quote quote-glyph"></i>
-                                    <p class="placeholder-text">[ Add your third Jaun Elia sher here ]</p>
-                                    <span class="edit-tag"><i class="bi bi-pencil"></i> Editable</span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="spotlight-verse-card">
-                                    <i class="bi bi-quote quote-glyph"></i>
-                                    <p class="placeholder-text">[ Add your fourth Jaun Elia sher here ]</p>
-                                    <span class="edit-tag"><i class="bi bi-pencil"></i> Editable</span>
-                                </div>
-                            </div>
+                            {% empty %}
+                            <p class="text-muted-custom">Published verses by this poet will appear here.</p>
+                            {% endfor %}
                         </div>
 
-                        <a href="" class="btn-ink mt-4 d-inline-block">Open Full Diwan</a>
+                        <a href="/writing/" class="btn-ink mt-4 d-inline-block">Open Full Diwan</a>
                     </div>
                 </div>
             </div>
@@ -2290,7 +2108,7 @@
                                 <span class="eyebrow">42 Ghazals</span>
                                 <h4 class="text-white mt-2" style="font-family:'Playfair Display',serif;">The Midnight
                                     Diwan</h4>
-                                <a href=" " class="btn-outline-ink mt-3 d-inline-block">Open Collection</a>
+                                <a href="/collection/" class="btn-outline-ink mt-3 d-inline-block">Open Collection</a>
                             </div>
                         </div>
                     </div>
@@ -2303,7 +2121,7 @@
                                 <span class="eyebrow">18 Nazms</span>
                                 <h4 class="text-white mt-2" style="font-family:'Playfair Display',serif;">Letters to No
                                     One</h4>
-                                <a href=" " class="btn-outline-ink mt-3 d-inline-block">Open Collection</a>
+                                <a href="/collection/" class="btn-outline-ink mt-3 d-inline-block">Open Collection</a>
                             </div>
                         </div>
                     </div>
@@ -2316,7 +2134,7 @@
                                 <span class="eyebrow">27 Kavitayein</span>
                                 <h4 class="text-white mt-2" style="font-family:'Playfair Display',serif;">Mitti Ki Awaaz
                                 </h4>
-                                <a href=" " class="btn-outline-ink mt-3 d-inline-block">Open Collection</a>
+                                <a href="/collection/" class="btn-outline-ink mt-3 d-inline-block">Open Collection</a>
                             </div>
                         </div>
                     </div>
@@ -2329,7 +2147,7 @@
                                 <span class="eyebrow">65 Sher</span>
                                 <h4 class="text-white mt-2" style="font-family:'Playfair Display',serif;">New Ink, Old
                                     Ache</h4>
-                                <a href=" " class="btn-outline-ink mt-3 d-inline-block">Open Collection</a>
+                                <a href="/collection/" class="btn-outline-ink mt-3 d-inline-block">Open Collection</a>
                             </div>
                         </div>
                     </div>
@@ -2707,10 +2525,10 @@
                             <button type="submit" class="btn-ink w-100">Send Message</button>
                         </form>
                         <div class="d-flex gap-2 mt-4">
-                            <a href=" " class="social-circle"><i class="bi bi-instagram"></i></a>
-                            <a href=" " class="social-circle"><i class="bi bi-twitter-x"></i></a>
-                            <a href=" " class="social-circle"><i class="bi bi-facebook"></i></a>
-                            <a href=" " class="social-circle"><i class="bi bi-youtube"></i></a>
+                            <a href="https://instagram.com" target="_blank" rel="noreferrer" class="social-circle"><i class="bi bi-instagram"></i></a>
+                            <a href="https://x.com" target="_blank" rel="noreferrer" class="social-circle"><i class="bi bi-twitter-x"></i></a>
+                            <a href="https://facebook.com" target="_blank" rel="noreferrer" class="social-circle"><i class="bi bi-facebook"></i></a>
+                            <a href="https://youtube.com" target="_blank" rel="noreferrer" class="social-circle"><i class="bi bi-youtube"></i></a>
                         </div>
                     </div>
                     <div class="col-lg-6" data-aos="fade-left">
@@ -2784,6 +2602,8 @@
 
     </main>
 
+    <!-- NOTE: Poetry feeds and category counts are database-backed and published-only. Featured poet profiles and collection tiles remain presentation content outside this backend phase. -->
+
     <!-- Back to top -->
     <button id="backToTop" title="Back to top"><i class="bi bi-arrow-up"></i></button>
 
@@ -2799,6 +2619,8 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
+    {{ hero_poetry_data|json_script:"hero-poetry-data" }}
+    {{ homepage_search_data|json_script:"homepage-search-data" }}
     <script>
         /* =========================================================
            Kalam Ko Viram — APP SCRIPT
@@ -2825,16 +2647,13 @@
             }
 
             // ---------- Rotating hero sher (changes every 30s) ----------
-            const heroShers = [
-                { text: "Kuch is tarah nibhaayi hai khaamoshi ne rasm,<br/>jo dil mein reh gaya, kabhi labon tak na aaya.", author: "Tanhai" },
-                { text: "Manzil se zyada mujhe raaston se ulfat hai,<br/>kyunki tere naam ke har mod pe nishaan mile.", author: "Ishq" },
-                { text: "Toot kar bhi jo sambhal jaaye woh hum hain,<br/>hausle ki koi doosri zubaan nahi hoti.", author: "Hosla" },
-                { text: "Waqt ke saath badalte hain mausam aur log,<br/>par kuch yaadein hain jo mausamon se pare hain.", author: "Zindagi" },
-                { text: "Dosti woh chiraag hai jo andheron mein bhi,<br/>bina kuch kahe raasta dikha deta hai.", author: "Dosti" },
-                { text: "Subah ki pehli kiran yeh keh gayi mujhse,<br/>jo bhi beeta so beeta, ab naye sirey se jee.", author: "Subah Bakhair" },
-                { text: "Alfaaz kam hote hain jab ehsaas gehra ho jaata hai,<br/>isiliye khaamoshi bhi ek shayari ban jaati hai.", author: "Khaamoshi" },
-                { text: "Har raat guzarti hai kisi khwaab ke sahare,<br/>aur har khwaab kisi apne ke naam se shuru hota hai.", author: "Yaadein" }
-            ];
+            const heroShers = JSON.parse(document.getElementById('hero-poetry-data').textContent);
+
+            function formatSher(text) {
+                const escaped = document.createElement('span');
+                escaped.textContent = text;
+                return escaped.innerHTML.replace(/\r?\n/g, '<br>');
+            }
 
             const heroSherEl = document.getElementById('heroSherText');
             const heroAuthorEl = document.getElementById('heroSherAuthor');
@@ -2855,7 +2674,7 @@
                     heroAuthorEl.classList.remove('visible');
                     setTimeout(() => {
                         heroSherIndex = index;
-                        heroSherEl.innerHTML = heroShers[heroSherIndex].text;
+                        heroSherEl.innerHTML = formatSher(heroShers[heroSherIndex].text);
                         heroAuthorEl.textContent = '— ' + heroShers[heroSherIndex].author;
                         heroSherEl.classList.add('visible');
                         heroAuthorEl.classList.add('visible');
@@ -2873,7 +2692,7 @@
 
                 // initial reveal
                 setTimeout(() => {
-                    heroSherEl.innerHTML = heroShers[0].text;
+                    heroSherEl.innerHTML = formatSher(heroShers[0].text);
                     heroAuthorEl.textContent = '— ' + heroShers[0].author;
                     heroSherEl.classList.add('visible');
                     heroAuthorEl.classList.add('visible');
@@ -2961,15 +2780,16 @@
             });
 
             // ---------- Live search suggestions (client-side demo) ----------
-            const searchData = ['Ishq — 3,240 verses', 'Tanhai — 2,330 verses', 'Zindagi — 2,760 verses', 'Hosla — 1,540 verses', 'Dosti — 980 verses', 'Mirza Ghalib', 'Allama Iqbal', 'Faiz Ahmed Faiz', 'Jaun Elia', 'Gulzar', 'Rahat Indori'];
+            const searchData = JSON.parse(document.getElementById('homepage-search-data').textContent);
             const searchInput = document.getElementById('liveSearchInput');
             const suggestionsBox = document.getElementById('searchSuggestions');
+            const escapeSuggestion = value => String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
             searchInput.addEventListener('input', function () {
                 const val = this.value.trim().toLowerCase();
                 if (!val) { suggestionsBox.innerHTML = ''; return; }
                 const matches = searchData.filter(item => item.toLowerCase().includes(val)).slice(0, 5);
                 suggestionsBox.innerHTML = matches.length
-                    ? matches.map(m => `<span class="search-chip" style="margin:2px;">${m}</span>`).join('')
+                    ? matches.map(m => `<span class="search-chip" style="margin:2px;">${escapeSuggestion(m)}</span>`).join('')
                     : 'No matches — try another mood or poet name.';
             });
 
@@ -3085,10 +2905,6 @@
             });
             document.getElementById('mobileSubscribeBtn')?.addEventListener('click', function () {
                 setTimeout(() => document.querySelector('.newsletter-box')?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 350);
-            });
-            document.getElementById('loginNavBtn')?.addEventListener('click', function (e) {
-                e.preventDefault();
-                showToast('Login coming soon — hang tight', 'bi-person-fill');
             });
 
             // ---------- Counters ----------

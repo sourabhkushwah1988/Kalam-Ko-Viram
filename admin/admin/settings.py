@@ -25,6 +25,7 @@ SECRET_KEY = "django-insecure-yhb^*(zg_#rp81f)ep3ydo2b-wj9yh91_*#)03#k938$rds21r
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+SHOW_DEV_OTP = DEBUG and os.environ.get("SHOW_DEV_OTP", "True").lower() in {"1", "true", "yes", "on"}
 
 ALLOWED_HOSTS = []
 

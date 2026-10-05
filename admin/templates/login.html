@@ -159,6 +159,21 @@
             position: relative;
             overflow: hidden;
         }
+        .dev-otp-notice {
+            background: rgba(201, 163, 92, 0.12);
+            border: 1px solid rgba(201, 163, 92, 0.4);
+            border-radius: 8px;
+            color: var(--primary-text);
+            margin-bottom: 1.5rem;
+            padding: 0.85rem 1rem;
+            text-align: center;
+        }
+        .dev-otp-notice strong {
+            color: var(--gold-hover);
+            display: block;
+            font-size: 1.5rem;
+            letter-spacing: 0.12em;
+        }
         /* Golden Border Animation */
         .login-card::after {
             content: '';
@@ -338,6 +353,22 @@
             text-align: center;
             margin-top: 1.5rem;
         }
+        .auth-error {
+            color: #f0a0a0;
+            font-size: .78rem;
+            margin-top: .35rem;
+        }
+        .auth-switch {
+            color: var(--secondary-text);
+            font-size: .82rem;
+            text-align: center;
+            margin: 1.25rem 0 0;
+        }
+        .auth-switch a { color: var(--gold); }
+        .login-card {
+            max-height: calc(100vh - 2rem);
+            overflow-y: auto;
+        }
         .secure-badge {
             font-size: 0.85rem;
             color: var(--secondary-text);
@@ -415,80 +446,89 @@
         <!-- Right Side -->
         <div class="login-right">
             <div class="login-card" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="300">
+                {% if dev_otp %}
+                <div class="dev-otp-notice" role="status">
+                    DEVELOPMENT OTP: <strong>{{ dev_otp }}</strong>
+                </div>
+                {% endif %}
                 
                 <div class="text-center">
                     <div class="card-icon">
                         <i class="bi bi-feather"></i>
                     </div>
-                    <h2 class="welcome-title" id="cardTitle">Welcome</h2>
-                    <p class="welcome-sub" id="cardSub">Authentication</p>
+                    <h2 class="welcome-title">Welcome back</h2>
+                    <p class="welcome-sub">Sign in to continue reading</p>
                 </div>
                 
                 <div class="custom-divider"></div>
                 
                 <div id="authFlow">
-                    <!-- Step 1: Mobile or Google -->
-                    <div id="step1" class="step-container step-show">
-                        <form action="javascript:void(0);" onsubmit="showOTPStep()" id="cmsAuthForm">
-                            <!-- Django CSRF Placeholder -->
-                            <!-- {% csrf_token %} -->
-                            
-                            <label class="form-label">Continue with Mobile</label>
-                            <div class="input-wrapper mb-4">
-                                <input type="tel" id="mobileInput" name="mobile" class="form-control" placeholder="+91 98765 43210" required>
+                    {% if form.non_field_errors %}
+                    <div class="auth-error mb-3">{{ form.non_field_errors }}</div>
+                    {% endif %}
+
+                    {% if show_profile_form %}
+                    <div class="alert" style="background: rgba(201, 163, 92, 0.12); color: #f5eedc; border: 1px solid rgba(201, 163, 92, 0.4); border-radius: 10px; padding: 0.8rem 1rem; margin-bottom: 1rem; font-size: 0.85rem;">
+                        Complete your profile to finish creating your account.
+                    </div>
+                    <form method="post" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ next }}">
+                        <input type="hidden" name="form_type" value="profile_complete">
+                        <div class="row g-2">
+                            {% for field in profile_form %}
+                            <div class="col-12 mb-3">
+                                <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                <div class="input-wrapper">
+                                    {{ field }}
+                                    <i class="bi {% if field.name == 'name' %}bi-person{% elif field.name == 'username' %}bi-person-badge{% elif field.name == 'email' %}bi-envelope{% else %}bi-geo-alt{% endif %}"></i>
+                                </div>
+                                {% for error in field.errors %}<div class="auth-error">{{ error }}</div>{% endfor %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <button type="submit" class="btn-login">Create account</button>
+                    </form>
+                    {% else %}
+                    {% if otp_sent %}
+                    <div class="alert" style="background: rgba(201, 163, 92, 0.12); color: #f5eedc; border: 1px solid rgba(201, 163, 92, 0.4); border-radius: 10px; padding: 0.8rem 1rem; margin-bottom: 1rem; font-size: 0.85rem;">
+                        OTP sent to <strong>{{ mobile_number }}</strong>.
+                    </div>
+                    {% endif %}
+                    <form method="post" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ next }}">
+                        <div class="mb-4">
+                            <label class="form-label" for="{{ form.mobile_number.id_for_label }}">{{ form.mobile_number.label }}</label>
+                            <div class="input-wrapper">
+                                {{ form.mobile_number }}
                                 <i class="bi bi-phone"></i>
                             </div>
-                            
-                            <button type="submit" class="btn-login" id="sendOtpBtn">
-                                SEND OTP
-                            </button>
-                            
-                            <div class="separator mt-4 mb-4">
-                                <span>OR</span>
+                            {% for error in form.mobile_number.errors %}<div class="auth-error">{{ error }}</div>{% endfor %}
+                        </div>
+                        {% if otp_sent or otp_verified %}
+                        <div class="mb-4">
+                            <label class="form-label" for="{{ form.otp.id_for_label }}">{{ form.otp.label }}</label>
+                            <div class="input-wrapper">
+                                {{ form.otp }}
+                                <i class="bi bi-shield-lock"></i>
                             </div>
-                            
-                            <button type="button" class="btn-google">
-                                <i class="bi bi-google me-2"></i> Continue with Google
-                            </button>
-                        </form>
-                    </div>
-                    <!-- Step 2: OTP Verification -->
-                    <div id="step2" class="step-container step-hide">
-                        <form action="/dashboard" method="POST" id="otpVerifyForm">
-                            <!-- Django CSRF Placeholder -->
-                            <!-- {% csrf_token %} -->
-                            
-                            <div class="text-center mb-4">
-                                <p style="color: var(--secondary-text); font-size: 0.9rem;">
-                                    We've sent a 6-digit code to <br>
-                                    <strong id="displayMobile" style="color: var(--primary-text); letter-spacing: 0.05em; font-size: 1rem;"></strong>
-                                </p>
-                            </div>
-                            <label class="form-label text-center w-100 mb-3">Enter OTP</label>
-                            <div class="input-wrapper mb-4">
-                                <input type="text" name="otp" class="form-control text-center" placeholder="• • • • • •" style="letter-spacing: 0.6em; font-size: 1.2rem; padding-left: 1rem;" required maxlength="6" autocomplete="one-time-code">
-                            </div>
-                            
-                            <button type="submit" class="btn-login" id="verifyBtn">
-                                VERIFY & LOGIN
-                            </button>
-                            <div class="text-center mt-4">
-                                <a href="javascript:void(0);" onclick="showMobileStep()" class="forgot-link">Change Number</a>
-                                <span style="color: var(--secondary-text); margin: 0 10px;">|</span>
-                                <a href="javascript:void(0);" class="forgot-link">Resend OTP</a>
-                            </div>
-                        </form>
-                    </div>
+                            {% for error in form.otp.errors %}<div class="auth-error">{{ error }}</div>{% endfor %}
+                        </div>
+                        {% endif %}
+                        <button type="submit" class="btn-login" name="action" value="{% if otp_sent %}verify_otp{% else %}send_otp{% endif %}">{% if otp_sent %}Verify OTP{% else %}Send OTP{% endif %}</button>
+                    </form>
+                    {% endif %}
                 </div>
                 <div class="custom-divider"></div>
                 
                 <div class="auth-footer">
-                    <div class="secure-badge">
-                        <i class="bi bi-shield-check"></i> Secure Login
-                    </div>
-                    <div class="powered-by">
+                    <!-- <div class="secure-badge">
+                        <i class="bi bi-shield-check"></i> Your password is securely protected
+                    </div> -->
+                    <!-- <div class="powered-by">
                         Powered by Django
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

@@ -281,23 +281,23 @@
         <h1 class="hero-title mb-4">Discover the Magic of <br><span id="typed-text"></span></h1>
         <p class="font-sub" style="font-size: 1.4rem; color: #B7AC9A;">Immerse yourself in words that speak what the heart feels.</p>
 
-        <form action="/search" method="GET" class="search-box">
+        <form action="" method="GET" class="search-box">
             <i class="bi bi-search text-muted-custom" style="font-size: 1.2rem;"></i>
-            <input type="text" name="q" class="search-input" placeholder="Search for emotions, poets, or words...">
+            <input type="text" name="q" value="{{ query }}" class="search-input" placeholder="Search for emotions, poets, or words...">
             <button type="submit" class="search-btn">Search</button>
         </form>
         <div class="hero-stats">
             <div class="stat-item">
-                <div class="stat-num">50K+</div>
-                <div class="stat-label">Shayaris</div>
+                <div class="stat-num">{{ poetry_count }}</div>
+                <div class="stat-label">Published Shayaris</div>
             </div>
             <div class="stat-item">
-                <div class="stat-num">2M+</div>
-                <div class="stat-label">Readers</div>
+                <div class="stat-num">{{ category_count }}</div>
+                <div class="stat-label">Active Categories</div>
             </div>
             <div class="stat-item">
-                <div class="stat-num">100+</div>
-                <div class="stat-label">Categories</div>
+                <div class="stat-num">4</div>
+                <div class="stat-label">Poetry Forms</div>
             </div>
         </div>
     </div>
@@ -312,65 +312,17 @@
                 <div class="divider-motif"><span>❖</span></div>
             </div>
             <div class="row g-4">
-                <!-- Django Template Loop Example -->
-                <!-- {% for category in categories %} -->
-                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="100">
-                    <div class="cat-card">
+                {% for category in categories %}
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'1' }}00">
+                    <a href="?category={{ category.slug }}{% if query %}&q={{ query|urlencode }}{% endif %}" class="cat-card d-block">
                         <i class="bi bi-heart cat-icon"></i>
-                        <h3 class="cat-title font-sub">Love Shayari</h3>
-                        <p class="cat-count">1,240 Posts</p>
-                    </div>
+                        <h3 class="cat-title font-sub">{{ category.name }}</h3>
+                        <p class="cat-count">{{ category.published_count }} Posts</p>
+                    </a>
                 </div>
-                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="200">
-                    <div class="cat-card">
-                        <i class="bi bi-cloud-rain cat-icon"></i>
-                        <h3 class="cat-title font-sub">Sad Shayari</h3>
-                        <p class="cat-count">980 Posts</p>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="300">
-                    <div class="cat-card">
-                        <i class="bi bi-fire cat-icon"></i>
-                        <h3 class="cat-title font-sub">Attitude</h3>
-                        <p class="cat-count">560 Posts</p>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="400">
-                    <div class="cat-card">
-                        <i class="bi bi-people cat-icon"></i>
-                        <h3 class="cat-title font-sub">Friendship</h3>
-                        <p class="cat-count">720 Posts</p>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="100">
-                    <div class="cat-card">
-                        <i class="bi bi-stars cat-icon"></i>
-                        <h3 class="cat-title font-sub">Motivation</h3>
-                        <p class="cat-count">450 Posts</p>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="200">
-                    <div class="cat-card">
-                        <i class="bi bi-tree cat-icon"></i>
-                        <h3 class="cat-title font-sub">Nature</h3>
-                        <p class="cat-count">310 Posts</p>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="300">
-                    <div class="cat-card">
-                        <i class="bi bi-calendar-event cat-icon"></i>
-                        <h3 class="cat-title font-sub">Festivals</h3>
-                        <p class="cat-count">890 Posts</p>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="400">
-                    <div class="cat-card">
-                        <i class="bi bi-compass cat-icon"></i>
-                        <h3 class="cat-title font-sub">Life</h3>
-                        <p class="cat-count">1,050 Posts</p>
-                    </div>
-                </div>
-                <!-- {% endfor %} -->
+                {% empty %}
+                <p class="text-center text-muted-custom">No published categories yet.</p>
+                {% endfor %}
             </div>
         </div>
     </section>
@@ -381,11 +333,10 @@
                 <div class="row align-items-center">
                     <div class="col-12 text-center">
                         <h4 class="text-gold mb-4" style="letter-spacing: 2px;">POEM OF THE DAY</h4>
-                        <div class="featured-text font-sub font-urdu">
-                            "हज़ारों ख़्वाहिशें ऐसी कि हर ख़्वाहिश पे दम निकले,<br>
-                            बहुत निकले मेरे अरमान लेकिन फिर भी कम निकले।"
-                        </div>
-                        <div class="featured-author">— Mirza Ghalib</div>
+                        {% if featured_poetry %}
+                        <div class="featured-text font-sub font-urdu">{{ featured_poetry.content|linebreaksbr }}</div>
+                        <div class="featured-author">— {{ featured_poetry.author.name }}</div>
+                        {% endif %}
                         <button class="btn btn-outline-warning mt-4 rounded-pill px-4" style="border-color: var(--gold); color: var(--gold);">Read Full Ghazal</button>
                     </div>
                 </div>
@@ -401,48 +352,20 @@
             </div>
             <div class="swiper trending-slider" data-aos="fade-up" data-aos-delay="200">
                 <div class="swiper-wrapper">
-                    <!-- {% for trend in trending %} -->
+                    {% for poetry in trending_poetry %}
                     <div class="swiper-slide">
                         <div class="trending-card">
                             <p class="font-sub" style="font-size: 1.5rem; line-height: 1.6; color: var(--primary-text);">
-                                "वक़्त की धुप हो या तेज़ आंधियां,<br>कुछ रिश्ते कभी रंग नहीं बदलते।"
+                                {{ poetry.content|linebreaksbr }}
                             </p>
                             <div class="mt-4 pt-3 border-top" style="border-color: var(--border-color) !important;">
-                                <span class="text-gold font-sub fs-5">Author Unknown</span>
+                                <span class="text-gold font-sub fs-5">{{ poetry.author.name }} · {{ poetry.category.name }}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-slide">
-                        <div class="trending-card">
-                            <p class="font-sub" style="font-size: 1.5rem; line-height: 1.6; color: var(--primary-text);">
-                                "मुस्कुराते चेहरों के पीछे भी एक दर्द होता है,<br>जिसे सिर्फ रात का अँधेरा समझता है।"
-                            </p>
-                            <div class="mt-4 pt-3 border-top" style="border-color: var(--border-color) !important;">
-                                <span class="text-gold font-sub fs-5">Night Muse</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="trending-card">
-                            <p class="font-sub" style="font-size: 1.5rem; line-height: 1.6; color: var(--primary-text);">
-                                "मंज़िल मिले न मिले ये तो मुकद्दर की बात है,<br>हम कोशिश भी न करें ये तो गलत बात है।"
-                            </p>
-                            <div class="mt-4 pt-3 border-top" style="border-color: var(--border-color) !important;">
-                                <span class="text-gold font-sub fs-5">Inspirational</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="trending-card">
-                            <p class="font-sub font-urdu" style="font-size: 1.5rem; line-height: 1.6; color: var(--primary-text);">
-                                "तुम नहीं तो ज़िन्दगी में क्या रह जायेगा,<br>बस एक खालीपन और ये तन्हा दिल।"
-                            </p>
-                            <div class="mt-4 pt-3 border-top" style="border-color: var(--border-color) !important;">
-                                <span class="text-gold font-sub fs-5">Sad Romance</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- {% endfor %} -->
+                    {% empty %}
+                    <div class="swiper-slide"><p class="text-center text-muted-custom">No trending poetry yet.</p></div>
+                    {% endfor %}
                 </div>
                 <!-- Pagination -->
                 <div class="swiper-pagination mt-4 position-static"></div>
@@ -465,17 +388,14 @@
                 </div>
             </div>
             <div class="masonry-grid">
-                <!-- Django Template Backend Structure -->
-                <!-- {% for post in latest_posts %} -->
-                
+                {% for poetry in latest_poetry %}
                 <div class="shayari-card" data-aos="fade-up">
                     <div class="shayari-card-text font-sub">
-                        "वो जो ख्वाब थे मेरे ज़ेहन में,<br>ना मैं कह सका ना मैं लिख सका,<br>ज़ुबान मिली तो कटी हुई,<br>कलम मिला तो बिका हुआ।"
+                        {{ poetry.content|linebreaksbr }}
                     </div>
                     <div class="shayari-card-meta">
                         <div class="shayari-card-tags">
-                            <span>Deep</span>
-                            <span>Society</span>
+                            <span>{{ poetry.category.name }}</span>
                         </div>
                         <div class="shayari-actions">
                             <button><i class="bi bi-heart"></i></button>
@@ -484,84 +404,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="shayari-card" data-aos="fade-up">
-                    <div class="shayari-card-text font-sub">
-                        "आवाज़ में ठहराव था, आँखों में नमी थी,<br>और कह रहे थे कि हम खुश बहुत हैं।"
-                    </div>
-                    <div class="shayari-card-meta">
-                        <div class="shayari-card-tags">
-                            <span>Sad</span>
-                        </div>
-                        <div class="shayari-actions">
-                            <button><i class="bi bi-heart"></i></button>
-                            <button><i class="bi bi-share"></i></button>
-                            <button><i class="bi bi-bookmark"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="shayari-card" data-aos="fade-up">
-                    <div class="shayari-card-text font-sub font-urdu">
-                        "अजीब दस्तूर है ज़माने का,<br>अच्छी यादें रुलाती हैं, और बुरी यादें हँसाती हैं।"
-                    </div>
-                    <div class="shayari-card-meta">
-                        <div class="shayari-card-tags">
-                            <span>Life</span>
-                        </div>
-                        <div class="shayari-actions">
-                            <button><i class="bi bi-heart"></i></button>
-                            <button><i class="bi bi-share"></i></button>
-                            <button><i class="bi bi-bookmark"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="shayari-card" data-aos="fade-up">
-                    <div class="shayari-card-text font-sub">
-                        "चाय सी उबल रही है ज़िंदगी,<br>और हम हैं कि चुस्कियां लेने के शौक़ीन हैं।"
-                    </div>
-                    <div class="shayari-card-meta">
-                        <div class="shayari-card-tags">
-                            <span>Morning</span>
-                            <span>Life</span>
-                        </div>
-                        <div class="shayari-actions">
-                            <button><i class="bi bi-heart"></i></button>
-                            <button><i class="bi bi-share"></i></button>
-                            <button><i class="bi bi-bookmark"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="shayari-card" data-aos="fade-up">
-                    <div class="shayari-card-text font-sub">
-                        "तुझे भूलने की ज़िद थी,<br>और मैं खुद को ही भुला बैठा।"
-                    </div>
-                    <div class="shayari-card-meta">
-                        <div class="shayari-card-tags">
-                            <span>Love</span>
-                            <span>Heartbreak</span>
-                        </div>
-                        <div class="shayari-actions">
-                            <button><i class="bi bi-heart"></i></button>
-                            <button><i class="bi bi-share"></i></button>
-                            <button><i class="bi bi-bookmark"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="shayari-card" data-aos="fade-up">
-                    <div class="shayari-card-text font-sub">
-                        "ख़ामोशी का भी अपना एक शोर होता है,<br>बस सुनने वाले के पास एहसास होना चाहिए।"
-                    </div>
-                    <div class="shayari-card-meta">
-                        <div class="shayari-card-tags">
-                            <span>Silence</span>
-                        </div>
-                        <div class="shayari-actions">
-                            <button><i class="bi bi-heart"></i></button>
-                            <button><i class="bi bi-share"></i></button>
-                            <button><i class="bi bi-bookmark"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <!-- {% endfor %} -->
+                {% empty %}
+                <p class="text-muted-custom">No published poetry matches this search.</p>
+                {% endfor %}
             </div>
             <!-- Pagination -->
             <div class="pagination-Kalam" data-aos="fade-up">

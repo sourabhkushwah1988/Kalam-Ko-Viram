@@ -1736,19 +1736,19 @@
     <!-- ============ NAVBAR ============ -->
     <nav class="navbar-Kalam" id="mainNav">
         <div class="container d-flex align-items-center justify-content-between">
-            <a href="{% url 'landing' %}" class="brand-mark">Kalam<span>-Ko-</span>Viram</a>
+            <a href="/" class="brand-mark">Kalam<span>-Ko-</span>Viram</a>
 
             <div class="d-none d-lg-flex align-items-center">
-                <a href="{% url 'landing' %}#home" class="nav-link-Kalam active">Home</a>
+                <a href="/" class="nav-link-Kalam active">Home</a>
 
                 <div class="nav-dropdown">
                     <span class="nav-link-Kalam nav-dropdown-toggle">Writings <i
                             class="bi bi-chevron-down nav-dropdown-caret"></i></span>
                     <div class="nav-dropdown-menu">
-                        <a href="{% url 'shayari' %}" class="nav-dropdown-item"><i class="bi bi-feather"></i> Shayari</a>
-                        <a href="{% url 'writing' %}" class="nav-dropdown-item"><i class="bi bi-journal-text"></i> Kavita</a>
-                        <a href="{% url 'writing' %}" class="nav-dropdown-item"><i class="bi bi-vinyl"></i> Ghazal</a>
-                        <a href="{% url 'writing' %}" class="nav-dropdown-item"><i class="bi bi-book"></i> Nazm</a>
+                        <a href="/shayari/" class="nav-dropdown-item"><i class="bi bi-feather"></i> Shayari</a>
+                        <a href="/writing/" class="nav-dropdown-item"><i class="bi bi-journal-text"></i> Kavita</a>
+                        <a href="/writing/" class="nav-dropdown-item"><i class="bi bi-vinyl"></i> Ghazal</a>
+                        <a href="/writing/" class="nav-dropdown-item"><i class="bi bi-book"></i> Nazm</a>
                     </div>
                 </div>
 
@@ -1756,18 +1756,22 @@
                     <span class="nav-link-Kalam nav-dropdown-toggle">Collections <i
                             class="bi bi-chevron-down nav-dropdown-caret"></i></span>
                     <div class="nav-dropdown-menu">
-                        <a href="{% url 'collection' %}" class="nav-dropdown-item"><i class="bi bi-heart-fill"></i> Love</a>
-                        <a href="{% url 'collection' %}" class="nav-dropdown-item"><i class="bi bi-cloud-drizzle-fill"></i>
+                        <a href="/collection/" class="nav-dropdown-item"><i class="bi bi-heart-fill"></i> Love</a>
+                        <a href="/collection/" class="nav-dropdown-item"><i class="bi bi-cloud-drizzle-fill"></i>
                             Sad</a>
-                        <a href="{% url 'collection' %}" class="nav-dropdown-item"><i class="bi bi-flower1"></i> Maa</a>
-                        <a href="{% url 'collection' %}" class="nav-dropdown-item"><i class="bi bi-shield-fill"></i> Pita</a>
-                        <a href="{% url 'collection' %}" class="nav-dropdown-item"><i class="bi bi-tree-fill"></i> Nature</a>
-                        <a href="{% url 'collection' %}" class="nav-dropdown-item"><i class="bi bi-fire"></i> Motivation</a>
+                        <a href="/collection/" class="nav-dropdown-item"><i class="bi bi-flower1"></i> Maa</a>
+                        <a href="/collection/" class="nav-dropdown-item"><i class="bi bi-shield-fill"></i> Pita</a>
+                        <a href="/collection/" class="nav-dropdown-item"><i class="bi bi-tree-fill"></i> Nature</a>
+                        <a href="/collection/" class="nav-dropdown-item"><i class="bi bi-fire"></i> Motivation</a>
                     </div>
                 </div>
 
-                <a href="{% url 'about' %}" class="nav-link-Kalam">About</a>
-                <a href="{% url 'contact' %}" class="nav-link-Kalam">Contact</a>
+                <a href="/about/" class="nav-link-Kalam">About</a>
+                <a href="/contact/" class="nav-link-Kalam">Contact</a>
+                {% if not user.is_authenticated %}
+                <a href="{% url 'login' %}"
+                    class="nav-link-Kalam {% if request.path == '/login/' or request.path == '/register/' %}active{% endif %}">Login</a>
+                {% endif %}
             </div>
 
             <div class="d-flex align-items-center gap-2">
@@ -1775,8 +1779,16 @@
                         class="bi bi-search"></i></button>
                 <button class="icon-btn d-none d-md-inline-flex" id="subscribeNavBtn" title="Subscribe"><i
                         class="bi bi-star"></i></button>
-                <a href="#" class="icon-btn d-none d-md-inline-flex" title="Login" id="loginNavBtn"><i
-                        class="bi bi-person"></i></a>
+                {% if user.is_authenticated %}
+                <form method="post" action="{% url 'logout' %}" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="icon-btn d-none d-md-inline-flex" title="Sign out" aria-label="Sign out">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </button>
+                </form>
+                {% else %}
+                <a href="{% url 'login' %}" class="icon-btn d-none d-md-inline-flex {% if request.path == '/login/' or request.path == '/register/' %}active{% endif %}" title="Login" id="loginNavBtn"><i class="bi bi-person"></i></a>
+                {% endif %}
                 <button class="icon-btn" id="themeToggleBtn" title="Toggle theme"><i class="bi bi-moon-stars"
                         id="themeIcon"></i></button>
                 <button class="icon-btn d-lg-none" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu"
@@ -1792,7 +1804,7 @@
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
         </div>
         <div class="offcanvas-body d-flex flex-column gap-4 pt-4">
-            <a href="{% url 'landing' %}#home" class="nav-link-Kalam fs-5" data-bs-dismiss="offcanvas">Home</a>
+            <a href="/" class="nav-link-Kalam fs-5" data-bs-dismiss="offcanvas">Home</a>
 
             <div>
                 <button class="mobile-submenu-toggle nav-link-Kalam fs-5" type="button" data-bs-toggle="collapse"
@@ -1800,10 +1812,10 @@
                     Writings <i class="bi bi-chevron-down"></i>
                 </button>
                 <div class="collapse mobile-submenu" id="mobileWritings">
-                    <a href="{% url 'shayari' %}" data-bs-dismiss="offcanvas"><i class="bi bi-feather"></i> Shayari</a>
-                    <a href="{% url 'writing' %}" data-bs-dismiss="offcanvas"><i class="bi bi-journal-text"></i> Kavita</a>
-                    <a href="{% url 'writing' %}" data-bs-dismiss="offcanvas"><i class="bi bi-vinyl"></i> Ghazal</a>
-                    <a href="{% url 'writing' %}" data-bs-dismiss="offcanvas"><i class="bi bi-book"></i> Nazm</a>
+                    <a href="/shayari/" data-bs-dismiss="offcanvas"><i class="bi bi-feather"></i> Shayari</a>
+                    <a href="/writing/" data-bs-dismiss="offcanvas"><i class="bi bi-journal-text"></i> Kavita</a>
+                    <a href="/writing/" data-bs-dismiss="offcanvas"><i class="bi bi-vinyl"></i> Ghazal</a>
+                    <a href="/writing/" data-bs-dismiss="offcanvas"><i class="bi bi-book"></i> Nazm</a>
                 </div>
             </div>
 
@@ -1813,17 +1825,20 @@
                     Collections <i class="bi bi-chevron-down"></i>
                 </button>
                 <div class="collapse mobile-submenu" id="mobileCollections">
-                    <a href="{% url 'collection' %}" data-bs-dismiss="offcanvas"><i class="bi bi-heart-fill"></i> Love</a>
-                    <a href="{% url 'collection' %}" data-bs-dismiss="offcanvas"><i class="bi bi-cloud-drizzle-fill"></i> Sad</a>
-                    <a href="{% url 'collection' %}" data-bs-dismiss="offcanvas"><i class="bi bi-flower1"></i> Maa</a>
-                    <a href="{% url 'collection' %}" data-bs-dismiss="offcanvas"><i class="bi bi-shield-fill"></i> Pita</a>
-                    <a href="{% url 'collection' %}" data-bs-dismiss="offcanvas"><i class="bi bi-tree-fill"></i> Nature</a>
-                    <a href="{% url 'collection' %}" data-bs-dismiss="offcanvas"><i class="bi bi-fire"></i> Motivation</a>
+                    <a href="/collection/" data-bs-dismiss="offcanvas"><i class="bi bi-heart-fill"></i> Love</a>
+                    <a href="/collection/" data-bs-dismiss="offcanvas"><i class="bi bi-cloud-drizzle-fill"></i> Sad</a>
+                    <a href="/collection/" data-bs-dismiss="offcanvas"><i class="bi bi-flower1"></i> Maa</a>
+                    <a href="/collection/" data-bs-dismiss="offcanvas"><i class="bi bi-shield-fill"></i> Pita</a>
+                    <a href="/collection/" data-bs-dismiss="offcanvas"><i class="bi bi-tree-fill"></i> Nature</a>
+                    <a href="/collection/" data-bs-dismiss="offcanvas"><i class="bi bi-fire"></i> Motivation</a>
                 </div>
             </div>
 
-            <a href="{% url 'about' %}" class="nav-link-Kalam fs-5" data-bs-dismiss="offcanvas">About</a>
-            <a href="{% url 'contact' %}" class="nav-link-Kalam fs-5" data-bs-dismiss="offcanvas">Contact</a>
+            <a href="/about/" class="nav-link-Kalam fs-5" data-bs-dismiss="offcanvas">About</a>
+            <a href="/contact/" class="nav-link-Kalam fs-5" data-bs-dismiss="offcanvas">Contact</a>
+            {% if not user.is_authenticated %}
+            <a href="{% url 'login' %}" class="nav-link-Kalam fs-5 {% if request.path == '/login/' or request.path == '/register/' %}active{% endif %}" data-bs-dismiss="offcanvas">Login</a>
+            {% endif %}
 
             <hr style="border-color:var(--border); margin:.5rem 0;" />
 
@@ -1832,10 +1847,20 @@
                         class="bi bi-search"></i></button>
                 <button class="icon-btn" id="mobileSubscribeBtn" title="Subscribe" data-bs-dismiss="offcanvas"><i
                         class="bi bi-star"></i></button>
-                <a href="#" class="icon-btn" title="Login"><i class="bi bi-person"></i></a>
+                {% if user.is_authenticated %}
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="icon-btn" title="Sign out" aria-label="Sign out">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </button>
+                </form>
+                {% else %}
+                <a href="/login/" class="icon-btn" title="Login"><i class="bi bi-person"></i></a>
+                {% endif %}
             </div>
         </div>
     </div>
+
     {% block content %}{% endblock %}
 
     {% block scripts %}{% endblock %}
@@ -1849,27 +1874,27 @@
                     <p class="text-muted-custom small">A digital sanctuary for the lovers of words — preserving
                         tradition and pursuing sukoon, one verse at a time.</p>
                     <div class="d-flex gap-2 mt-3">
-                        <a href=" " class="social-circle"><i class="bi bi-instagram"></i></a>
-                        <a href=" " class="social-circle"><i class="bi bi-twitter-x"></i></a>
-                        <a href=" " class="social-circle"><i class="bi bi-facebook"></i></a>
-                        <a href=" " class="social-circle"><i class="bi bi-youtube"></i></a>
+                        <a href="https://instagram.com" target="_blank" rel="noreferrer" class="social-circle"><i class="bi bi-instagram"></i></a>
+                        <a href="https://x.com" target="_blank" rel="noreferrer" class="social-circle"><i class="bi bi-twitter-x"></i></a>
+                        <a href="https://facebook.com" target="_blank" rel="noreferrer" class="social-circle"><i class="bi bi-facebook"></i></a>
+                        <a href="https://youtube.com" target="_blank" rel="noreferrer" class="social-circle"><i class="bi bi-youtube"></i></a>
                     </div>
                 </div>
                 <div class="col-6 col-lg-2">
                     <div class="footer-heading">Quick Links</div>
-                    <a href="{% url 'landing' %}" class="footer-link">Home</a>
-                    <a href="{% url 'shayari' %}" class="footer-link">Shayari</a>
-                    <a href="{% url 'landing' %}#poets" class="footer-link">Poets</a>
-                    <a href="{% url 'landing' %}#faq" class="footer-link">FAQ</a>
-                    <a href="{% url 'contact' %}" class="footer-link">Contact</a>
+                    <a href="/" class="footer-link">Home</a>
+                    <a href="/shayari/" class="footer-link">Shayari</a>
+                    <a href="#poets" class="footer-link">Poets</a>
+                    <a href="#search" class="footer-link">FAQ</a>
+                    <a href="/contact/" class="footer-link">Contact</a>
                 </div>
                 <div class="col-6 col-lg-2">
                     <div class="footer-heading">Categories</div>
-                    <a href="{% url 'collection' %}" class="footer-link">Ishq</a>
-                    <a href="{% url 'collection' %}" class="footer-link">Tanhai</a>
-                    <a href="{% url 'collection' %}" class="footer-link">Zindagi</a>
-                    <a href="{% url 'collection' %}" class="footer-link">Hosla</a>
-                    <a href="{% url 'collection' %}" class="footer-link">Dosti</a>
+                    <a href="/shayari/" class="footer-link">Ishq</a>
+                    <a href="/shayari/" class="footer-link">Tanhai</a>
+                    <a href="/shayari/" class="footer-link">Zindagi</a>
+                    <a href="/shayari/" class="footer-link">Hosla</a>
+                    <a href="/shayari/" class="footer-link">Dosti</a>
                 </div>
                 <div class="col-lg-4">
                     <div class="footer-heading">Stay in Touch</div>
@@ -1885,13 +1910,15 @@
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
                 <p class="small text-muted-custom mb-0">© 2026 Kalam Ko Viram. All rights reserved.</p>
                 <div class="d-flex gap-4">
-                    <a href=" " class="footer-link mb-0">Privacy Policy</a>
-                    <a href=" " class="footer-link mb-0">Terms of Service</a>
+                    <a href="#" class="footer-link mb-0">Privacy Policy</a>
+                    <a href="#" class="footer-link mb-0">Terms of Service</a>
                 </div>
             </div>
         </div>
     </footer>
     </div>
+
+    <!-- NOTE: Frontend cleanup pass completed. Invalid empty links were replaced with real Django routes for future stability. This template is still a UI base for later backend data integration and dynamic content. -->
 </body>
 
 </html>

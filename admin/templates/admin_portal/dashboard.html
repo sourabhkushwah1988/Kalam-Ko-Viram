@@ -1,0 +1,15 @@
+{% extends "admin_portal/base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="page-head"><div><div class="eyebrow">Overview</div><h1>Dashboard</h1></div>{% if perms.kalam.add_poetry %}<a class="btn btn-primary" href="{% url 'portal_poetry_create' %}">+ New poetry</a>{% endif %}</div>
+<div class="stats">
+    {% if perms.kalam.view_poetry %}<div class="stat"><span>Total poetry</span><strong>{{ poetry_count }}</strong></div><div class="stat"><span>Published</span><strong>{{ published_count }}</strong></div><div class="stat"><span>Drafts</span><strong>{{ draft_count }}</strong></div>{% endif %}
+    {% if perms.kalam.view_author %}<div class="stat"><span>Authors</span><strong>{{ author_count }}</strong></div>{% endif %}
+    {% if perms.kalam.view_category %}<div class="stat"><span>Categories</span><strong>{{ category_count }}</strong></div>{% endif %}
+    {% if perms.auth.view_user %}<div class="stat"><span>App users</span><strong>{{ user_count }}</strong></div>{% endif %}
+</div>
+{% if perms.kalam.view_poetry %}<div class="card"><div class="page-head"><div><div class="eyebrow">Content</div><h2 style="margin:4px 0 0">Recently updated poetry</h2></div><a class="btn" href="{% url 'portal_poetry_list' %}">View all</a></div>
+<div class="table-wrap"><table><thead><tr><th>Title</th><th>Author</th><th>Category</th><th>Status</th><th>Updated</th></tr></thead><tbody>
+{% for item in recent_poetry %}<tr><td>{{ item.title }}</td><td>{{ item.author.name }}</td><td>{{ item.category.name }}</td><td><span class="badge {% if item.status == 'draft' %}badge-draft{% endif %}">{{ item.get_status_display }}</span></td><td>{{ item.updated_at|date:"M j, Y" }}</td></tr>{% empty %}<tr><td colspan="5" class="empty">No poetry has been added yet.</td></tr>{% endfor %}
+</tbody></table></div></div>{% endif %}
+{% endblock %}

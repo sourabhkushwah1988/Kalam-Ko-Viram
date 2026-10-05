@@ -1,0 +1,8 @@
+{% extends "admin_portal/base.html" %}
+{% block title %}App users{% endblock %}
+{% block content %}
+<div class="page-head"><div><div class="eyebrow">Community</div><h1>App Users</h1></div></div>
+<form class="toolbar" method="get"><input class="form-control" type="search" name="q" placeholder="Search name, username, email" value="{{ search }}"><button class="btn" type="submit">Search</button></form>
+<div class="card table-wrap"><table><thead><tr><th>Username</th><th>Name</th><th>Email</th><th>Joined</th><th>State</th></tr></thead><tbody>{% for user in page_obj %}<tr><td>{{ user.username }}</td><td>{{ user.get_full_name|default:"—" }}</td><td>{{ user.email|default:"—" }}</td><td>{{ user.date_joined|date:"M j, Y" }}</td><td>{% if user.is_active %}<span class="badge">Active</span>{% else %}<span class="badge badge-draft">Inactive</span>{% endif %}</td></tr>{% empty %}<tr><td colspan="5" class="empty">No users found.</td></tr>{% endfor %}</tbody></table></div>
+<div class="pagination"><span>{{ page_obj.paginator.count }} users</span><div class="actions">{% if page_obj.has_previous %}<a class="btn" href="?q={{ search|urlencode }}&page={{ page_obj.previous_page_number }}">Previous</a>{% endif %}<span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>{% if page_obj.has_next %}<a class="btn" href="?q={{ search|urlencode }}&page={{ page_obj.next_page_number }}">Next</a>{% endif %}</div></div>
+{% endblock %}

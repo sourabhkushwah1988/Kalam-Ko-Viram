@@ -1,0 +1,6 @@
+{% extends "admin_portal/base.html" %}
+{% block title %}Documentation{% endblock %}
+{% block content %}
+<div class="page-head"><div><div class="eyebrow">Help center</div><h1>Documentation</h1></div></div>
+<div class="card"><h2>Publishing poetry</h2><p>Create an entry from <strong>Poetry &amp; Shayari → New poetry</strong>. Choose its author, category, poetry type and language, then enter the content.</p><p>Select <strong>Published</strong> to make it available through the website's existing published-poetry queries. Published entries receive a publish date automatically. Select <strong>Draft</strong> to keep an entry private.</p><h2>Featured collections</h2><p>Featured, trending and daily flags control which published entries are used by their corresponding website sections.</p><h2>Access</h2><p>Portal access is controlled by Django model permissions. Grant only the poetry, author, category or user permissions each customer account needs. Users shown under App Users are read-only.</p></div>
+{% endblock %}

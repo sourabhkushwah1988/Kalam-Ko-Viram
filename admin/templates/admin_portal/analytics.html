@@ -1,0 +1,8 @@
+{% extends "admin_portal/base.html" %}
+{% block title %}Analytics{% endblock %}
+{% block content %}
+<div class="page-head"><div><div class="eyebrow">Live database totals</div><h1>Analytics</h1></div></div>
+<div class="stats"><div class="stat"><span>Total poetry</span><strong>{{ poetry_count }}</strong></div><div class="stat"><span>Published</span><strong>{{ published_count }}</strong></div><div class="stat"><span>Drafts</span><strong>{{ draft_count }}</strong></div>{% if perms.kalam.view_author %}<div class="stat"><span>Authors</span><strong>{{ author_count }}</strong></div>{% endif %}{% if perms.kalam.view_category %}<div class="stat"><span>Categories</span><strong>{{ category_count }}</strong></div>{% endif %}{% if perms.auth.view_user %}<div class="stat"><span>App users</span><strong>{{ user_count }}</strong></div>{% endif %}</div>
+<div class="form-grid"><div class="card table-wrap"><h2>Poetry by type</h2><table><thead><tr><th>Type</th><th>Entries</th></tr></thead><tbody>{% for item in poetry_by_type %}<tr><td>{{ item.poetry_type|title }}</td><td>{{ item.total }}</td></tr>{% empty %}<tr><td colspan="2" class="empty">No poetry available.</td></tr>{% endfor %}</tbody></table></div>
+<div class="card table-wrap"><h2>Poetry by category</h2><table><thead><tr><th>Category</th><th>Entries</th></tr></thead><tbody>{% for item in poetry_by_category %}<tr><td>{{ item.name }}</td><td>{{ item.poetry_count }}</td></tr>{% empty %}<tr><td colspan="2" class="empty">No categories available.</td></tr>{% endfor %}</tbody></table></div></div>
+{% endblock %}

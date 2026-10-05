@@ -1,0 +1,8 @@
+{% extends "admin_portal/base.html" %}
+{% block title %}Categories{% endblock %}
+{% block content %}
+<div class="page-head"><div><div class="eyebrow">Content library</div><h1>Categories</h1></div>{% if perms.kalam.add_category %}<a class="btn btn-primary" href="{% url 'portal_category_create' %}">+ New category</a>{% endif %}</div>
+<form class="toolbar" method="get"><input class="form-control" type="search" name="q" placeholder="Search categories" value="{{ search }}"><button class="btn" type="submit">Search</button></form>
+<div class="card table-wrap"><table><thead><tr><th>Name</th><th>Slug</th><th>Poetry entries</th><th>Actions</th></tr></thead><tbody>{% for category in page_obj %}<tr><td>{{ category.name }}</td><td>{{ category.slug }}</td><td>{{ category.poetry_count }}</td><td><div class="actions">{% if perms.kalam.change_category %}<a class="btn" href="{% url 'portal_category_edit' category.pk %}">Edit</a>{% endif %}{% if perms.kalam.delete_category %}<a class="btn btn-danger" href="{% url 'portal_category_delete' category.pk %}">Delete</a>{% endif %}</div></td></tr>{% empty %}<tr><td colspan="4" class="empty">No categories found.</td></tr>{% endfor %}</tbody></table></div>
+<div class="pagination"><span>{{ page_obj.paginator.count }} categories</span><div class="actions">{% if page_obj.has_previous %}<a class="btn" href="?q={{ search|urlencode }}&page={{ page_obj.previous_page_number }}">Previous</a>{% endif %}<span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>{% if page_obj.has_next %}<a class="btn" href="?q={{ search|urlencode }}&page={{ page_obj.next_page_number }}">Next</a>{% endif %}</div></div>
+{% endblock %}
